@@ -1,5 +1,4 @@
-Proyecto desarrollado por Rodrigo Pineda como parte del curso de Organización de Lenguajes y Compiladores 2
-de la facultad de ingeniería de la Universidad de San Carlos de Guatemala.
+Proyecto desarrollado por Rodrigo Pineda como parte del curso de Organización de Lenguajes y Compiladores 2 de la facultad de ingeniería de la Universidad de San Carlos de Guatemala.
 
 El proyecto está escrito en C++ utilizando el IDE QtCreator
 
