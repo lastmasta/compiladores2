@@ -425,7 +425,7 @@ BOOL:   true_rsv {
                   $$ = nodo;
                 }
                   ;
-
+// def para_todos metodo1 (a entero , b entero) $$ INSTRUCIONES $$
 DECMETODO: def_rsv TIPO_ACCESO id TIPO par_a PARAMLIST par_c dolar INSTRUCCIONES dolar {
                                                                                           Nodo* nodo = new Nodo("DECMETODO");
                                                                                           nodo->AgregarHijo($2);
