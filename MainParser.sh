@@ -1,0 +1,1 @@
+bison -o MainParser.cpp --defines=MainParser.h MainParser.y -p mainparser

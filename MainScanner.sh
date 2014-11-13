@@ -1,0 +1,1 @@
+flex -P mainparser --header-file=MainScanner.h -o MainScanner.cpp MainScanner.l

@@ -1,0 +1,3817 @@
+Terminales no usados en gramática
+
+   ERROR
+   dos_p
+   comillas
+   instanciar_rsv
+
+
+Reglas inútiles en el analizador debido a conflictos
+
+    4 $@1: %empty
+
+
+Estado 12 conflictos: 1 desplazamiento(s)/reducción(ones)
+
+
+Gramática
+
+    0 $accept: INICIO $end
+
+    1 INICIO: CLASE
+    2       | IMPORT_LIST CLASE
+
+    3 CLASE: TIPO_ACCESO clase_rsv id dolar CUERPO_CLASE dolar
+
+    4 $@1: %empty
+
+    5 CLASE: TIPO_ACCESO clase_rsv $@1 id EXTIENDE dolar CUERPO_CLASE dolar
+
+    6 TIPO_ACCESO: paratodos_rsv
+    7            | protegido_rsv
+    8            | privado_rsv
+
+    9 EXTIENDE: extiende_rsv id
+
+   10 IMPORT_LIST: IMPORT_LIST IMPORT
+   11            | IMPORT
+
+   12 IMPORT: traer_rsv string_token
+
+   13 CUERPO_CLASE: CUERPO_CLASE SENTENCIAS_CLASE
+   14             | SENTENCIAS_CLASE
+
+   15 SENTENCIAS_CLASE: DECATR p_coma
+   16                 | DECMETODO
+   17                 | DECARRATR p_coma
+
+   18 DECATR: decattr_rsv TIPO_ACCESO id TIPO
+   19       | decattr_rsv TIPO_ACCESO id TIPO sig_igual ASIGNACION
+
+   20 DECARRATR: decarr_rsv TIPO_ACCESO id TIPO DIMLIST
+   21          | decarr_rsv TIPO_ACCESO id TIPO DIMLIST sig_igual INICIAR_ARR
+
+   22 DIMLIST: DIMLIST DIM
+   23        | DIM
+
+   24 DIM: llave_a numero llave_c
+
+   25 TIPO: entero_rsv
+   26     | cadena_rsv
+   27     | caracter_rsv
+   28     | bool_rsv
+   29     | ninguno_rsv
+   30     | id
+
+   31 BOOL: true_rsv
+   32     | false_rsv
+
+   33 DECMETODO: def_rsv TIPO_ACCESO id TIPO par_a PARAMLIST par_c dolar INSTRUCCIONES dolar
+   34          | def_rsv id TIPO par_a PARAMLIST par_c dolar INSTRUCCIONES dolar
+   35          | def_rsv TIPO_ACCESO id TIPO par_a par_c dolar INSTRUCCIONES dolar
+   36          | def_rsv id TIPO par_a par_c dolar INSTRUCCIONES dolar
+
+   37 PARAMLIST: PARAMLIST coma PARAM
+   38          | PARAM
+
+   39 PARAM: id TIPO
+   40      | ref_rsv id TIPO
+
+   41 INSTRUCCIONES: INSTRUCCIONES SENTENCIAS
+   42              | SENTENCIAS
+
+   43 SENTENCIAS: DECVAR p_coma
+   44           | RETORNO p_coma
+   45           | IF
+   46           | CICLO
+   47           | DETENER p_coma
+   48           | OPSIMP p_coma
+   49           | DECARRVAR p_coma
+   50           | ASIG_ARR p_coma
+   51           | VAR_ASIG p_coma
+   52           | FUNCALL p_coma
+   53           | MODIFATRIBUTO p_coma
+
+   54 DECVAR: id TIPO
+   55       | id TIPO sig_igual ASIGNACION
+
+   56 RETORNO: retornar_rsv EXPRESION
+
+   57 EXPRESION: EXPRESION orOp EXPRESION
+   58          | EXPRESION andOp EXPRESION
+   59          | notOp EXPRESION
+   60          | EXPRESION esigual EXPRESION
+   61          | EXPRESION noigual EXPRESION
+   62          | EXPRESION mayor EXPRESION
+   63          | EXPRESION menor EXPRESION
+   64          | EXPRESION mayorigual EXPRESION
+   65          | EXPRESION menorigual EXPRESION
+   66          | EXPRESION esnulo EXPRESION
+   67          | EXPMAT
+
+   68 EXPMAT: EXPMAT mas EXPMAT
+   69       | EXPMAT menos EXPMAT
+   70       | EXPMAT por EXPMAT
+   71       | EXPMAT divOp EXPMAT
+   72       | EXPMAT potencia EXPMAT
+   73       | EXP
+
+   74 EXP: par_a EXPRESION par_c
+   75    | id
+   76    | numero
+   77    | OPSIMP
+   78    | BOOL
+   79    | ARR_ACCESO
+
+   80 IF: si_cumple_rsv par_a EXPRESION par_c dolar INSTRUCCIONES dolar
+   81   | si_cumple_rsv par_a EXPRESION par_c dolar INSTRUCCIONES dolar sino_cumple_rsv dolar INSTRUCCIONES dolar
+   82   | si_cumple_rsv par_a EXPRESION par_c dolar INSTRUCCIONES dolar ELSEIFLIST sino_cumple_rsv dolar INSTRUCCIONES dolar
+
+   83 ELSEIFLIST: ELSEIFLIST ELSEIF
+   84           | ELSEIF
+
+   85 ELSEIF: sino_intente par_a EXPRESION par_c dolar INSTRUCCIONES dolar
+
+   86 DETENER: detener_rsv
+
+   87 CICLO: repetir_mientras_rsv par_a EXPRESION par_c dolar INSTRUCCIONES dolar
+
+   88 OPSIMP: id masmas
+   89       | id menosmenos
+   90       | id porpor
+   91       | id numeralnumeral
+   92       | ACCESOATRIBUTO masmas
+   93       | ACCESOATRIBUTO menosmenos
+   94       | ACCESOATRIBUTO porpor
+   95       | ACCESOATRIBUTO numeralnumeral
+
+   96 DECARRVAR: id TIPO DIMLIST
+   97          | id TIPO DIMLIST sig_igual INICIAR_ARR
+
+   98 ASIGNACION: VALOR
+
+   99 VALOR: string_token
+  100      | caracter_token
+  101      | EXPRESION
+  102      | ACCESOATRIBUTO
+  103      | FUNCALL
+
+  104 INICIAR_ARR: llave_a LISTA_ASIG_ARR llave_c
+  105            | llave_a ASIGLIST llave_c
+
+  106 LISTA_ASIG_ARR: LISTA_ASIG_ARR coma INICIAR_ARR
+  107               | INICIAR_ARR
+
+  108 ASIGLIST: ASIGLIST coma ASIGNACION
+  109         | ASIGNACION
+
+  110 ARR_ACCESO: id DIMLIST
+
+  111 ASIG_ARR: ARR_ACCESO sig_igual ASIGNACION
+
+  112 VAR_ASIG: id sig_igual ASIGNACION
+
+  113 FUNCALL: IMPRIMIR
+  114        | ACCESOMETODO
+  115        | id par_a par_c
+  116        | id par_a PARAMS par_c
+
+  117 IMPRIMIR: imprimir_rsv par_a VALOR par_c
+
+  118 PARAMS: PARAMS coma VALOR
+  119       | VALOR
+
+  120 ACCESOATRIBUTO: id punto id
+  121               | este_rsv punto id
+
+  122 MODIFATRIBUTO: ACCESOATRIBUTO sig_igual ASIGNACION
+
+  123 ACCESOMETODO: id punto id par_a par_c
+  124             | este_rsv punto id par_a par_c
+  125             | id punto id par_a PARAMS par_c
+  126             | este_rsv punto id par_a PARAMS par_c
+
+
+Terminales con las reglas donde aparecen
+
+$end (0) 0
+error (256)
+ERROR (258)
+par_a (259) 33 34 35 36 74 80 81 82 85 87 115 116 117 123 124 125 126
+par_c (260) 33 34 35 36 74 80 81 82 85 87 115 116 117 123 124 125 126
+llave_a (261) 24 104 105
+llave_c (262) 24 104 105
+sig_igual (263) 19 21 55 97 111 112 122
+p_coma (264) 15 17 43 44 47 48 49 50 51 52 53
+dos_p (265)
+punto (266) 120 121 123 124 125 126
+comillas (267)
+coma (268) 37 106 108 118
+id (269) 3 5 9 18 19 20 21 30 33 34 35 36 39 40 54 55 75 88 89 90 91
+    96 97 110 112 115 116 120 121 123 124 125 126
+numero (270) 24 76
+string_token (271) 12 99
+caracter_token (272) 100
+clase_rsv (273) 3 5
+extiende_rsv (274) 9
+paratodos_rsv (275) 6
+protegido_rsv (276) 7
+privado_rsv (277) 8
+dolar (278) 3 5 33 34 35 36 80 81 82 85 87
+traer_rsv (279) 12
+decattr_rsv (280) 18 19
+entero_rsv (281) 25
+bool_rsv (282) 28
+caracter_rsv (283) 27
+cadena_rsv (284) 26
+def_rsv (285) 33 34 35 36
+ninguno_rsv (286) 29
+retornar_rsv (287) 56
+ref_rsv (288) 40
+si_cumple_rsv (289) 80 81 82
+sino_intente (290) 85
+sino_cumple_rsv (291) 81 82
+repetir_mientras_rsv (292) 87
+detener_rsv (293) 86
+decarr_rsv (294) 20 21
+true_rsv (295) 31
+false_rsv (296) 32
+imprimir_rsv (297) 117
+instanciar_rsv (298)
+este_rsv (299) 121 124 126
+esigual (300) 60
+noigual (301) 61
+mayor (302) 62
+menor (303) 63
+mayorigual (304) 64
+menorigual (305) 65
+esnulo (306) 66
+orOp (307) 57
+andOp (308) 58
+notOp (309) 59
+mas (310) 68
+menos (311) 69
+por (312) 70
+divOp (313) 71
+potencia (314) 72
+numeralnumeral (315) 91 95
+masmas (316) 88 92
+menosmenos (317) 89 93
+porpor (318) 90 94
+
+
+No terminales con las reglas donde aparecen
+
+$accept (64)
+    en la izquierda: 0
+INICIO (65)
+    en la izquierda: 1 2, en la derecha: 0
+CLASE (66)
+    en la izquierda: 3 5, en la derecha: 1 2
+$@1 (67)
+    en la izquierda: 4, en la derecha: 5
+TIPO_ACCESO (68)
+    en la izquierda: 6 7 8, en la derecha: 3 5 18 19 20 21 33 35
+EXTIENDE (69)
+    en la izquierda: 9, en la derecha: 5
+IMPORT_LIST (70)
+    en la izquierda: 10 11, en la derecha: 2 10
+IMPORT (71)
+    en la izquierda: 12, en la derecha: 10 11
+CUERPO_CLASE (72)
+    en la izquierda: 13 14, en la derecha: 3 5 13
+SENTENCIAS_CLASE (73)
+    en la izquierda: 15 16 17, en la derecha: 13 14
+DECATR (74)
+    en la izquierda: 18 19, en la derecha: 15
+DECARRATR (75)
+    en la izquierda: 20 21, en la derecha: 17
+DIMLIST (76)
+    en la izquierda: 22 23, en la derecha: 20 21 22 96 97 110
+DIM (77)
+    en la izquierda: 24, en la derecha: 22 23
+TIPO (78)
+    en la izquierda: 25 26 27 28 29 30, en la derecha: 18 19 20 21
+    33 34 35 36 39 40 54 55 96 97
+BOOL (79)
+    en la izquierda: 31 32, en la derecha: 78
+DECMETODO (80)
+    en la izquierda: 33 34 35 36, en la derecha: 16
+PARAMLIST (81)
+    en la izquierda: 37 38, en la derecha: 33 34 37
+PARAM (82)
+    en la izquierda: 39 40, en la derecha: 37 38
+INSTRUCCIONES (83)
+    en la izquierda: 41 42, en la derecha: 33 34 35 36 41 80 81 82
+    85 87
+SENTENCIAS (84)
+    en la izquierda: 43 44 45 46 47 48 49 50 51 52 53, en la derecha:
+    41 42
+DECVAR (85)
+    en la izquierda: 54 55, en la derecha: 43
+RETORNO (86)
+    en la izquierda: 56, en la derecha: 44
+EXPRESION (87)
+    en la izquierda: 57 58 59 60 61 62 63 64 65 66 67, en la derecha:
+    56 57 58 59 60 61 62 63 64 65 66 74 80 81 82 85 87 101
+EXPMAT (88)
+    en la izquierda: 68 69 70 71 72 73, en la derecha: 67 68 69 70
+    71 72
+EXP (89)
+    en la izquierda: 74 75 76 77 78 79, en la derecha: 73
+IF (90)
+    en la izquierda: 80 81 82, en la derecha: 45
+ELSEIFLIST (91)
+    en la izquierda: 83 84, en la derecha: 82 83
+ELSEIF (92)
+    en la izquierda: 85, en la derecha: 83 84
+DETENER (93)
+    en la izquierda: 86, en la derecha: 47
+CICLO (94)
+    en la izquierda: 87, en la derecha: 46
+OPSIMP (95)
+    en la izquierda: 88 89 90 91 92 93 94 95, en la derecha: 48 77
+DECARRVAR (96)
+    en la izquierda: 96 97, en la derecha: 49
+ASIGNACION (97)
+    en la izquierda: 98, en la derecha: 19 55 108 109 111 112 122
+VALOR (98)
+    en la izquierda: 99 100 101 102 103, en la derecha: 98 117 118
+    119
+INICIAR_ARR (99)
+    en la izquierda: 104 105, en la derecha: 21 97 106 107
+LISTA_ASIG_ARR (100)
+    en la izquierda: 106 107, en la derecha: 104 106
+ASIGLIST (101)
+    en la izquierda: 108 109, en la derecha: 105 108
+ARR_ACCESO (102)
+    en la izquierda: 110, en la derecha: 79 111
+ASIG_ARR (103)
+    en la izquierda: 111, en la derecha: 50
+VAR_ASIG (104)
+    en la izquierda: 112, en la derecha: 51
+FUNCALL (105)
+    en la izquierda: 113 114 115 116, en la derecha: 52 103
+IMPRIMIR (106)
+    en la izquierda: 117, en la derecha: 113
+PARAMS (107)
+    en la izquierda: 118 119, en la derecha: 116 118 125 126
+ACCESOATRIBUTO (108)
+    en la izquierda: 120 121, en la derecha: 92 93 94 95 102 122
+MODIFATRIBUTO (109)
+    en la izquierda: 122, en la derecha: 53
+ACCESOMETODO (110)
+    en la izquierda: 123 124 125 126, en la derecha: 114
+
+
+State 0
+
+    0 $accept: . INICIO $end
+
+    paratodos_rsv  desplazar e ir al estado 1
+    protegido_rsv  desplazar e ir al estado 2
+    privado_rsv    desplazar e ir al estado 3
+    traer_rsv      desplazar e ir al estado 4
+
+    INICIO       ir al estado 5
+    CLASE        ir al estado 6
+    TIPO_ACCESO  ir al estado 7
+    IMPORT_LIST  ir al estado 8
+    IMPORT       ir al estado 9
+
+
+State 1
+
+    6 TIPO_ACCESO: paratodos_rsv .
+
+    $default  reduce usando la regla 6 (TIPO_ACCESO)
+
+
+State 2
+
+    7 TIPO_ACCESO: protegido_rsv .
+
+    $default  reduce usando la regla 7 (TIPO_ACCESO)
+
+
+State 3
+
+    8 TIPO_ACCESO: privado_rsv .
+
+    $default  reduce usando la regla 8 (TIPO_ACCESO)
+
+
+State 4
+
+   12 IMPORT: traer_rsv . string_token
+
+    string_token  desplazar e ir al estado 10
+
+
+State 5
+
+    0 $accept: INICIO . $end
+
+    $end  desplazar e ir al estado 11
+
+
+State 6
+
+    1 INICIO: CLASE .
+
+    $default  reduce usando la regla 1 (INICIO)
+
+
+State 7
+
+    3 CLASE: TIPO_ACCESO . clase_rsv id dolar CUERPO_CLASE dolar
+    5      | TIPO_ACCESO . clase_rsv $@1 id EXTIENDE dolar CUERPO_CLASE dolar
+
+    clase_rsv  desplazar e ir al estado 12
+
+
+State 8
+
+    2 INICIO: IMPORT_LIST . CLASE
+   10 IMPORT_LIST: IMPORT_LIST . IMPORT
+
+    paratodos_rsv  desplazar e ir al estado 1
+    protegido_rsv  desplazar e ir al estado 2
+    privado_rsv    desplazar e ir al estado 3
+    traer_rsv      desplazar e ir al estado 4
+
+    CLASE        ir al estado 13
+    TIPO_ACCESO  ir al estado 7
+    IMPORT       ir al estado 14
+
+
+State 9
+
+   11 IMPORT_LIST: IMPORT .
+
+    $default  reduce usando la regla 11 (IMPORT_LIST)
+
+
+State 10
+
+   12 IMPORT: traer_rsv string_token .
+
+    $default  reduce usando la regla 12 (IMPORT)
+
+
+State 11
+
+    0 $accept: INICIO $end .
+
+    $default  aceptar
+
+
+State 12
+
+    3 CLASE: TIPO_ACCESO clase_rsv . id dolar CUERPO_CLASE dolar
+    5      | TIPO_ACCESO clase_rsv . $@1 id EXTIENDE dolar CUERPO_CLASE dolar
+
+    id  desplazar e ir al estado 15
+
+    id  [reduce usando la regla 4 ($@1)]
+
+    $@1  ir al estado 16
+
+
+State 13
+
+    2 INICIO: IMPORT_LIST CLASE .
+
+    $default  reduce usando la regla 2 (INICIO)
+
+
+State 14
+
+   10 IMPORT_LIST: IMPORT_LIST IMPORT .
+
+    $default  reduce usando la regla 10 (IMPORT_LIST)
+
+
+State 15
+
+    3 CLASE: TIPO_ACCESO clase_rsv id . dolar CUERPO_CLASE dolar
+
+    dolar  desplazar e ir al estado 17
+
+
+State 16
+
+    5 CLASE: TIPO_ACCESO clase_rsv $@1 . id EXTIENDE dolar CUERPO_CLASE dolar
+
+    id  desplazar e ir al estado 18
+
+
+State 17
+
+    3 CLASE: TIPO_ACCESO clase_rsv id dolar . CUERPO_CLASE dolar
+
+    decattr_rsv  desplazar e ir al estado 19
+    def_rsv      desplazar e ir al estado 20
+    decarr_rsv   desplazar e ir al estado 21
+
+    CUERPO_CLASE      ir al estado 22
+    SENTENCIAS_CLASE  ir al estado 23
+    DECATR            ir al estado 24
+    DECARRATR         ir al estado 25
+    DECMETODO         ir al estado 26
+
+
+State 18
+
+    5 CLASE: TIPO_ACCESO clase_rsv $@1 id . EXTIENDE dolar CUERPO_CLASE dolar
+
+    extiende_rsv  desplazar e ir al estado 27
+
+    EXTIENDE  ir al estado 28
+
+
+State 19
+
+   18 DECATR: decattr_rsv . TIPO_ACCESO id TIPO
+   19       | decattr_rsv . TIPO_ACCESO id TIPO sig_igual ASIGNACION
+
+    paratodos_rsv  desplazar e ir al estado 1
+    protegido_rsv  desplazar e ir al estado 2
+    privado_rsv    desplazar e ir al estado 3
+
+    TIPO_ACCESO  ir al estado 29
+
+
+State 20
+
+   33 DECMETODO: def_rsv . TIPO_ACCESO id TIPO par_a PARAMLIST par_c dolar INSTRUCCIONES dolar
+   34          | def_rsv . id TIPO par_a PARAMLIST par_c dolar INSTRUCCIONES dolar
+   35          | def_rsv . TIPO_ACCESO id TIPO par_a par_c dolar INSTRUCCIONES dolar
+   36          | def_rsv . id TIPO par_a par_c dolar INSTRUCCIONES dolar
+
+    id             desplazar e ir al estado 30
+    paratodos_rsv  desplazar e ir al estado 1
+    protegido_rsv  desplazar e ir al estado 2
+    privado_rsv    desplazar e ir al estado 3
+
+    TIPO_ACCESO  ir al estado 31
+
+
+State 21
+
+   20 DECARRATR: decarr_rsv . TIPO_ACCESO id TIPO DIMLIST
+   21          | decarr_rsv . TIPO_ACCESO id TIPO DIMLIST sig_igual INICIAR_ARR
+
+    paratodos_rsv  desplazar e ir al estado 1
+    protegido_rsv  desplazar e ir al estado 2
+    privado_rsv    desplazar e ir al estado 3
+
+    TIPO_ACCESO  ir al estado 32
+
+
+State 22
+
+    3 CLASE: TIPO_ACCESO clase_rsv id dolar CUERPO_CLASE . dolar
+   13 CUERPO_CLASE: CUERPO_CLASE . SENTENCIAS_CLASE
+
+    dolar        desplazar e ir al estado 33
+    decattr_rsv  desplazar e ir al estado 19
+    def_rsv      desplazar e ir al estado 20
+    decarr_rsv   desplazar e ir al estado 21
+
+    SENTENCIAS_CLASE  ir al estado 34
+    DECATR            ir al estado 24
+    DECARRATR         ir al estado 25
+    DECMETODO         ir al estado 26
+
+
+State 23
+
+   14 CUERPO_CLASE: SENTENCIAS_CLASE .
+
+    $default  reduce usando la regla 14 (CUERPO_CLASE)
+
+
+State 24
+
+   15 SENTENCIAS_CLASE: DECATR . p_coma
+
+    p_coma  desplazar e ir al estado 35
+
+
+State 25
+
+   17 SENTENCIAS_CLASE: DECARRATR . p_coma
+
+    p_coma  desplazar e ir al estado 36
+
+
+State 26
+
+   16 SENTENCIAS_CLASE: DECMETODO .
+
+    $default  reduce usando la regla 16 (SENTENCIAS_CLASE)
+
+
+State 27
+
+    9 EXTIENDE: extiende_rsv . id
+
+    id  desplazar e ir al estado 37
+
+
+State 28
+
+    5 CLASE: TIPO_ACCESO clase_rsv $@1 id EXTIENDE . dolar CUERPO_CLASE dolar
+
+    dolar  desplazar e ir al estado 38
+
+
+State 29
+
+   18 DECATR: decattr_rsv TIPO_ACCESO . id TIPO
+   19       | decattr_rsv TIPO_ACCESO . id TIPO sig_igual ASIGNACION
+
+    id  desplazar e ir al estado 39
+
+
+State 30
+
+   34 DECMETODO: def_rsv id . TIPO par_a PARAMLIST par_c dolar INSTRUCCIONES dolar
+   36          | def_rsv id . TIPO par_a par_c dolar INSTRUCCIONES dolar
+
+    id            desplazar e ir al estado 40
+    entero_rsv    desplazar e ir al estado 41
+    bool_rsv      desplazar e ir al estado 42
+    caracter_rsv  desplazar e ir al estado 43
+    cadena_rsv    desplazar e ir al estado 44
+    ninguno_rsv   desplazar e ir al estado 45
+
+    TIPO  ir al estado 46
+
+
+State 31
+
+   33 DECMETODO: def_rsv TIPO_ACCESO . id TIPO par_a PARAMLIST par_c dolar INSTRUCCIONES dolar
+   35          | def_rsv TIPO_ACCESO . id TIPO par_a par_c dolar INSTRUCCIONES dolar
+
+    id  desplazar e ir al estado 47
+
+
+State 32
+
+   20 DECARRATR: decarr_rsv TIPO_ACCESO . id TIPO DIMLIST
+   21          | decarr_rsv TIPO_ACCESO . id TIPO DIMLIST sig_igual INICIAR_ARR
+
+    id  desplazar e ir al estado 48
+
+
+State 33
+
+    3 CLASE: TIPO_ACCESO clase_rsv id dolar CUERPO_CLASE dolar .
+
+    $default  reduce usando la regla 3 (CLASE)
+
+
+State 34
+
+   13 CUERPO_CLASE: CUERPO_CLASE SENTENCIAS_CLASE .
+
+    $default  reduce usando la regla 13 (CUERPO_CLASE)
+
+
+State 35
+
+   15 SENTENCIAS_CLASE: DECATR p_coma .
+
+    $default  reduce usando la regla 15 (SENTENCIAS_CLASE)
+
+
+State 36
+
+   17 SENTENCIAS_CLASE: DECARRATR p_coma .
+
+    $default  reduce usando la regla 17 (SENTENCIAS_CLASE)
+
+
+State 37
+
+    9 EXTIENDE: extiende_rsv id .
+
+    $default  reduce usando la regla 9 (EXTIENDE)
+
+
+State 38
+
+    5 CLASE: TIPO_ACCESO clase_rsv $@1 id EXTIENDE dolar . CUERPO_CLASE dolar
+
+    decattr_rsv  desplazar e ir al estado 19
+    def_rsv      desplazar e ir al estado 20
+    decarr_rsv   desplazar e ir al estado 21
+
+    CUERPO_CLASE      ir al estado 49
+    SENTENCIAS_CLASE  ir al estado 23
+    DECATR            ir al estado 24
+    DECARRATR         ir al estado 25
+    DECMETODO         ir al estado 26
+
+
+State 39
+
+   18 DECATR: decattr_rsv TIPO_ACCESO id . TIPO
+   19       | decattr_rsv TIPO_ACCESO id . TIPO sig_igual ASIGNACION
+
+    id            desplazar e ir al estado 40
+    entero_rsv    desplazar e ir al estado 41
+    bool_rsv      desplazar e ir al estado 42
+    caracter_rsv  desplazar e ir al estado 43
+    cadena_rsv    desplazar e ir al estado 44
+    ninguno_rsv   desplazar e ir al estado 45
+
+    TIPO  ir al estado 50
+
+
+State 40
+
+   30 TIPO: id .
+
+    $default  reduce usando la regla 30 (TIPO)
+
+
+State 41
+
+   25 TIPO: entero_rsv .
+
+    $default  reduce usando la regla 25 (TIPO)
+
+
+State 42
+
+   28 TIPO: bool_rsv .
+
+    $default  reduce usando la regla 28 (TIPO)
+
+
+State 43
+
+   27 TIPO: caracter_rsv .
+
+    $default  reduce usando la regla 27 (TIPO)
+
+
+State 44
+
+   26 TIPO: cadena_rsv .
+
+    $default  reduce usando la regla 26 (TIPO)
+
+
+State 45
+
+   29 TIPO: ninguno_rsv .
+
+    $default  reduce usando la regla 29 (TIPO)
+
+
+State 46
+
+   34 DECMETODO: def_rsv id TIPO . par_a PARAMLIST par_c dolar INSTRUCCIONES dolar
+   36          | def_rsv id TIPO . par_a par_c dolar INSTRUCCIONES dolar
+
+    par_a  desplazar e ir al estado 51
+
+
+State 47
+
+   33 DECMETODO: def_rsv TIPO_ACCESO id . TIPO par_a PARAMLIST par_c dolar INSTRUCCIONES dolar
+   35          | def_rsv TIPO_ACCESO id . TIPO par_a par_c dolar INSTRUCCIONES dolar
+
+    id            desplazar e ir al estado 40
+    entero_rsv    desplazar e ir al estado 41
+    bool_rsv      desplazar e ir al estado 42
+    caracter_rsv  desplazar e ir al estado 43
+    cadena_rsv    desplazar e ir al estado 44
+    ninguno_rsv   desplazar e ir al estado 45
+
+    TIPO  ir al estado 52
+
+
+State 48
+
+   20 DECARRATR: decarr_rsv TIPO_ACCESO id . TIPO DIMLIST
+   21          | decarr_rsv TIPO_ACCESO id . TIPO DIMLIST sig_igual INICIAR_ARR
+
+    id            desplazar e ir al estado 40
+    entero_rsv    desplazar e ir al estado 41
+    bool_rsv      desplazar e ir al estado 42
+    caracter_rsv  desplazar e ir al estado 43
+    cadena_rsv    desplazar e ir al estado 44
+    ninguno_rsv   desplazar e ir al estado 45
+
+    TIPO  ir al estado 53
+
+
+State 49
+
+    5 CLASE: TIPO_ACCESO clase_rsv $@1 id EXTIENDE dolar CUERPO_CLASE . dolar
+   13 CUERPO_CLASE: CUERPO_CLASE . SENTENCIAS_CLASE
+
+    dolar        desplazar e ir al estado 54
+    decattr_rsv  desplazar e ir al estado 19
+    def_rsv      desplazar e ir al estado 20
+    decarr_rsv   desplazar e ir al estado 21
+
+    SENTENCIAS_CLASE  ir al estado 34
+    DECATR            ir al estado 24
+    DECARRATR         ir al estado 25
+    DECMETODO         ir al estado 26
+
+
+State 50
+
+   18 DECATR: decattr_rsv TIPO_ACCESO id TIPO .
+   19       | decattr_rsv TIPO_ACCESO id TIPO . sig_igual ASIGNACION
+
+    sig_igual  desplazar e ir al estado 55
+
+    $default  reduce usando la regla 18 (DECATR)
+
+
+State 51
+
+   34 DECMETODO: def_rsv id TIPO par_a . PARAMLIST par_c dolar INSTRUCCIONES dolar
+   36          | def_rsv id TIPO par_a . par_c dolar INSTRUCCIONES dolar
+
+    par_c    desplazar e ir al estado 56
+    id       desplazar e ir al estado 57
+    ref_rsv  desplazar e ir al estado 58
+
+    PARAMLIST  ir al estado 59
+    PARAM      ir al estado 60
+
+
+State 52
+
+   33 DECMETODO: def_rsv TIPO_ACCESO id TIPO . par_a PARAMLIST par_c dolar INSTRUCCIONES dolar
+   35          | def_rsv TIPO_ACCESO id TIPO . par_a par_c dolar INSTRUCCIONES dolar
+
+    par_a  desplazar e ir al estado 61
+
+
+State 53
+
+   20 DECARRATR: decarr_rsv TIPO_ACCESO id TIPO . DIMLIST
+   21          | decarr_rsv TIPO_ACCESO id TIPO . DIMLIST sig_igual INICIAR_ARR
+
+    llave_a  desplazar e ir al estado 62
+
+    DIMLIST  ir al estado 63
+    DIM      ir al estado 64
+
+
+State 54
+
+    5 CLASE: TIPO_ACCESO clase_rsv $@1 id EXTIENDE dolar CUERPO_CLASE dolar .
+
+    $default  reduce usando la regla 5 (CLASE)
+
+
+State 55
+
+   19 DECATR: decattr_rsv TIPO_ACCESO id TIPO sig_igual . ASIGNACION
+
+    par_a           desplazar e ir al estado 65
+    id              desplazar e ir al estado 66
+    numero          desplazar e ir al estado 67
+    string_token    desplazar e ir al estado 68
+    caracter_token  desplazar e ir al estado 69
+    true_rsv        desplazar e ir al estado 70
+    false_rsv       desplazar e ir al estado 71
+    imprimir_rsv    desplazar e ir al estado 72
+    este_rsv        desplazar e ir al estado 73
+    notOp           desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 76
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ASIGNACION      ir al estado 80
+    VALOR           ir al estado 81
+    ARR_ACCESO      ir al estado 82
+    FUNCALL         ir al estado 83
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 85
+    ACCESOMETODO    ir al estado 86
+
+
+State 56
+
+   36 DECMETODO: def_rsv id TIPO par_a par_c . dolar INSTRUCCIONES dolar
+
+    dolar  desplazar e ir al estado 87
+
+
+State 57
+
+   39 PARAM: id . TIPO
+
+    id            desplazar e ir al estado 40
+    entero_rsv    desplazar e ir al estado 41
+    bool_rsv      desplazar e ir al estado 42
+    caracter_rsv  desplazar e ir al estado 43
+    cadena_rsv    desplazar e ir al estado 44
+    ninguno_rsv   desplazar e ir al estado 45
+
+    TIPO  ir al estado 88
+
+
+State 58
+
+   40 PARAM: ref_rsv . id TIPO
+
+    id  desplazar e ir al estado 89
+
+
+State 59
+
+   34 DECMETODO: def_rsv id TIPO par_a PARAMLIST . par_c dolar INSTRUCCIONES dolar
+   37 PARAMLIST: PARAMLIST . coma PARAM
+
+    par_c  desplazar e ir al estado 90
+    coma   desplazar e ir al estado 91
+
+
+State 60
+
+   38 PARAMLIST: PARAM .
+
+    $default  reduce usando la regla 38 (PARAMLIST)
+
+
+State 61
+
+   33 DECMETODO: def_rsv TIPO_ACCESO id TIPO par_a . PARAMLIST par_c dolar INSTRUCCIONES dolar
+   35          | def_rsv TIPO_ACCESO id TIPO par_a . par_c dolar INSTRUCCIONES dolar
+
+    par_c    desplazar e ir al estado 92
+    id       desplazar e ir al estado 57
+    ref_rsv  desplazar e ir al estado 58
+
+    PARAMLIST  ir al estado 93
+    PARAM      ir al estado 60
+
+
+State 62
+
+   24 DIM: llave_a . numero llave_c
+
+    numero  desplazar e ir al estado 94
+
+
+State 63
+
+   20 DECARRATR: decarr_rsv TIPO_ACCESO id TIPO DIMLIST .
+   21          | decarr_rsv TIPO_ACCESO id TIPO DIMLIST . sig_igual INICIAR_ARR
+   22 DIMLIST: DIMLIST . DIM
+
+    llave_a    desplazar e ir al estado 62
+    sig_igual  desplazar e ir al estado 95
+
+    $default  reduce usando la regla 20 (DECARRATR)
+
+    DIM  ir al estado 96
+
+
+State 64
+
+   23 DIMLIST: DIM .
+
+    $default  reduce usando la regla 23 (DIMLIST)
+
+
+State 65
+
+   74 EXP: par_a . EXPRESION par_c
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+    notOp      desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 99
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 66
+
+   75 EXP: id .
+   88 OPSIMP: id . masmas
+   89       | id . menosmenos
+   90       | id . porpor
+   91       | id . numeralnumeral
+  110 ARR_ACCESO: id . DIMLIST
+  115 FUNCALL: id . par_a par_c
+  116        | id . par_a PARAMS par_c
+  120 ACCESOATRIBUTO: id . punto id
+  123 ACCESOMETODO: id . punto id par_a par_c
+  125             | id . punto id par_a PARAMS par_c
+
+    par_a           desplazar e ir al estado 101
+    llave_a         desplazar e ir al estado 62
+    punto           desplazar e ir al estado 102
+    numeralnumeral  desplazar e ir al estado 103
+    masmas          desplazar e ir al estado 104
+    menosmenos      desplazar e ir al estado 105
+    porpor          desplazar e ir al estado 106
+
+    $default  reduce usando la regla 75 (EXP)
+
+    DIMLIST  ir al estado 107
+    DIM      ir al estado 64
+
+
+State 67
+
+   76 EXP: numero .
+
+    $default  reduce usando la regla 76 (EXP)
+
+
+State 68
+
+   99 VALOR: string_token .
+
+    $default  reduce usando la regla 99 (VALOR)
+
+
+State 69
+
+  100 VALOR: caracter_token .
+
+    $default  reduce usando la regla 100 (VALOR)
+
+
+State 70
+
+   31 BOOL: true_rsv .
+
+    $default  reduce usando la regla 31 (BOOL)
+
+
+State 71
+
+   32 BOOL: false_rsv .
+
+    $default  reduce usando la regla 32 (BOOL)
+
+
+State 72
+
+  117 IMPRIMIR: imprimir_rsv . par_a VALOR par_c
+
+    par_a  desplazar e ir al estado 108
+
+
+State 73
+
+  121 ACCESOATRIBUTO: este_rsv . punto id
+  124 ACCESOMETODO: este_rsv . punto id par_a par_c
+  126             | este_rsv . punto id par_a PARAMS par_c
+
+    punto  desplazar e ir al estado 109
+
+
+State 74
+
+   59 EXPRESION: notOp . EXPRESION
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+    notOp      desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 110
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 75
+
+   78 EXP: BOOL .
+
+    $default  reduce usando la regla 78 (EXP)
+
+
+State 76
+
+   57 EXPRESION: EXPRESION . orOp EXPRESION
+   58          | EXPRESION . andOp EXPRESION
+   60          | EXPRESION . esigual EXPRESION
+   61          | EXPRESION . noigual EXPRESION
+   62          | EXPRESION . mayor EXPRESION
+   63          | EXPRESION . menor EXPRESION
+   64          | EXPRESION . mayorigual EXPRESION
+   65          | EXPRESION . menorigual EXPRESION
+   66          | EXPRESION . esnulo EXPRESION
+  101 VALOR: EXPRESION .
+
+    esigual     desplazar e ir al estado 111
+    noigual     desplazar e ir al estado 112
+    mayor       desplazar e ir al estado 113
+    menor       desplazar e ir al estado 114
+    mayorigual  desplazar e ir al estado 115
+    menorigual  desplazar e ir al estado 116
+    esnulo      desplazar e ir al estado 117
+    orOp        desplazar e ir al estado 118
+    andOp       desplazar e ir al estado 119
+
+    $default  reduce usando la regla 101 (VALOR)
+
+
+State 77
+
+   67 EXPRESION: EXPMAT .
+   68 EXPMAT: EXPMAT . mas EXPMAT
+   69       | EXPMAT . menos EXPMAT
+   70       | EXPMAT . por EXPMAT
+   71       | EXPMAT . divOp EXPMAT
+   72       | EXPMAT . potencia EXPMAT
+
+    mas       desplazar e ir al estado 120
+    menos     desplazar e ir al estado 121
+    por       desplazar e ir al estado 122
+    divOp     desplazar e ir al estado 123
+    potencia  desplazar e ir al estado 124
+
+    $default  reduce usando la regla 67 (EXPRESION)
+
+
+State 78
+
+   73 EXPMAT: EXP .
+
+    $default  reduce usando la regla 73 (EXPMAT)
+
+
+State 79
+
+   77 EXP: OPSIMP .
+
+    $default  reduce usando la regla 77 (EXP)
+
+
+State 80
+
+   19 DECATR: decattr_rsv TIPO_ACCESO id TIPO sig_igual ASIGNACION .
+
+    $default  reduce usando la regla 19 (DECATR)
+
+
+State 81
+
+   98 ASIGNACION: VALOR .
+
+    $default  reduce usando la regla 98 (ASIGNACION)
+
+
+State 82
+
+   79 EXP: ARR_ACCESO .
+
+    $default  reduce usando la regla 79 (EXP)
+
+
+State 83
+
+  103 VALOR: FUNCALL .
+
+    $default  reduce usando la regla 103 (VALOR)
+
+
+State 84
+
+  113 FUNCALL: IMPRIMIR .
+
+    $default  reduce usando la regla 113 (FUNCALL)
+
+
+State 85
+
+   92 OPSIMP: ACCESOATRIBUTO . masmas
+   93       | ACCESOATRIBUTO . menosmenos
+   94       | ACCESOATRIBUTO . porpor
+   95       | ACCESOATRIBUTO . numeralnumeral
+  102 VALOR: ACCESOATRIBUTO .
+
+    numeralnumeral  desplazar e ir al estado 125
+    masmas          desplazar e ir al estado 126
+    menosmenos      desplazar e ir al estado 127
+    porpor          desplazar e ir al estado 128
+
+    $default  reduce usando la regla 102 (VALOR)
+
+
+State 86
+
+  114 FUNCALL: ACCESOMETODO .
+
+    $default  reduce usando la regla 114 (FUNCALL)
+
+
+State 87
+
+   36 DECMETODO: def_rsv id TIPO par_a par_c dolar . INSTRUCCIONES dolar
+
+    id                    desplazar e ir al estado 129
+    retornar_rsv          desplazar e ir al estado 130
+    si_cumple_rsv         desplazar e ir al estado 131
+    repetir_mientras_rsv  desplazar e ir al estado 132
+    detener_rsv           desplazar e ir al estado 133
+    imprimir_rsv          desplazar e ir al estado 72
+    este_rsv              desplazar e ir al estado 73
+
+    INSTRUCCIONES   ir al estado 134
+    SENTENCIAS      ir al estado 135
+    DECVAR          ir al estado 136
+    RETORNO         ir al estado 137
+    IF              ir al estado 138
+    DETENER         ir al estado 139
+    CICLO           ir al estado 140
+    OPSIMP          ir al estado 141
+    DECARRVAR       ir al estado 142
+    ARR_ACCESO      ir al estado 143
+    ASIG_ARR        ir al estado 144
+    VAR_ASIG        ir al estado 145
+    FUNCALL         ir al estado 146
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 147
+    MODIFATRIBUTO   ir al estado 148
+    ACCESOMETODO    ir al estado 86
+
+
+State 88
+
+   39 PARAM: id TIPO .
+
+    $default  reduce usando la regla 39 (PARAM)
+
+
+State 89
+
+   40 PARAM: ref_rsv id . TIPO
+
+    id            desplazar e ir al estado 40
+    entero_rsv    desplazar e ir al estado 41
+    bool_rsv      desplazar e ir al estado 42
+    caracter_rsv  desplazar e ir al estado 43
+    cadena_rsv    desplazar e ir al estado 44
+    ninguno_rsv   desplazar e ir al estado 45
+
+    TIPO  ir al estado 149
+
+
+State 90
+
+   34 DECMETODO: def_rsv id TIPO par_a PARAMLIST par_c . dolar INSTRUCCIONES dolar
+
+    dolar  desplazar e ir al estado 150
+
+
+State 91
+
+   37 PARAMLIST: PARAMLIST coma . PARAM
+
+    id       desplazar e ir al estado 57
+    ref_rsv  desplazar e ir al estado 58
+
+    PARAM  ir al estado 151
+
+
+State 92
+
+   35 DECMETODO: def_rsv TIPO_ACCESO id TIPO par_a par_c . dolar INSTRUCCIONES dolar
+
+    dolar  desplazar e ir al estado 152
+
+
+State 93
+
+   33 DECMETODO: def_rsv TIPO_ACCESO id TIPO par_a PARAMLIST . par_c dolar INSTRUCCIONES dolar
+   37 PARAMLIST: PARAMLIST . coma PARAM
+
+    par_c  desplazar e ir al estado 153
+    coma   desplazar e ir al estado 91
+
+
+State 94
+
+   24 DIM: llave_a numero . llave_c
+
+    llave_c  desplazar e ir al estado 154
+
+
+State 95
+
+   21 DECARRATR: decarr_rsv TIPO_ACCESO id TIPO DIMLIST sig_igual . INICIAR_ARR
+
+    llave_a  desplazar e ir al estado 155
+
+    INICIAR_ARR  ir al estado 156
+
+
+State 96
+
+   22 DIMLIST: DIMLIST DIM .
+
+    $default  reduce usando la regla 22 (DIMLIST)
+
+
+State 97
+
+   75 EXP: id .
+   88 OPSIMP: id . masmas
+   89       | id . menosmenos
+   90       | id . porpor
+   91       | id . numeralnumeral
+  110 ARR_ACCESO: id . DIMLIST
+  120 ACCESOATRIBUTO: id . punto id
+
+    llave_a         desplazar e ir al estado 62
+    punto           desplazar e ir al estado 157
+    numeralnumeral  desplazar e ir al estado 103
+    masmas          desplazar e ir al estado 104
+    menosmenos      desplazar e ir al estado 105
+    porpor          desplazar e ir al estado 106
+
+    $default  reduce usando la regla 75 (EXP)
+
+    DIMLIST  ir al estado 107
+    DIM      ir al estado 64
+
+
+State 98
+
+  121 ACCESOATRIBUTO: este_rsv . punto id
+
+    punto  desplazar e ir al estado 158
+
+
+State 99
+
+   57 EXPRESION: EXPRESION . orOp EXPRESION
+   58          | EXPRESION . andOp EXPRESION
+   60          | EXPRESION . esigual EXPRESION
+   61          | EXPRESION . noigual EXPRESION
+   62          | EXPRESION . mayor EXPRESION
+   63          | EXPRESION . menor EXPRESION
+   64          | EXPRESION . mayorigual EXPRESION
+   65          | EXPRESION . menorigual EXPRESION
+   66          | EXPRESION . esnulo EXPRESION
+   74 EXP: par_a EXPRESION . par_c
+
+    par_c       desplazar e ir al estado 159
+    esigual     desplazar e ir al estado 111
+    noigual     desplazar e ir al estado 112
+    mayor       desplazar e ir al estado 113
+    menor       desplazar e ir al estado 114
+    mayorigual  desplazar e ir al estado 115
+    menorigual  desplazar e ir al estado 116
+    esnulo      desplazar e ir al estado 117
+    orOp        desplazar e ir al estado 118
+    andOp       desplazar e ir al estado 119
+
+
+State 100
+
+   92 OPSIMP: ACCESOATRIBUTO . masmas
+   93       | ACCESOATRIBUTO . menosmenos
+   94       | ACCESOATRIBUTO . porpor
+   95       | ACCESOATRIBUTO . numeralnumeral
+
+    numeralnumeral  desplazar e ir al estado 125
+    masmas          desplazar e ir al estado 126
+    menosmenos      desplazar e ir al estado 127
+    porpor          desplazar e ir al estado 128
+
+
+State 101
+
+  115 FUNCALL: id par_a . par_c
+  116        | id par_a . PARAMS par_c
+
+    par_a           desplazar e ir al estado 65
+    par_c           desplazar e ir al estado 160
+    id              desplazar e ir al estado 66
+    numero          desplazar e ir al estado 67
+    string_token    desplazar e ir al estado 68
+    caracter_token  desplazar e ir al estado 69
+    true_rsv        desplazar e ir al estado 70
+    false_rsv       desplazar e ir al estado 71
+    imprimir_rsv    desplazar e ir al estado 72
+    este_rsv        desplazar e ir al estado 73
+    notOp           desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 76
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    VALOR           ir al estado 161
+    ARR_ACCESO      ir al estado 82
+    FUNCALL         ir al estado 83
+    IMPRIMIR        ir al estado 84
+    PARAMS          ir al estado 162
+    ACCESOATRIBUTO  ir al estado 85
+    ACCESOMETODO    ir al estado 86
+
+
+State 102
+
+  120 ACCESOATRIBUTO: id punto . id
+  123 ACCESOMETODO: id punto . id par_a par_c
+  125             | id punto . id par_a PARAMS par_c
+
+    id  desplazar e ir al estado 163
+
+
+State 103
+
+   91 OPSIMP: id numeralnumeral .
+
+    $default  reduce usando la regla 91 (OPSIMP)
+
+
+State 104
+
+   88 OPSIMP: id masmas .
+
+    $default  reduce usando la regla 88 (OPSIMP)
+
+
+State 105
+
+   89 OPSIMP: id menosmenos .
+
+    $default  reduce usando la regla 89 (OPSIMP)
+
+
+State 106
+
+   90 OPSIMP: id porpor .
+
+    $default  reduce usando la regla 90 (OPSIMP)
+
+
+State 107
+
+   22 DIMLIST: DIMLIST . DIM
+  110 ARR_ACCESO: id DIMLIST .
+
+    llave_a  desplazar e ir al estado 62
+
+    $default  reduce usando la regla 110 (ARR_ACCESO)
+
+    DIM  ir al estado 96
+
+
+State 108
+
+  117 IMPRIMIR: imprimir_rsv par_a . VALOR par_c
+
+    par_a           desplazar e ir al estado 65
+    id              desplazar e ir al estado 66
+    numero          desplazar e ir al estado 67
+    string_token    desplazar e ir al estado 68
+    caracter_token  desplazar e ir al estado 69
+    true_rsv        desplazar e ir al estado 70
+    false_rsv       desplazar e ir al estado 71
+    imprimir_rsv    desplazar e ir al estado 72
+    este_rsv        desplazar e ir al estado 73
+    notOp           desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 76
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    VALOR           ir al estado 164
+    ARR_ACCESO      ir al estado 82
+    FUNCALL         ir al estado 83
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 85
+    ACCESOMETODO    ir al estado 86
+
+
+State 109
+
+  121 ACCESOATRIBUTO: este_rsv punto . id
+  124 ACCESOMETODO: este_rsv punto . id par_a par_c
+  126             | este_rsv punto . id par_a PARAMS par_c
+
+    id  desplazar e ir al estado 165
+
+
+State 110
+
+   57 EXPRESION: EXPRESION . orOp EXPRESION
+   58          | EXPRESION . andOp EXPRESION
+   59          | notOp EXPRESION .
+   60          | EXPRESION . esigual EXPRESION
+   61          | EXPRESION . noigual EXPRESION
+   62          | EXPRESION . mayor EXPRESION
+   63          | EXPRESION . menor EXPRESION
+   64          | EXPRESION . mayorigual EXPRESION
+   65          | EXPRESION . menorigual EXPRESION
+   66          | EXPRESION . esnulo EXPRESION
+
+    esigual     desplazar e ir al estado 111
+    noigual     desplazar e ir al estado 112
+    mayor       desplazar e ir al estado 113
+    menor       desplazar e ir al estado 114
+    mayorigual  desplazar e ir al estado 115
+    menorigual  desplazar e ir al estado 116
+    esnulo      desplazar e ir al estado 117
+
+    $default  reduce usando la regla 59 (EXPRESION)
+
+
+State 111
+
+   60 EXPRESION: EXPRESION esigual . EXPRESION
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+    notOp      desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 166
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 112
+
+   61 EXPRESION: EXPRESION noigual . EXPRESION
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+    notOp      desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 167
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 113
+
+   62 EXPRESION: EXPRESION mayor . EXPRESION
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+    notOp      desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 168
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 114
+
+   63 EXPRESION: EXPRESION menor . EXPRESION
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+    notOp      desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 169
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 115
+
+   64 EXPRESION: EXPRESION mayorigual . EXPRESION
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+    notOp      desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 170
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 116
+
+   65 EXPRESION: EXPRESION menorigual . EXPRESION
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+    notOp      desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 171
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 117
+
+   66 EXPRESION: EXPRESION esnulo . EXPRESION
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+    notOp      desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 172
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 118
+
+   57 EXPRESION: EXPRESION orOp . EXPRESION
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+    notOp      desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 173
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 119
+
+   58 EXPRESION: EXPRESION andOp . EXPRESION
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+    notOp      desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 174
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 120
+
+   68 EXPMAT: EXPMAT mas . EXPMAT
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+
+    BOOL            ir al estado 75
+    EXPMAT          ir al estado 175
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 121
+
+   69 EXPMAT: EXPMAT menos . EXPMAT
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+
+    BOOL            ir al estado 75
+    EXPMAT          ir al estado 176
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 122
+
+   70 EXPMAT: EXPMAT por . EXPMAT
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+
+    BOOL            ir al estado 75
+    EXPMAT          ir al estado 177
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 123
+
+   71 EXPMAT: EXPMAT divOp . EXPMAT
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+
+    BOOL            ir al estado 75
+    EXPMAT          ir al estado 178
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 124
+
+   72 EXPMAT: EXPMAT potencia . EXPMAT
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+
+    BOOL            ir al estado 75
+    EXPMAT          ir al estado 179
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 125
+
+   95 OPSIMP: ACCESOATRIBUTO numeralnumeral .
+
+    $default  reduce usando la regla 95 (OPSIMP)
+
+
+State 126
+
+   92 OPSIMP: ACCESOATRIBUTO masmas .
+
+    $default  reduce usando la regla 92 (OPSIMP)
+
+
+State 127
+
+   93 OPSIMP: ACCESOATRIBUTO menosmenos .
+
+    $default  reduce usando la regla 93 (OPSIMP)
+
+
+State 128
+
+   94 OPSIMP: ACCESOATRIBUTO porpor .
+
+    $default  reduce usando la regla 94 (OPSIMP)
+
+
+State 129
+
+   54 DECVAR: id . TIPO
+   55       | id . TIPO sig_igual ASIGNACION
+   88 OPSIMP: id . masmas
+   89       | id . menosmenos
+   90       | id . porpor
+   91       | id . numeralnumeral
+   96 DECARRVAR: id . TIPO DIMLIST
+   97          | id . TIPO DIMLIST sig_igual INICIAR_ARR
+  110 ARR_ACCESO: id . DIMLIST
+  112 VAR_ASIG: id . sig_igual ASIGNACION
+  115 FUNCALL: id . par_a par_c
+  116        | id . par_a PARAMS par_c
+  120 ACCESOATRIBUTO: id . punto id
+  123 ACCESOMETODO: id . punto id par_a par_c
+  125             | id . punto id par_a PARAMS par_c
+
+    par_a           desplazar e ir al estado 101
+    llave_a         desplazar e ir al estado 62
+    sig_igual       desplazar e ir al estado 180
+    punto           desplazar e ir al estado 102
+    id              desplazar e ir al estado 40
+    entero_rsv      desplazar e ir al estado 41
+    bool_rsv        desplazar e ir al estado 42
+    caracter_rsv    desplazar e ir al estado 43
+    cadena_rsv      desplazar e ir al estado 44
+    ninguno_rsv     desplazar e ir al estado 45
+    numeralnumeral  desplazar e ir al estado 103
+    masmas          desplazar e ir al estado 104
+    menosmenos      desplazar e ir al estado 105
+    porpor          desplazar e ir al estado 106
+
+    DIMLIST  ir al estado 107
+    DIM      ir al estado 64
+    TIPO     ir al estado 181
+
+
+State 130
+
+   56 RETORNO: retornar_rsv . EXPRESION
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+    notOp      desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 182
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 131
+
+   80 IF: si_cumple_rsv . par_a EXPRESION par_c dolar INSTRUCCIONES dolar
+   81   | si_cumple_rsv . par_a EXPRESION par_c dolar INSTRUCCIONES dolar sino_cumple_rsv dolar INSTRUCCIONES dolar
+   82   | si_cumple_rsv . par_a EXPRESION par_c dolar INSTRUCCIONES dolar ELSEIFLIST sino_cumple_rsv dolar INSTRUCCIONES dolar
+
+    par_a  desplazar e ir al estado 183
+
+
+State 132
+
+   87 CICLO: repetir_mientras_rsv . par_a EXPRESION par_c dolar INSTRUCCIONES dolar
+
+    par_a  desplazar e ir al estado 184
+
+
+State 133
+
+   86 DETENER: detener_rsv .
+
+    $default  reduce usando la regla 86 (DETENER)
+
+
+State 134
+
+   36 DECMETODO: def_rsv id TIPO par_a par_c dolar INSTRUCCIONES . dolar
+   41 INSTRUCCIONES: INSTRUCCIONES . SENTENCIAS
+
+    id                    desplazar e ir al estado 129
+    dolar                 desplazar e ir al estado 185
+    retornar_rsv          desplazar e ir al estado 130
+    si_cumple_rsv         desplazar e ir al estado 131
+    repetir_mientras_rsv  desplazar e ir al estado 132
+    detener_rsv           desplazar e ir al estado 133
+    imprimir_rsv          desplazar e ir al estado 72
+    este_rsv              desplazar e ir al estado 73
+
+    SENTENCIAS      ir al estado 186
+    DECVAR          ir al estado 136
+    RETORNO         ir al estado 137
+    IF              ir al estado 138
+    DETENER         ir al estado 139
+    CICLO           ir al estado 140
+    OPSIMP          ir al estado 141
+    DECARRVAR       ir al estado 142
+    ARR_ACCESO      ir al estado 143
+    ASIG_ARR        ir al estado 144
+    VAR_ASIG        ir al estado 145
+    FUNCALL         ir al estado 146
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 147
+    MODIFATRIBUTO   ir al estado 148
+    ACCESOMETODO    ir al estado 86
+
+
+State 135
+
+   42 INSTRUCCIONES: SENTENCIAS .
+
+    $default  reduce usando la regla 42 (INSTRUCCIONES)
+
+
+State 136
+
+   43 SENTENCIAS: DECVAR . p_coma
+
+    p_coma  desplazar e ir al estado 187
+
+
+State 137
+
+   44 SENTENCIAS: RETORNO . p_coma
+
+    p_coma  desplazar e ir al estado 188
+
+
+State 138
+
+   45 SENTENCIAS: IF .
+
+    $default  reduce usando la regla 45 (SENTENCIAS)
+
+
+State 139
+
+   47 SENTENCIAS: DETENER . p_coma
+
+    p_coma  desplazar e ir al estado 189
+
+
+State 140
+
+   46 SENTENCIAS: CICLO .
+
+    $default  reduce usando la regla 46 (SENTENCIAS)
+
+
+State 141
+
+   48 SENTENCIAS: OPSIMP . p_coma
+
+    p_coma  desplazar e ir al estado 190
+
+
+State 142
+
+   49 SENTENCIAS: DECARRVAR . p_coma
+
+    p_coma  desplazar e ir al estado 191
+
+
+State 143
+
+  111 ASIG_ARR: ARR_ACCESO . sig_igual ASIGNACION
+
+    sig_igual  desplazar e ir al estado 192
+
+
+State 144
+
+   50 SENTENCIAS: ASIG_ARR . p_coma
+
+    p_coma  desplazar e ir al estado 193
+
+
+State 145
+
+   51 SENTENCIAS: VAR_ASIG . p_coma
+
+    p_coma  desplazar e ir al estado 194
+
+
+State 146
+
+   52 SENTENCIAS: FUNCALL . p_coma
+
+    p_coma  desplazar e ir al estado 195
+
+
+State 147
+
+   92 OPSIMP: ACCESOATRIBUTO . masmas
+   93       | ACCESOATRIBUTO . menosmenos
+   94       | ACCESOATRIBUTO . porpor
+   95       | ACCESOATRIBUTO . numeralnumeral
+  122 MODIFATRIBUTO: ACCESOATRIBUTO . sig_igual ASIGNACION
+
+    sig_igual       desplazar e ir al estado 196
+    numeralnumeral  desplazar e ir al estado 125
+    masmas          desplazar e ir al estado 126
+    menosmenos      desplazar e ir al estado 127
+    porpor          desplazar e ir al estado 128
+
+
+State 148
+
+   53 SENTENCIAS: MODIFATRIBUTO . p_coma
+
+    p_coma  desplazar e ir al estado 197
+
+
+State 149
+
+   40 PARAM: ref_rsv id TIPO .
+
+    $default  reduce usando la regla 40 (PARAM)
+
+
+State 150
+
+   34 DECMETODO: def_rsv id TIPO par_a PARAMLIST par_c dolar . INSTRUCCIONES dolar
+
+    id                    desplazar e ir al estado 129
+    retornar_rsv          desplazar e ir al estado 130
+    si_cumple_rsv         desplazar e ir al estado 131
+    repetir_mientras_rsv  desplazar e ir al estado 132
+    detener_rsv           desplazar e ir al estado 133
+    imprimir_rsv          desplazar e ir al estado 72
+    este_rsv              desplazar e ir al estado 73
+
+    INSTRUCCIONES   ir al estado 198
+    SENTENCIAS      ir al estado 135
+    DECVAR          ir al estado 136
+    RETORNO         ir al estado 137
+    IF              ir al estado 138
+    DETENER         ir al estado 139
+    CICLO           ir al estado 140
+    OPSIMP          ir al estado 141
+    DECARRVAR       ir al estado 142
+    ARR_ACCESO      ir al estado 143
+    ASIG_ARR        ir al estado 144
+    VAR_ASIG        ir al estado 145
+    FUNCALL         ir al estado 146
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 147
+    MODIFATRIBUTO   ir al estado 148
+    ACCESOMETODO    ir al estado 86
+
+
+State 151
+
+   37 PARAMLIST: PARAMLIST coma PARAM .
+
+    $default  reduce usando la regla 37 (PARAMLIST)
+
+
+State 152
+
+   35 DECMETODO: def_rsv TIPO_ACCESO id TIPO par_a par_c dolar . INSTRUCCIONES dolar
+
+    id                    desplazar e ir al estado 129
+    retornar_rsv          desplazar e ir al estado 130
+    si_cumple_rsv         desplazar e ir al estado 131
+    repetir_mientras_rsv  desplazar e ir al estado 132
+    detener_rsv           desplazar e ir al estado 133
+    imprimir_rsv          desplazar e ir al estado 72
+    este_rsv              desplazar e ir al estado 73
+
+    INSTRUCCIONES   ir al estado 199
+    SENTENCIAS      ir al estado 135
+    DECVAR          ir al estado 136
+    RETORNO         ir al estado 137
+    IF              ir al estado 138
+    DETENER         ir al estado 139
+    CICLO           ir al estado 140
+    OPSIMP          ir al estado 141
+    DECARRVAR       ir al estado 142
+    ARR_ACCESO      ir al estado 143
+    ASIG_ARR        ir al estado 144
+    VAR_ASIG        ir al estado 145
+    FUNCALL         ir al estado 146
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 147
+    MODIFATRIBUTO   ir al estado 148
+    ACCESOMETODO    ir al estado 86
+
+
+State 153
+
+   33 DECMETODO: def_rsv TIPO_ACCESO id TIPO par_a PARAMLIST par_c . dolar INSTRUCCIONES dolar
+
+    dolar  desplazar e ir al estado 200
+
+
+State 154
+
+   24 DIM: llave_a numero llave_c .
+
+    $default  reduce usando la regla 24 (DIM)
+
+
+State 155
+
+  104 INICIAR_ARR: llave_a . LISTA_ASIG_ARR llave_c
+  105            | llave_a . ASIGLIST llave_c
+
+    par_a           desplazar e ir al estado 65
+    llave_a         desplazar e ir al estado 155
+    id              desplazar e ir al estado 66
+    numero          desplazar e ir al estado 67
+    string_token    desplazar e ir al estado 68
+    caracter_token  desplazar e ir al estado 69
+    true_rsv        desplazar e ir al estado 70
+    false_rsv       desplazar e ir al estado 71
+    imprimir_rsv    desplazar e ir al estado 72
+    este_rsv        desplazar e ir al estado 73
+    notOp           desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 76
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ASIGNACION      ir al estado 201
+    VALOR           ir al estado 81
+    INICIAR_ARR     ir al estado 202
+    LISTA_ASIG_ARR  ir al estado 203
+    ASIGLIST        ir al estado 204
+    ARR_ACCESO      ir al estado 82
+    FUNCALL         ir al estado 83
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 85
+    ACCESOMETODO    ir al estado 86
+
+
+State 156
+
+   21 DECARRATR: decarr_rsv TIPO_ACCESO id TIPO DIMLIST sig_igual INICIAR_ARR .
+
+    $default  reduce usando la regla 21 (DECARRATR)
+
+
+State 157
+
+  120 ACCESOATRIBUTO: id punto . id
+
+    id  desplazar e ir al estado 205
+
+
+State 158
+
+  121 ACCESOATRIBUTO: este_rsv punto . id
+
+    id  desplazar e ir al estado 206
+
+
+State 159
+
+   74 EXP: par_a EXPRESION par_c .
+
+    $default  reduce usando la regla 74 (EXP)
+
+
+State 160
+
+  115 FUNCALL: id par_a par_c .
+
+    $default  reduce usando la regla 115 (FUNCALL)
+
+
+State 161
+
+  119 PARAMS: VALOR .
+
+    $default  reduce usando la regla 119 (PARAMS)
+
+
+State 162
+
+  116 FUNCALL: id par_a PARAMS . par_c
+  118 PARAMS: PARAMS . coma VALOR
+
+    par_c  desplazar e ir al estado 207
+    coma   desplazar e ir al estado 208
+
+
+State 163
+
+  120 ACCESOATRIBUTO: id punto id .
+  123 ACCESOMETODO: id punto id . par_a par_c
+  125             | id punto id . par_a PARAMS par_c
+
+    par_a  desplazar e ir al estado 209
+
+    $default  reduce usando la regla 120 (ACCESOATRIBUTO)
+
+
+State 164
+
+  117 IMPRIMIR: imprimir_rsv par_a VALOR . par_c
+
+    par_c  desplazar e ir al estado 210
+
+
+State 165
+
+  121 ACCESOATRIBUTO: este_rsv punto id .
+  124 ACCESOMETODO: este_rsv punto id . par_a par_c
+  126             | este_rsv punto id . par_a PARAMS par_c
+
+    par_a  desplazar e ir al estado 211
+
+    $default  reduce usando la regla 121 (ACCESOATRIBUTO)
+
+
+State 166
+
+   57 EXPRESION: EXPRESION . orOp EXPRESION
+   58          | EXPRESION . andOp EXPRESION
+   60          | EXPRESION . esigual EXPRESION
+   60          | EXPRESION esigual EXPRESION .
+   61          | EXPRESION . noigual EXPRESION
+   62          | EXPRESION . mayor EXPRESION
+   63          | EXPRESION . menor EXPRESION
+   64          | EXPRESION . mayorigual EXPRESION
+   65          | EXPRESION . menorigual EXPRESION
+   66          | EXPRESION . esnulo EXPRESION
+
+    esnulo  desplazar e ir al estado 117
+
+    $default  reduce usando la regla 60 (EXPRESION)
+
+
+State 167
+
+   57 EXPRESION: EXPRESION . orOp EXPRESION
+   58          | EXPRESION . andOp EXPRESION
+   60          | EXPRESION . esigual EXPRESION
+   61          | EXPRESION . noigual EXPRESION
+   61          | EXPRESION noigual EXPRESION .
+   62          | EXPRESION . mayor EXPRESION
+   63          | EXPRESION . menor EXPRESION
+   64          | EXPRESION . mayorigual EXPRESION
+   65          | EXPRESION . menorigual EXPRESION
+   66          | EXPRESION . esnulo EXPRESION
+
+    esnulo  desplazar e ir al estado 117
+
+    $default  reduce usando la regla 61 (EXPRESION)
+
+
+State 168
+
+   57 EXPRESION: EXPRESION . orOp EXPRESION
+   58          | EXPRESION . andOp EXPRESION
+   60          | EXPRESION . esigual EXPRESION
+   61          | EXPRESION . noigual EXPRESION
+   62          | EXPRESION . mayor EXPRESION
+   62          | EXPRESION mayor EXPRESION .
+   63          | EXPRESION . menor EXPRESION
+   64          | EXPRESION . mayorigual EXPRESION
+   65          | EXPRESION . menorigual EXPRESION
+   66          | EXPRESION . esnulo EXPRESION
+
+    esnulo  desplazar e ir al estado 117
+
+    $default  reduce usando la regla 62 (EXPRESION)
+
+
+State 169
+
+   57 EXPRESION: EXPRESION . orOp EXPRESION
+   58          | EXPRESION . andOp EXPRESION
+   60          | EXPRESION . esigual EXPRESION
+   61          | EXPRESION . noigual EXPRESION
+   62          | EXPRESION . mayor EXPRESION
+   63          | EXPRESION . menor EXPRESION
+   63          | EXPRESION menor EXPRESION .
+   64          | EXPRESION . mayorigual EXPRESION
+   65          | EXPRESION . menorigual EXPRESION
+   66          | EXPRESION . esnulo EXPRESION
+
+    esnulo  desplazar e ir al estado 117
+
+    $default  reduce usando la regla 63 (EXPRESION)
+
+
+State 170
+
+   57 EXPRESION: EXPRESION . orOp EXPRESION
+   58          | EXPRESION . andOp EXPRESION
+   60          | EXPRESION . esigual EXPRESION
+   61          | EXPRESION . noigual EXPRESION
+   62          | EXPRESION . mayor EXPRESION
+   63          | EXPRESION . menor EXPRESION
+   64          | EXPRESION . mayorigual EXPRESION
+   64          | EXPRESION mayorigual EXPRESION .
+   65          | EXPRESION . menorigual EXPRESION
+   66          | EXPRESION . esnulo EXPRESION
+
+    esnulo  desplazar e ir al estado 117
+
+    $default  reduce usando la regla 64 (EXPRESION)
+
+
+State 171
+
+   57 EXPRESION: EXPRESION . orOp EXPRESION
+   58          | EXPRESION . andOp EXPRESION
+   60          | EXPRESION . esigual EXPRESION
+   61          | EXPRESION . noigual EXPRESION
+   62          | EXPRESION . mayor EXPRESION
+   63          | EXPRESION . menor EXPRESION
+   64          | EXPRESION . mayorigual EXPRESION
+   65          | EXPRESION . menorigual EXPRESION
+   65          | EXPRESION menorigual EXPRESION .
+   66          | EXPRESION . esnulo EXPRESION
+
+    esnulo  desplazar e ir al estado 117
+
+    $default  reduce usando la regla 65 (EXPRESION)
+
+
+State 172
+
+   57 EXPRESION: EXPRESION . orOp EXPRESION
+   58          | EXPRESION . andOp EXPRESION
+   60          | EXPRESION . esigual EXPRESION
+   61          | EXPRESION . noigual EXPRESION
+   62          | EXPRESION . mayor EXPRESION
+   63          | EXPRESION . menor EXPRESION
+   64          | EXPRESION . mayorigual EXPRESION
+   65          | EXPRESION . menorigual EXPRESION
+   66          | EXPRESION . esnulo EXPRESION
+   66          | EXPRESION esnulo EXPRESION .
+
+    $default  reduce usando la regla 66 (EXPRESION)
+
+
+State 173
+
+   57 EXPRESION: EXPRESION . orOp EXPRESION
+   57          | EXPRESION orOp EXPRESION .
+   58          | EXPRESION . andOp EXPRESION
+   60          | EXPRESION . esigual EXPRESION
+   61          | EXPRESION . noigual EXPRESION
+   62          | EXPRESION . mayor EXPRESION
+   63          | EXPRESION . menor EXPRESION
+   64          | EXPRESION . mayorigual EXPRESION
+   65          | EXPRESION . menorigual EXPRESION
+   66          | EXPRESION . esnulo EXPRESION
+
+    esigual     desplazar e ir al estado 111
+    noigual     desplazar e ir al estado 112
+    mayor       desplazar e ir al estado 113
+    menor       desplazar e ir al estado 114
+    mayorigual  desplazar e ir al estado 115
+    menorigual  desplazar e ir al estado 116
+    esnulo      desplazar e ir al estado 117
+    andOp       desplazar e ir al estado 119
+
+    $default  reduce usando la regla 57 (EXPRESION)
+
+
+State 174
+
+   57 EXPRESION: EXPRESION . orOp EXPRESION
+   58          | EXPRESION . andOp EXPRESION
+   58          | EXPRESION andOp EXPRESION .
+   60          | EXPRESION . esigual EXPRESION
+   61          | EXPRESION . noigual EXPRESION
+   62          | EXPRESION . mayor EXPRESION
+   63          | EXPRESION . menor EXPRESION
+   64          | EXPRESION . mayorigual EXPRESION
+   65          | EXPRESION . menorigual EXPRESION
+   66          | EXPRESION . esnulo EXPRESION
+
+    esigual     desplazar e ir al estado 111
+    noigual     desplazar e ir al estado 112
+    mayor       desplazar e ir al estado 113
+    menor       desplazar e ir al estado 114
+    mayorigual  desplazar e ir al estado 115
+    menorigual  desplazar e ir al estado 116
+    esnulo      desplazar e ir al estado 117
+
+    $default  reduce usando la regla 58 (EXPRESION)
+
+
+State 175
+
+   68 EXPMAT: EXPMAT . mas EXPMAT
+   68       | EXPMAT mas EXPMAT .
+   69       | EXPMAT . menos EXPMAT
+   70       | EXPMAT . por EXPMAT
+   71       | EXPMAT . divOp EXPMAT
+   72       | EXPMAT . potencia EXPMAT
+
+    por       desplazar e ir al estado 122
+    divOp     desplazar e ir al estado 123
+    potencia  desplazar e ir al estado 124
+
+    $default  reduce usando la regla 68 (EXPMAT)
+
+
+State 176
+
+   68 EXPMAT: EXPMAT . mas EXPMAT
+   69       | EXPMAT . menos EXPMAT
+   69       | EXPMAT menos EXPMAT .
+   70       | EXPMAT . por EXPMAT
+   71       | EXPMAT . divOp EXPMAT
+   72       | EXPMAT . potencia EXPMAT
+
+    por       desplazar e ir al estado 122
+    divOp     desplazar e ir al estado 123
+    potencia  desplazar e ir al estado 124
+
+    $default  reduce usando la regla 69 (EXPMAT)
+
+
+State 177
+
+   68 EXPMAT: EXPMAT . mas EXPMAT
+   69       | EXPMAT . menos EXPMAT
+   70       | EXPMAT . por EXPMAT
+   70       | EXPMAT por EXPMAT .
+   71       | EXPMAT . divOp EXPMAT
+   72       | EXPMAT . potencia EXPMAT
+
+    potencia  desplazar e ir al estado 124
+
+    $default  reduce usando la regla 70 (EXPMAT)
+
+
+State 178
+
+   68 EXPMAT: EXPMAT . mas EXPMAT
+   69       | EXPMAT . menos EXPMAT
+   70       | EXPMAT . por EXPMAT
+   71       | EXPMAT . divOp EXPMAT
+   71       | EXPMAT divOp EXPMAT .
+   72       | EXPMAT . potencia EXPMAT
+
+    potencia  desplazar e ir al estado 124
+
+    $default  reduce usando la regla 71 (EXPMAT)
+
+
+State 179
+
+   68 EXPMAT: EXPMAT . mas EXPMAT
+   69       | EXPMAT . menos EXPMAT
+   70       | EXPMAT . por EXPMAT
+   71       | EXPMAT . divOp EXPMAT
+   72       | EXPMAT . potencia EXPMAT
+   72       | EXPMAT potencia EXPMAT .
+
+    potencia  desplazar e ir al estado 124
+
+    $default  reduce usando la regla 72 (EXPMAT)
+
+
+State 180
+
+  112 VAR_ASIG: id sig_igual . ASIGNACION
+
+    par_a           desplazar e ir al estado 65
+    id              desplazar e ir al estado 66
+    numero          desplazar e ir al estado 67
+    string_token    desplazar e ir al estado 68
+    caracter_token  desplazar e ir al estado 69
+    true_rsv        desplazar e ir al estado 70
+    false_rsv       desplazar e ir al estado 71
+    imprimir_rsv    desplazar e ir al estado 72
+    este_rsv        desplazar e ir al estado 73
+    notOp           desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 76
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ASIGNACION      ir al estado 212
+    VALOR           ir al estado 81
+    ARR_ACCESO      ir al estado 82
+    FUNCALL         ir al estado 83
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 85
+    ACCESOMETODO    ir al estado 86
+
+
+State 181
+
+   54 DECVAR: id TIPO .
+   55       | id TIPO . sig_igual ASIGNACION
+   96 DECARRVAR: id TIPO . DIMLIST
+   97          | id TIPO . DIMLIST sig_igual INICIAR_ARR
+
+    llave_a    desplazar e ir al estado 62
+    sig_igual  desplazar e ir al estado 213
+
+    $default  reduce usando la regla 54 (DECVAR)
+
+    DIMLIST  ir al estado 214
+    DIM      ir al estado 64
+
+
+State 182
+
+   56 RETORNO: retornar_rsv EXPRESION .
+   57 EXPRESION: EXPRESION . orOp EXPRESION
+   58          | EXPRESION . andOp EXPRESION
+   60          | EXPRESION . esigual EXPRESION
+   61          | EXPRESION . noigual EXPRESION
+   62          | EXPRESION . mayor EXPRESION
+   63          | EXPRESION . menor EXPRESION
+   64          | EXPRESION . mayorigual EXPRESION
+   65          | EXPRESION . menorigual EXPRESION
+   66          | EXPRESION . esnulo EXPRESION
+
+    esigual     desplazar e ir al estado 111
+    noigual     desplazar e ir al estado 112
+    mayor       desplazar e ir al estado 113
+    menor       desplazar e ir al estado 114
+    mayorigual  desplazar e ir al estado 115
+    menorigual  desplazar e ir al estado 116
+    esnulo      desplazar e ir al estado 117
+    orOp        desplazar e ir al estado 118
+    andOp       desplazar e ir al estado 119
+
+    $default  reduce usando la regla 56 (RETORNO)
+
+
+State 183
+
+   80 IF: si_cumple_rsv par_a . EXPRESION par_c dolar INSTRUCCIONES dolar
+   81   | si_cumple_rsv par_a . EXPRESION par_c dolar INSTRUCCIONES dolar sino_cumple_rsv dolar INSTRUCCIONES dolar
+   82   | si_cumple_rsv par_a . EXPRESION par_c dolar INSTRUCCIONES dolar ELSEIFLIST sino_cumple_rsv dolar INSTRUCCIONES dolar
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+    notOp      desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 215
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 184
+
+   87 CICLO: repetir_mientras_rsv par_a . EXPRESION par_c dolar INSTRUCCIONES dolar
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+    notOp      desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 216
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 185
+
+   36 DECMETODO: def_rsv id TIPO par_a par_c dolar INSTRUCCIONES dolar .
+
+    $default  reduce usando la regla 36 (DECMETODO)
+
+
+State 186
+
+   41 INSTRUCCIONES: INSTRUCCIONES SENTENCIAS .
+
+    $default  reduce usando la regla 41 (INSTRUCCIONES)
+
+
+State 187
+
+   43 SENTENCIAS: DECVAR p_coma .
+
+    $default  reduce usando la regla 43 (SENTENCIAS)
+
+
+State 188
+
+   44 SENTENCIAS: RETORNO p_coma .
+
+    $default  reduce usando la regla 44 (SENTENCIAS)
+
+
+State 189
+
+   47 SENTENCIAS: DETENER p_coma .
+
+    $default  reduce usando la regla 47 (SENTENCIAS)
+
+
+State 190
+
+   48 SENTENCIAS: OPSIMP p_coma .
+
+    $default  reduce usando la regla 48 (SENTENCIAS)
+
+
+State 191
+
+   49 SENTENCIAS: DECARRVAR p_coma .
+
+    $default  reduce usando la regla 49 (SENTENCIAS)
+
+
+State 192
+
+  111 ASIG_ARR: ARR_ACCESO sig_igual . ASIGNACION
+
+    par_a           desplazar e ir al estado 65
+    id              desplazar e ir al estado 66
+    numero          desplazar e ir al estado 67
+    string_token    desplazar e ir al estado 68
+    caracter_token  desplazar e ir al estado 69
+    true_rsv        desplazar e ir al estado 70
+    false_rsv       desplazar e ir al estado 71
+    imprimir_rsv    desplazar e ir al estado 72
+    este_rsv        desplazar e ir al estado 73
+    notOp           desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 76
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ASIGNACION      ir al estado 217
+    VALOR           ir al estado 81
+    ARR_ACCESO      ir al estado 82
+    FUNCALL         ir al estado 83
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 85
+    ACCESOMETODO    ir al estado 86
+
+
+State 193
+
+   50 SENTENCIAS: ASIG_ARR p_coma .
+
+    $default  reduce usando la regla 50 (SENTENCIAS)
+
+
+State 194
+
+   51 SENTENCIAS: VAR_ASIG p_coma .
+
+    $default  reduce usando la regla 51 (SENTENCIAS)
+
+
+State 195
+
+   52 SENTENCIAS: FUNCALL p_coma .
+
+    $default  reduce usando la regla 52 (SENTENCIAS)
+
+
+State 196
+
+  122 MODIFATRIBUTO: ACCESOATRIBUTO sig_igual . ASIGNACION
+
+    par_a           desplazar e ir al estado 65
+    id              desplazar e ir al estado 66
+    numero          desplazar e ir al estado 67
+    string_token    desplazar e ir al estado 68
+    caracter_token  desplazar e ir al estado 69
+    true_rsv        desplazar e ir al estado 70
+    false_rsv       desplazar e ir al estado 71
+    imprimir_rsv    desplazar e ir al estado 72
+    este_rsv        desplazar e ir al estado 73
+    notOp           desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 76
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ASIGNACION      ir al estado 218
+    VALOR           ir al estado 81
+    ARR_ACCESO      ir al estado 82
+    FUNCALL         ir al estado 83
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 85
+    ACCESOMETODO    ir al estado 86
+
+
+State 197
+
+   53 SENTENCIAS: MODIFATRIBUTO p_coma .
+
+    $default  reduce usando la regla 53 (SENTENCIAS)
+
+
+State 198
+
+   34 DECMETODO: def_rsv id TIPO par_a PARAMLIST par_c dolar INSTRUCCIONES . dolar
+   41 INSTRUCCIONES: INSTRUCCIONES . SENTENCIAS
+
+    id                    desplazar e ir al estado 129
+    dolar                 desplazar e ir al estado 219
+    retornar_rsv          desplazar e ir al estado 130
+    si_cumple_rsv         desplazar e ir al estado 131
+    repetir_mientras_rsv  desplazar e ir al estado 132
+    detener_rsv           desplazar e ir al estado 133
+    imprimir_rsv          desplazar e ir al estado 72
+    este_rsv              desplazar e ir al estado 73
+
+    SENTENCIAS      ir al estado 186
+    DECVAR          ir al estado 136
+    RETORNO         ir al estado 137
+    IF              ir al estado 138
+    DETENER         ir al estado 139
+    CICLO           ir al estado 140
+    OPSIMP          ir al estado 141
+    DECARRVAR       ir al estado 142
+    ARR_ACCESO      ir al estado 143
+    ASIG_ARR        ir al estado 144
+    VAR_ASIG        ir al estado 145
+    FUNCALL         ir al estado 146
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 147
+    MODIFATRIBUTO   ir al estado 148
+    ACCESOMETODO    ir al estado 86
+
+
+State 199
+
+   35 DECMETODO: def_rsv TIPO_ACCESO id TIPO par_a par_c dolar INSTRUCCIONES . dolar
+   41 INSTRUCCIONES: INSTRUCCIONES . SENTENCIAS
+
+    id                    desplazar e ir al estado 129
+    dolar                 desplazar e ir al estado 220
+    retornar_rsv          desplazar e ir al estado 130
+    si_cumple_rsv         desplazar e ir al estado 131
+    repetir_mientras_rsv  desplazar e ir al estado 132
+    detener_rsv           desplazar e ir al estado 133
+    imprimir_rsv          desplazar e ir al estado 72
+    este_rsv              desplazar e ir al estado 73
+
+    SENTENCIAS      ir al estado 186
+    DECVAR          ir al estado 136
+    RETORNO         ir al estado 137
+    IF              ir al estado 138
+    DETENER         ir al estado 139
+    CICLO           ir al estado 140
+    OPSIMP          ir al estado 141
+    DECARRVAR       ir al estado 142
+    ARR_ACCESO      ir al estado 143
+    ASIG_ARR        ir al estado 144
+    VAR_ASIG        ir al estado 145
+    FUNCALL         ir al estado 146
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 147
+    MODIFATRIBUTO   ir al estado 148
+    ACCESOMETODO    ir al estado 86
+
+
+State 200
+
+   33 DECMETODO: def_rsv TIPO_ACCESO id TIPO par_a PARAMLIST par_c dolar . INSTRUCCIONES dolar
+
+    id                    desplazar e ir al estado 129
+    retornar_rsv          desplazar e ir al estado 130
+    si_cumple_rsv         desplazar e ir al estado 131
+    repetir_mientras_rsv  desplazar e ir al estado 132
+    detener_rsv           desplazar e ir al estado 133
+    imprimir_rsv          desplazar e ir al estado 72
+    este_rsv              desplazar e ir al estado 73
+
+    INSTRUCCIONES   ir al estado 221
+    SENTENCIAS      ir al estado 135
+    DECVAR          ir al estado 136
+    RETORNO         ir al estado 137
+    IF              ir al estado 138
+    DETENER         ir al estado 139
+    CICLO           ir al estado 140
+    OPSIMP          ir al estado 141
+    DECARRVAR       ir al estado 142
+    ARR_ACCESO      ir al estado 143
+    ASIG_ARR        ir al estado 144
+    VAR_ASIG        ir al estado 145
+    FUNCALL         ir al estado 146
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 147
+    MODIFATRIBUTO   ir al estado 148
+    ACCESOMETODO    ir al estado 86
+
+
+State 201
+
+  109 ASIGLIST: ASIGNACION .
+
+    $default  reduce usando la regla 109 (ASIGLIST)
+
+
+State 202
+
+  107 LISTA_ASIG_ARR: INICIAR_ARR .
+
+    $default  reduce usando la regla 107 (LISTA_ASIG_ARR)
+
+
+State 203
+
+  104 INICIAR_ARR: llave_a LISTA_ASIG_ARR . llave_c
+  106 LISTA_ASIG_ARR: LISTA_ASIG_ARR . coma INICIAR_ARR
+
+    llave_c  desplazar e ir al estado 222
+    coma     desplazar e ir al estado 223
+
+
+State 204
+
+  105 INICIAR_ARR: llave_a ASIGLIST . llave_c
+  108 ASIGLIST: ASIGLIST . coma ASIGNACION
+
+    llave_c  desplazar e ir al estado 224
+    coma     desplazar e ir al estado 225
+
+
+State 205
+
+  120 ACCESOATRIBUTO: id punto id .
+
+    $default  reduce usando la regla 120 (ACCESOATRIBUTO)
+
+
+State 206
+
+  121 ACCESOATRIBUTO: este_rsv punto id .
+
+    $default  reduce usando la regla 121 (ACCESOATRIBUTO)
+
+
+State 207
+
+  116 FUNCALL: id par_a PARAMS par_c .
+
+    $default  reduce usando la regla 116 (FUNCALL)
+
+
+State 208
+
+  118 PARAMS: PARAMS coma . VALOR
+
+    par_a           desplazar e ir al estado 65
+    id              desplazar e ir al estado 66
+    numero          desplazar e ir al estado 67
+    string_token    desplazar e ir al estado 68
+    caracter_token  desplazar e ir al estado 69
+    true_rsv        desplazar e ir al estado 70
+    false_rsv       desplazar e ir al estado 71
+    imprimir_rsv    desplazar e ir al estado 72
+    este_rsv        desplazar e ir al estado 73
+    notOp           desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 76
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    VALOR           ir al estado 226
+    ARR_ACCESO      ir al estado 82
+    FUNCALL         ir al estado 83
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 85
+    ACCESOMETODO    ir al estado 86
+
+
+State 209
+
+  123 ACCESOMETODO: id punto id par_a . par_c
+  125             | id punto id par_a . PARAMS par_c
+
+    par_a           desplazar e ir al estado 65
+    par_c           desplazar e ir al estado 227
+    id              desplazar e ir al estado 66
+    numero          desplazar e ir al estado 67
+    string_token    desplazar e ir al estado 68
+    caracter_token  desplazar e ir al estado 69
+    true_rsv        desplazar e ir al estado 70
+    false_rsv       desplazar e ir al estado 71
+    imprimir_rsv    desplazar e ir al estado 72
+    este_rsv        desplazar e ir al estado 73
+    notOp           desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 76
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    VALOR           ir al estado 161
+    ARR_ACCESO      ir al estado 82
+    FUNCALL         ir al estado 83
+    IMPRIMIR        ir al estado 84
+    PARAMS          ir al estado 228
+    ACCESOATRIBUTO  ir al estado 85
+    ACCESOMETODO    ir al estado 86
+
+
+State 210
+
+  117 IMPRIMIR: imprimir_rsv par_a VALOR par_c .
+
+    $default  reduce usando la regla 117 (IMPRIMIR)
+
+
+State 211
+
+  124 ACCESOMETODO: este_rsv punto id par_a . par_c
+  126             | este_rsv punto id par_a . PARAMS par_c
+
+    par_a           desplazar e ir al estado 65
+    par_c           desplazar e ir al estado 229
+    id              desplazar e ir al estado 66
+    numero          desplazar e ir al estado 67
+    string_token    desplazar e ir al estado 68
+    caracter_token  desplazar e ir al estado 69
+    true_rsv        desplazar e ir al estado 70
+    false_rsv       desplazar e ir al estado 71
+    imprimir_rsv    desplazar e ir al estado 72
+    este_rsv        desplazar e ir al estado 73
+    notOp           desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 76
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    VALOR           ir al estado 161
+    ARR_ACCESO      ir al estado 82
+    FUNCALL         ir al estado 83
+    IMPRIMIR        ir al estado 84
+    PARAMS          ir al estado 230
+    ACCESOATRIBUTO  ir al estado 85
+    ACCESOMETODO    ir al estado 86
+
+
+State 212
+
+  112 VAR_ASIG: id sig_igual ASIGNACION .
+
+    $default  reduce usando la regla 112 (VAR_ASIG)
+
+
+State 213
+
+   55 DECVAR: id TIPO sig_igual . ASIGNACION
+
+    par_a           desplazar e ir al estado 65
+    id              desplazar e ir al estado 66
+    numero          desplazar e ir al estado 67
+    string_token    desplazar e ir al estado 68
+    caracter_token  desplazar e ir al estado 69
+    true_rsv        desplazar e ir al estado 70
+    false_rsv       desplazar e ir al estado 71
+    imprimir_rsv    desplazar e ir al estado 72
+    este_rsv        desplazar e ir al estado 73
+    notOp           desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 76
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ASIGNACION      ir al estado 231
+    VALOR           ir al estado 81
+    ARR_ACCESO      ir al estado 82
+    FUNCALL         ir al estado 83
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 85
+    ACCESOMETODO    ir al estado 86
+
+
+State 214
+
+   22 DIMLIST: DIMLIST . DIM
+   96 DECARRVAR: id TIPO DIMLIST .
+   97          | id TIPO DIMLIST . sig_igual INICIAR_ARR
+
+    llave_a    desplazar e ir al estado 62
+    sig_igual  desplazar e ir al estado 232
+
+    $default  reduce usando la regla 96 (DECARRVAR)
+
+    DIM  ir al estado 96
+
+
+State 215
+
+   57 EXPRESION: EXPRESION . orOp EXPRESION
+   58          | EXPRESION . andOp EXPRESION
+   60          | EXPRESION . esigual EXPRESION
+   61          | EXPRESION . noigual EXPRESION
+   62          | EXPRESION . mayor EXPRESION
+   63          | EXPRESION . menor EXPRESION
+   64          | EXPRESION . mayorigual EXPRESION
+   65          | EXPRESION . menorigual EXPRESION
+   66          | EXPRESION . esnulo EXPRESION
+   80 IF: si_cumple_rsv par_a EXPRESION . par_c dolar INSTRUCCIONES dolar
+   81   | si_cumple_rsv par_a EXPRESION . par_c dolar INSTRUCCIONES dolar sino_cumple_rsv dolar INSTRUCCIONES dolar
+   82   | si_cumple_rsv par_a EXPRESION . par_c dolar INSTRUCCIONES dolar ELSEIFLIST sino_cumple_rsv dolar INSTRUCCIONES dolar
+
+    par_c       desplazar e ir al estado 233
+    esigual     desplazar e ir al estado 111
+    noigual     desplazar e ir al estado 112
+    mayor       desplazar e ir al estado 113
+    menor       desplazar e ir al estado 114
+    mayorigual  desplazar e ir al estado 115
+    menorigual  desplazar e ir al estado 116
+    esnulo      desplazar e ir al estado 117
+    orOp        desplazar e ir al estado 118
+    andOp       desplazar e ir al estado 119
+
+
+State 216
+
+   57 EXPRESION: EXPRESION . orOp EXPRESION
+   58          | EXPRESION . andOp EXPRESION
+   60          | EXPRESION . esigual EXPRESION
+   61          | EXPRESION . noigual EXPRESION
+   62          | EXPRESION . mayor EXPRESION
+   63          | EXPRESION . menor EXPRESION
+   64          | EXPRESION . mayorigual EXPRESION
+   65          | EXPRESION . menorigual EXPRESION
+   66          | EXPRESION . esnulo EXPRESION
+   87 CICLO: repetir_mientras_rsv par_a EXPRESION . par_c dolar INSTRUCCIONES dolar
+
+    par_c       desplazar e ir al estado 234
+    esigual     desplazar e ir al estado 111
+    noigual     desplazar e ir al estado 112
+    mayor       desplazar e ir al estado 113
+    menor       desplazar e ir al estado 114
+    mayorigual  desplazar e ir al estado 115
+    menorigual  desplazar e ir al estado 116
+    esnulo      desplazar e ir al estado 117
+    orOp        desplazar e ir al estado 118
+    andOp       desplazar e ir al estado 119
+
+
+State 217
+
+  111 ASIG_ARR: ARR_ACCESO sig_igual ASIGNACION .
+
+    $default  reduce usando la regla 111 (ASIG_ARR)
+
+
+State 218
+
+  122 MODIFATRIBUTO: ACCESOATRIBUTO sig_igual ASIGNACION .
+
+    $default  reduce usando la regla 122 (MODIFATRIBUTO)
+
+
+State 219
+
+   34 DECMETODO: def_rsv id TIPO par_a PARAMLIST par_c dolar INSTRUCCIONES dolar .
+
+    $default  reduce usando la regla 34 (DECMETODO)
+
+
+State 220
+
+   35 DECMETODO: def_rsv TIPO_ACCESO id TIPO par_a par_c dolar INSTRUCCIONES dolar .
+
+    $default  reduce usando la regla 35 (DECMETODO)
+
+
+State 221
+
+   33 DECMETODO: def_rsv TIPO_ACCESO id TIPO par_a PARAMLIST par_c dolar INSTRUCCIONES . dolar
+   41 INSTRUCCIONES: INSTRUCCIONES . SENTENCIAS
+
+    id                    desplazar e ir al estado 129
+    dolar                 desplazar e ir al estado 235
+    retornar_rsv          desplazar e ir al estado 130
+    si_cumple_rsv         desplazar e ir al estado 131
+    repetir_mientras_rsv  desplazar e ir al estado 132
+    detener_rsv           desplazar e ir al estado 133
+    imprimir_rsv          desplazar e ir al estado 72
+    este_rsv              desplazar e ir al estado 73
+
+    SENTENCIAS      ir al estado 186
+    DECVAR          ir al estado 136
+    RETORNO         ir al estado 137
+    IF              ir al estado 138
+    DETENER         ir al estado 139
+    CICLO           ir al estado 140
+    OPSIMP          ir al estado 141
+    DECARRVAR       ir al estado 142
+    ARR_ACCESO      ir al estado 143
+    ASIG_ARR        ir al estado 144
+    VAR_ASIG        ir al estado 145
+    FUNCALL         ir al estado 146
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 147
+    MODIFATRIBUTO   ir al estado 148
+    ACCESOMETODO    ir al estado 86
+
+
+State 222
+
+  104 INICIAR_ARR: llave_a LISTA_ASIG_ARR llave_c .
+
+    $default  reduce usando la regla 104 (INICIAR_ARR)
+
+
+State 223
+
+  106 LISTA_ASIG_ARR: LISTA_ASIG_ARR coma . INICIAR_ARR
+
+    llave_a  desplazar e ir al estado 155
+
+    INICIAR_ARR  ir al estado 236
+
+
+State 224
+
+  105 INICIAR_ARR: llave_a ASIGLIST llave_c .
+
+    $default  reduce usando la regla 105 (INICIAR_ARR)
+
+
+State 225
+
+  108 ASIGLIST: ASIGLIST coma . ASIGNACION
+
+    par_a           desplazar e ir al estado 65
+    id              desplazar e ir al estado 66
+    numero          desplazar e ir al estado 67
+    string_token    desplazar e ir al estado 68
+    caracter_token  desplazar e ir al estado 69
+    true_rsv        desplazar e ir al estado 70
+    false_rsv       desplazar e ir al estado 71
+    imprimir_rsv    desplazar e ir al estado 72
+    este_rsv        desplazar e ir al estado 73
+    notOp           desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 76
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ASIGNACION      ir al estado 237
+    VALOR           ir al estado 81
+    ARR_ACCESO      ir al estado 82
+    FUNCALL         ir al estado 83
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 85
+    ACCESOMETODO    ir al estado 86
+
+
+State 226
+
+  118 PARAMS: PARAMS coma VALOR .
+
+    $default  reduce usando la regla 118 (PARAMS)
+
+
+State 227
+
+  123 ACCESOMETODO: id punto id par_a par_c .
+
+    $default  reduce usando la regla 123 (ACCESOMETODO)
+
+
+State 228
+
+  118 PARAMS: PARAMS . coma VALOR
+  125 ACCESOMETODO: id punto id par_a PARAMS . par_c
+
+    par_c  desplazar e ir al estado 238
+    coma   desplazar e ir al estado 208
+
+
+State 229
+
+  124 ACCESOMETODO: este_rsv punto id par_a par_c .
+
+    $default  reduce usando la regla 124 (ACCESOMETODO)
+
+
+State 230
+
+  118 PARAMS: PARAMS . coma VALOR
+  126 ACCESOMETODO: este_rsv punto id par_a PARAMS . par_c
+
+    par_c  desplazar e ir al estado 239
+    coma   desplazar e ir al estado 208
+
+
+State 231
+
+   55 DECVAR: id TIPO sig_igual ASIGNACION .
+
+    $default  reduce usando la regla 55 (DECVAR)
+
+
+State 232
+
+   97 DECARRVAR: id TIPO DIMLIST sig_igual . INICIAR_ARR
+
+    llave_a  desplazar e ir al estado 155
+
+    INICIAR_ARR  ir al estado 240
+
+
+State 233
+
+   80 IF: si_cumple_rsv par_a EXPRESION par_c . dolar INSTRUCCIONES dolar
+   81   | si_cumple_rsv par_a EXPRESION par_c . dolar INSTRUCCIONES dolar sino_cumple_rsv dolar INSTRUCCIONES dolar
+   82   | si_cumple_rsv par_a EXPRESION par_c . dolar INSTRUCCIONES dolar ELSEIFLIST sino_cumple_rsv dolar INSTRUCCIONES dolar
+
+    dolar  desplazar e ir al estado 241
+
+
+State 234
+
+   87 CICLO: repetir_mientras_rsv par_a EXPRESION par_c . dolar INSTRUCCIONES dolar
+
+    dolar  desplazar e ir al estado 242
+
+
+State 235
+
+   33 DECMETODO: def_rsv TIPO_ACCESO id TIPO par_a PARAMLIST par_c dolar INSTRUCCIONES dolar .
+
+    $default  reduce usando la regla 33 (DECMETODO)
+
+
+State 236
+
+  106 LISTA_ASIG_ARR: LISTA_ASIG_ARR coma INICIAR_ARR .
+
+    $default  reduce usando la regla 106 (LISTA_ASIG_ARR)
+
+
+State 237
+
+  108 ASIGLIST: ASIGLIST coma ASIGNACION .
+
+    $default  reduce usando la regla 108 (ASIGLIST)
+
+
+State 238
+
+  125 ACCESOMETODO: id punto id par_a PARAMS par_c .
+
+    $default  reduce usando la regla 125 (ACCESOMETODO)
+
+
+State 239
+
+  126 ACCESOMETODO: este_rsv punto id par_a PARAMS par_c .
+
+    $default  reduce usando la regla 126 (ACCESOMETODO)
+
+
+State 240
+
+   97 DECARRVAR: id TIPO DIMLIST sig_igual INICIAR_ARR .
+
+    $default  reduce usando la regla 97 (DECARRVAR)
+
+
+State 241
+
+   80 IF: si_cumple_rsv par_a EXPRESION par_c dolar . INSTRUCCIONES dolar
+   81   | si_cumple_rsv par_a EXPRESION par_c dolar . INSTRUCCIONES dolar sino_cumple_rsv dolar INSTRUCCIONES dolar
+   82   | si_cumple_rsv par_a EXPRESION par_c dolar . INSTRUCCIONES dolar ELSEIFLIST sino_cumple_rsv dolar INSTRUCCIONES dolar
+
+    id                    desplazar e ir al estado 129
+    retornar_rsv          desplazar e ir al estado 130
+    si_cumple_rsv         desplazar e ir al estado 131
+    repetir_mientras_rsv  desplazar e ir al estado 132
+    detener_rsv           desplazar e ir al estado 133
+    imprimir_rsv          desplazar e ir al estado 72
+    este_rsv              desplazar e ir al estado 73
+
+    INSTRUCCIONES   ir al estado 243
+    SENTENCIAS      ir al estado 135
+    DECVAR          ir al estado 136
+    RETORNO         ir al estado 137
+    IF              ir al estado 138
+    DETENER         ir al estado 139
+    CICLO           ir al estado 140
+    OPSIMP          ir al estado 141
+    DECARRVAR       ir al estado 142
+    ARR_ACCESO      ir al estado 143
+    ASIG_ARR        ir al estado 144
+    VAR_ASIG        ir al estado 145
+    FUNCALL         ir al estado 146
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 147
+    MODIFATRIBUTO   ir al estado 148
+    ACCESOMETODO    ir al estado 86
+
+
+State 242
+
+   87 CICLO: repetir_mientras_rsv par_a EXPRESION par_c dolar . INSTRUCCIONES dolar
+
+    id                    desplazar e ir al estado 129
+    retornar_rsv          desplazar e ir al estado 130
+    si_cumple_rsv         desplazar e ir al estado 131
+    repetir_mientras_rsv  desplazar e ir al estado 132
+    detener_rsv           desplazar e ir al estado 133
+    imprimir_rsv          desplazar e ir al estado 72
+    este_rsv              desplazar e ir al estado 73
+
+    INSTRUCCIONES   ir al estado 244
+    SENTENCIAS      ir al estado 135
+    DECVAR          ir al estado 136
+    RETORNO         ir al estado 137
+    IF              ir al estado 138
+    DETENER         ir al estado 139
+    CICLO           ir al estado 140
+    OPSIMP          ir al estado 141
+    DECARRVAR       ir al estado 142
+    ARR_ACCESO      ir al estado 143
+    ASIG_ARR        ir al estado 144
+    VAR_ASIG        ir al estado 145
+    FUNCALL         ir al estado 146
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 147
+    MODIFATRIBUTO   ir al estado 148
+    ACCESOMETODO    ir al estado 86
+
+
+State 243
+
+   41 INSTRUCCIONES: INSTRUCCIONES . SENTENCIAS
+   80 IF: si_cumple_rsv par_a EXPRESION par_c dolar INSTRUCCIONES . dolar
+   81   | si_cumple_rsv par_a EXPRESION par_c dolar INSTRUCCIONES . dolar sino_cumple_rsv dolar INSTRUCCIONES dolar
+   82   | si_cumple_rsv par_a EXPRESION par_c dolar INSTRUCCIONES . dolar ELSEIFLIST sino_cumple_rsv dolar INSTRUCCIONES dolar
+
+    id                    desplazar e ir al estado 129
+    dolar                 desplazar e ir al estado 245
+    retornar_rsv          desplazar e ir al estado 130
+    si_cumple_rsv         desplazar e ir al estado 131
+    repetir_mientras_rsv  desplazar e ir al estado 132
+    detener_rsv           desplazar e ir al estado 133
+    imprimir_rsv          desplazar e ir al estado 72
+    este_rsv              desplazar e ir al estado 73
+
+    SENTENCIAS      ir al estado 186
+    DECVAR          ir al estado 136
+    RETORNO         ir al estado 137
+    IF              ir al estado 138
+    DETENER         ir al estado 139
+    CICLO           ir al estado 140
+    OPSIMP          ir al estado 141
+    DECARRVAR       ir al estado 142
+    ARR_ACCESO      ir al estado 143
+    ASIG_ARR        ir al estado 144
+    VAR_ASIG        ir al estado 145
+    FUNCALL         ir al estado 146
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 147
+    MODIFATRIBUTO   ir al estado 148
+    ACCESOMETODO    ir al estado 86
+
+
+State 244
+
+   41 INSTRUCCIONES: INSTRUCCIONES . SENTENCIAS
+   87 CICLO: repetir_mientras_rsv par_a EXPRESION par_c dolar INSTRUCCIONES . dolar
+
+    id                    desplazar e ir al estado 129
+    dolar                 desplazar e ir al estado 246
+    retornar_rsv          desplazar e ir al estado 130
+    si_cumple_rsv         desplazar e ir al estado 131
+    repetir_mientras_rsv  desplazar e ir al estado 132
+    detener_rsv           desplazar e ir al estado 133
+    imprimir_rsv          desplazar e ir al estado 72
+    este_rsv              desplazar e ir al estado 73
+
+    SENTENCIAS      ir al estado 186
+    DECVAR          ir al estado 136
+    RETORNO         ir al estado 137
+    IF              ir al estado 138
+    DETENER         ir al estado 139
+    CICLO           ir al estado 140
+    OPSIMP          ir al estado 141
+    DECARRVAR       ir al estado 142
+    ARR_ACCESO      ir al estado 143
+    ASIG_ARR        ir al estado 144
+    VAR_ASIG        ir al estado 145
+    FUNCALL         ir al estado 146
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 147
+    MODIFATRIBUTO   ir al estado 148
+    ACCESOMETODO    ir al estado 86
+
+
+State 245
+
+   80 IF: si_cumple_rsv par_a EXPRESION par_c dolar INSTRUCCIONES dolar .
+   81   | si_cumple_rsv par_a EXPRESION par_c dolar INSTRUCCIONES dolar . sino_cumple_rsv dolar INSTRUCCIONES dolar
+   82   | si_cumple_rsv par_a EXPRESION par_c dolar INSTRUCCIONES dolar . ELSEIFLIST sino_cumple_rsv dolar INSTRUCCIONES dolar
+
+    sino_intente     desplazar e ir al estado 247
+    sino_cumple_rsv  desplazar e ir al estado 248
+
+    $default  reduce usando la regla 80 (IF)
+
+    ELSEIFLIST  ir al estado 249
+    ELSEIF      ir al estado 250
+
+
+State 246
+
+   87 CICLO: repetir_mientras_rsv par_a EXPRESION par_c dolar INSTRUCCIONES dolar .
+
+    $default  reduce usando la regla 87 (CICLO)
+
+
+State 247
+
+   85 ELSEIF: sino_intente . par_a EXPRESION par_c dolar INSTRUCCIONES dolar
+
+    par_a  desplazar e ir al estado 251
+
+
+State 248
+
+   81 IF: si_cumple_rsv par_a EXPRESION par_c dolar INSTRUCCIONES dolar sino_cumple_rsv . dolar INSTRUCCIONES dolar
+
+    dolar  desplazar e ir al estado 252
+
+
+State 249
+
+   82 IF: si_cumple_rsv par_a EXPRESION par_c dolar INSTRUCCIONES dolar ELSEIFLIST . sino_cumple_rsv dolar INSTRUCCIONES dolar
+   83 ELSEIFLIST: ELSEIFLIST . ELSEIF
+
+    sino_intente     desplazar e ir al estado 247
+    sino_cumple_rsv  desplazar e ir al estado 253
+
+    ELSEIF  ir al estado 254
+
+
+State 250
+
+   84 ELSEIFLIST: ELSEIF .
+
+    $default  reduce usando la regla 84 (ELSEIFLIST)
+
+
+State 251
+
+   85 ELSEIF: sino_intente par_a . EXPRESION par_c dolar INSTRUCCIONES dolar
+
+    par_a      desplazar e ir al estado 65
+    id         desplazar e ir al estado 97
+    numero     desplazar e ir al estado 67
+    true_rsv   desplazar e ir al estado 70
+    false_rsv  desplazar e ir al estado 71
+    este_rsv   desplazar e ir al estado 98
+    notOp      desplazar e ir al estado 74
+
+    BOOL            ir al estado 75
+    EXPRESION       ir al estado 255
+    EXPMAT          ir al estado 77
+    EXP             ir al estado 78
+    OPSIMP          ir al estado 79
+    ARR_ACCESO      ir al estado 82
+    ACCESOATRIBUTO  ir al estado 100
+
+
+State 252
+
+   81 IF: si_cumple_rsv par_a EXPRESION par_c dolar INSTRUCCIONES dolar sino_cumple_rsv dolar . INSTRUCCIONES dolar
+
+    id                    desplazar e ir al estado 129
+    retornar_rsv          desplazar e ir al estado 130
+    si_cumple_rsv         desplazar e ir al estado 131
+    repetir_mientras_rsv  desplazar e ir al estado 132
+    detener_rsv           desplazar e ir al estado 133
+    imprimir_rsv          desplazar e ir al estado 72
+    este_rsv              desplazar e ir al estado 73
+
+    INSTRUCCIONES   ir al estado 256
+    SENTENCIAS      ir al estado 135
+    DECVAR          ir al estado 136
+    RETORNO         ir al estado 137
+    IF              ir al estado 138
+    DETENER         ir al estado 139
+    CICLO           ir al estado 140
+    OPSIMP          ir al estado 141
+    DECARRVAR       ir al estado 142
+    ARR_ACCESO      ir al estado 143
+    ASIG_ARR        ir al estado 144
+    VAR_ASIG        ir al estado 145
+    FUNCALL         ir al estado 146
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 147
+    MODIFATRIBUTO   ir al estado 148
+    ACCESOMETODO    ir al estado 86
+
+
+State 253
+
+   82 IF: si_cumple_rsv par_a EXPRESION par_c dolar INSTRUCCIONES dolar ELSEIFLIST sino_cumple_rsv . dolar INSTRUCCIONES dolar
+
+    dolar  desplazar e ir al estado 257
+
+
+State 254
+
+   83 ELSEIFLIST: ELSEIFLIST ELSEIF .
+
+    $default  reduce usando la regla 83 (ELSEIFLIST)
+
+
+State 255
+
+   57 EXPRESION: EXPRESION . orOp EXPRESION
+   58          | EXPRESION . andOp EXPRESION
+   60          | EXPRESION . esigual EXPRESION
+   61          | EXPRESION . noigual EXPRESION
+   62          | EXPRESION . mayor EXPRESION
+   63          | EXPRESION . menor EXPRESION
+   64          | EXPRESION . mayorigual EXPRESION
+   65          | EXPRESION . menorigual EXPRESION
+   66          | EXPRESION . esnulo EXPRESION
+   85 ELSEIF: sino_intente par_a EXPRESION . par_c dolar INSTRUCCIONES dolar
+
+    par_c       desplazar e ir al estado 258
+    esigual     desplazar e ir al estado 111
+    noigual     desplazar e ir al estado 112
+    mayor       desplazar e ir al estado 113
+    menor       desplazar e ir al estado 114
+    mayorigual  desplazar e ir al estado 115
+    menorigual  desplazar e ir al estado 116
+    esnulo      desplazar e ir al estado 117
+    orOp        desplazar e ir al estado 118
+    andOp       desplazar e ir al estado 119
+
+
+State 256
+
+   41 INSTRUCCIONES: INSTRUCCIONES . SENTENCIAS
+   81 IF: si_cumple_rsv par_a EXPRESION par_c dolar INSTRUCCIONES dolar sino_cumple_rsv dolar INSTRUCCIONES . dolar
+
+    id                    desplazar e ir al estado 129
+    dolar                 desplazar e ir al estado 259
+    retornar_rsv          desplazar e ir al estado 130
+    si_cumple_rsv         desplazar e ir al estado 131
+    repetir_mientras_rsv  desplazar e ir al estado 132
+    detener_rsv           desplazar e ir al estado 133
+    imprimir_rsv          desplazar e ir al estado 72
+    este_rsv              desplazar e ir al estado 73
+
+    SENTENCIAS      ir al estado 186
+    DECVAR          ir al estado 136
+    RETORNO         ir al estado 137
+    IF              ir al estado 138
+    DETENER         ir al estado 139
+    CICLO           ir al estado 140
+    OPSIMP          ir al estado 141
+    DECARRVAR       ir al estado 142
+    ARR_ACCESO      ir al estado 143
+    ASIG_ARR        ir al estado 144
+    VAR_ASIG        ir al estado 145
+    FUNCALL         ir al estado 146
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 147
+    MODIFATRIBUTO   ir al estado 148
+    ACCESOMETODO    ir al estado 86
+
+
+State 257
+
+   82 IF: si_cumple_rsv par_a EXPRESION par_c dolar INSTRUCCIONES dolar ELSEIFLIST sino_cumple_rsv dolar . INSTRUCCIONES dolar
+
+    id                    desplazar e ir al estado 129
+    retornar_rsv          desplazar e ir al estado 130
+    si_cumple_rsv         desplazar e ir al estado 131
+    repetir_mientras_rsv  desplazar e ir al estado 132
+    detener_rsv           desplazar e ir al estado 133
+    imprimir_rsv          desplazar e ir al estado 72
+    este_rsv              desplazar e ir al estado 73
+
+    INSTRUCCIONES   ir al estado 260
+    SENTENCIAS      ir al estado 135
+    DECVAR          ir al estado 136
+    RETORNO         ir al estado 137
+    IF              ir al estado 138
+    DETENER         ir al estado 139
+    CICLO           ir al estado 140
+    OPSIMP          ir al estado 141
+    DECARRVAR       ir al estado 142
+    ARR_ACCESO      ir al estado 143
+    ASIG_ARR        ir al estado 144
+    VAR_ASIG        ir al estado 145
+    FUNCALL         ir al estado 146
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 147
+    MODIFATRIBUTO   ir al estado 148
+    ACCESOMETODO    ir al estado 86
+
+
+State 258
+
+   85 ELSEIF: sino_intente par_a EXPRESION par_c . dolar INSTRUCCIONES dolar
+
+    dolar  desplazar e ir al estado 261
+
+
+State 259
+
+   81 IF: si_cumple_rsv par_a EXPRESION par_c dolar INSTRUCCIONES dolar sino_cumple_rsv dolar INSTRUCCIONES dolar .
+
+    $default  reduce usando la regla 81 (IF)
+
+
+State 260
+
+   41 INSTRUCCIONES: INSTRUCCIONES . SENTENCIAS
+   82 IF: si_cumple_rsv par_a EXPRESION par_c dolar INSTRUCCIONES dolar ELSEIFLIST sino_cumple_rsv dolar INSTRUCCIONES . dolar
+
+    id                    desplazar e ir al estado 129
+    dolar                 desplazar e ir al estado 262
+    retornar_rsv          desplazar e ir al estado 130
+    si_cumple_rsv         desplazar e ir al estado 131
+    repetir_mientras_rsv  desplazar e ir al estado 132
+    detener_rsv           desplazar e ir al estado 133
+    imprimir_rsv          desplazar e ir al estado 72
+    este_rsv              desplazar e ir al estado 73
+
+    SENTENCIAS      ir al estado 186
+    DECVAR          ir al estado 136
+    RETORNO         ir al estado 137
+    IF              ir al estado 138
+    DETENER         ir al estado 139
+    CICLO           ir al estado 140
+    OPSIMP          ir al estado 141
+    DECARRVAR       ir al estado 142
+    ARR_ACCESO      ir al estado 143
+    ASIG_ARR        ir al estado 144
+    VAR_ASIG        ir al estado 145
+    FUNCALL         ir al estado 146
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 147
+    MODIFATRIBUTO   ir al estado 148
+    ACCESOMETODO    ir al estado 86
+
+
+State 261
+
+   85 ELSEIF: sino_intente par_a EXPRESION par_c dolar . INSTRUCCIONES dolar
+
+    id                    desplazar e ir al estado 129
+    retornar_rsv          desplazar e ir al estado 130
+    si_cumple_rsv         desplazar e ir al estado 131
+    repetir_mientras_rsv  desplazar e ir al estado 132
+    detener_rsv           desplazar e ir al estado 133
+    imprimir_rsv          desplazar e ir al estado 72
+    este_rsv              desplazar e ir al estado 73
+
+    INSTRUCCIONES   ir al estado 263
+    SENTENCIAS      ir al estado 135
+    DECVAR          ir al estado 136
+    RETORNO         ir al estado 137
+    IF              ir al estado 138
+    DETENER         ir al estado 139
+    CICLO           ir al estado 140
+    OPSIMP          ir al estado 141
+    DECARRVAR       ir al estado 142
+    ARR_ACCESO      ir al estado 143
+    ASIG_ARR        ir al estado 144
+    VAR_ASIG        ir al estado 145
+    FUNCALL         ir al estado 146
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 147
+    MODIFATRIBUTO   ir al estado 148
+    ACCESOMETODO    ir al estado 86
+
+
+State 262
+
+   82 IF: si_cumple_rsv par_a EXPRESION par_c dolar INSTRUCCIONES dolar ELSEIFLIST sino_cumple_rsv dolar INSTRUCCIONES dolar .
+
+    $default  reduce usando la regla 82 (IF)
+
+
+State 263
+
+   41 INSTRUCCIONES: INSTRUCCIONES . SENTENCIAS
+   85 ELSEIF: sino_intente par_a EXPRESION par_c dolar INSTRUCCIONES . dolar
+
+    id                    desplazar e ir al estado 129
+    dolar                 desplazar e ir al estado 264
+    retornar_rsv          desplazar e ir al estado 130
+    si_cumple_rsv         desplazar e ir al estado 131
+    repetir_mientras_rsv  desplazar e ir al estado 132
+    detener_rsv           desplazar e ir al estado 133
+    imprimir_rsv          desplazar e ir al estado 72
+    este_rsv              desplazar e ir al estado 73
+
+    SENTENCIAS      ir al estado 186
+    DECVAR          ir al estado 136
+    RETORNO         ir al estado 137
+    IF              ir al estado 138
+    DETENER         ir al estado 139
+    CICLO           ir al estado 140
+    OPSIMP          ir al estado 141
+    DECARRVAR       ir al estado 142
+    ARR_ACCESO      ir al estado 143
+    ASIG_ARR        ir al estado 144
+    VAR_ASIG        ir al estado 145
+    FUNCALL         ir al estado 146
+    IMPRIMIR        ir al estado 84
+    ACCESOATRIBUTO  ir al estado 147
+    MODIFATRIBUTO   ir al estado 148
+    ACCESOMETODO    ir al estado 86
+
+
+State 264
+
+   85 ELSEIF: sino_intente par_a EXPRESION par_c dolar INSTRUCCIONES dolar .
+
+    $default  reduce usando la regla 85 (ELSEIF)

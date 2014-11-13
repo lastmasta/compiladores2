@@ -1,0 +1,1 @@
+flex -P assemblerparser --header-file=AssemblerScanner.h -o AssemblerScanner.cpp AssemblerScanner.l
