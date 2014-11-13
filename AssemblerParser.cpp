@@ -95,7 +95,7 @@ cout << "Error SINTACTICO en la fila: " << assemblerparserlineno << " y columna:
 }
 
 void Iniciar(){
-  salidanasm.open("assembler.nasm");
+  salidanasm.open("assembler.asm");
 }
 
 
@@ -518,12 +518,12 @@ static const yytype_uint16 yyrline[] =
 {
        0,   138,   138,   138,   140,   141,   143,   144,   145,   146,
      147,   148,   150,   152,   153,   155,   156,   156,   158,   159,
-     159,   160,   160,   167,   169,   173,   178,   182,   183,   185,
-     186,   189,   190,   191,   192,   193,   194,   195,   196,   197,
-     198,   199,   200,   201,   202,   203,   204,   205,   208,   216,
-     224,   230,   235,   241,   243,   245,   265,   271,   277,   283,
-     285,   288,   301,   315,   315,   315,   315,   317,   319,   321,
-     321,   321,   321,   321,   321,   323,   329,   330,   331,   332
+     159,   169,   169,   176,   178,   182,   187,   191,   192,   194,
+     195,   198,   199,   200,   201,   202,   203,   204,   205,   206,
+     207,   208,   209,   210,   211,   212,   213,   214,   217,   225,
+     233,   239,   244,   250,   252,   254,   274,   280,   286,   292,
+     294,   297,   310,   324,   324,   324,   324,   326,   328,   330,
+     330,   330,   330,   330,   330,   332,   338,   339,   340,   347
 };
 #endif
 
@@ -1447,133 +1447,139 @@ yyreduce:
 
   case 19:
 #line 159 "AssemblerParser.y" /* yacc.c:1646  */
-    {salidanasm << (yyvsp[-3].st) << ":" << endl; salidanasm << "    pusha" << endl; }
-#line 1452 "AssemblerParser.cpp" /* yacc.c:1646  */
+    { salidanasm << (yyvsp[-3].st) << ":" << endl; 
+                                                  salidanasm << "    push rax" << endl;
+                                                  salidanasm << "    push rcx" << endl; }
+#line 1454 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 159 "AssemblerParser.y" /* yacc.c:1646  */
-    { salidanasm << "    popa" << endl; }
-#line 1458 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 21:
-#line 160 "AssemblerParser.y" /* yacc.c:1646  */
-    {salidanasm << "global _main" << endl; salidanasm << "_main:" << endl;}
+#line 163 "AssemblerParser.y" /* yacc.c:1646  */
+    {
+                                                                        salidanasm << "    pop rax" << endl;
+                                                                        salidanasm << "    pop rcx" << endl;
+                                                                        salidanasm << "    ret" << endl;
+                                                                      }
 #line 1464 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
+  case 21:
+#line 169 "AssemblerParser.y" /* yacc.c:1646  */
+    {salidanasm << "global _start" << endl; salidanasm << "_start:" << endl;}
+#line 1470 "AssemblerParser.cpp" /* yacc.c:1646  */
+    break;
+
   case 22:
-#line 160 "AssemblerParser.y" /* yacc.c:1646  */
+#line 169 "AssemblerParser.y" /* yacc.c:1646  */
     {
                                                                                                                                                   salidanasm << "    exit:" << endl;
                                                                                                                                                   salidanasm << "    mov eax, 1" << endl;
                                                                                                                                                   salidanasm << "    mov ebx, 0" << endl;
                                                                                                                                                   salidanasm << "    int 80h" << endl; 
                                                                                                                                                   }
-#line 1475 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1481 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 167 "AssemblerParser.y" /* yacc.c:1646  */
+#line 176 "AssemblerParser.y" /* yacc.c:1646  */
     { salidanasm << "section .data" << endl;
                                                       salidanasm << "    ptr: dd 0" << endl; }
-#line 1482 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1488 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 169 "AssemblerParser.y" /* yacc.c:1646  */
+#line 178 "AssemblerParser.y" /* yacc.c:1646  */
     {
                                                         salidanasm << "    ptrH: dd 0" << endl;  
                                                       }
-#line 1490 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1496 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 173 "AssemblerParser.y" /* yacc.c:1646  */
+#line 182 "AssemblerParser.y" /* yacc.c:1646  */
     {
                                                               salidanasm << "section .bss" << endl; 
                                                               salidanasm << "    Stack: resd 10000" << endl;
                                                               }
-#line 1499 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1505 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 178 "AssemblerParser.y" /* yacc.c:1646  */
+#line 187 "AssemblerParser.y" /* yacc.c:1646  */
     {
                                                               salidanasm << "    Heap: resd 10000" << endl;
                                                             }
-#line 1507 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1513 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 208 "AssemblerParser.y" /* yacc.c:1646  */
+#line 217 "AssemblerParser.y" /* yacc.c:1646  */
     {
-                                                                  salidanasm << "    mov ebx, Stack" << endl;
+                                                                  salidanasm << "    mov ebx, [Stack]" << endl;
                                                                   salidanasm << "    mov eax, " << (yyvsp[-2].st) << endl;
                                                                   salidanasm << "    mov ecx, [ebx + eax]" << endl;
                                                                   salidanasm << "    mov eax, ecx" << endl;
                                                                   salidanasm << "    mov ["<< (yyvsp[-6].st) << "], eax" << endl;
                                                                   }
-#line 1519 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1525 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 216 "AssemblerParser.y" /* yacc.c:1646  */
+#line 225 "AssemblerParser.y" /* yacc.c:1646  */
     {
-                                                                  salidanasm << "    mov ebx, Heap" << endl;
+                                                                  salidanasm << "    mov ebx, [Heap]" << endl;
                                                                   salidanasm << "    mov eax, " << (yyvsp[-2].st) << endl;
                                                                   salidanasm << "    mov ecx, [ebx + eax]" << endl;
                                                                   salidanasm << "    mov eax, ecx" << endl;
                                                                   salidanasm << "    mov ["<< (yyvsp[-6].st) << "], eax" << endl;
                                                                   }
-#line 1531 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1537 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 224 "AssemblerParser.y" /* yacc.c:1646  */
+#line 233 "AssemblerParser.y" /* yacc.c:1646  */
     {
-                                                                salidanasm << "    mov ebx, Stack" << endl; 
+                                                                salidanasm << "    mov ebx, [Stack]" << endl; 
                                                                 salidanasm << "    mov eax, " << (yyvsp[-4].st) << endl;
                                                                 salidanasm << "    mov ecx, " << (yyvsp[-1].st) << endl;
                                                                 salidanasm << "    mov[ebx + eax], ecx" << endl; }
-#line 1541 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1547 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 230 "AssemblerParser.y" /* yacc.c:1646  */
+#line 239 "AssemblerParser.y" /* yacc.c:1646  */
     {
-                                                                salidanasm << "    mov ebx, Heap" << endl; 
+                                                                salidanasm << "    mov ebx, [Heap]" << endl; 
                                                                 salidanasm << "    mov eax, " << (yyvsp[-4].st) << endl;
                                                                 salidanasm << "    mov ecx, " << (yyvsp[-1].st) << endl;
                                                                 salidanasm << "    mov[ebx + eax], ecx" << endl; }
-#line 1551 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1557 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 235 "AssemblerParser.y" /* yacc.c:1646  */
+#line 244 "AssemblerParser.y" /* yacc.c:1646  */
     {
-                                                                salidanasm << "    mov ebx, Heap" << endl; 
+                                                                salidanasm << "    mov ebx, [Heap]" << endl; 
                                                                 salidanasm << "    mov eax, " << (yyvsp[-4].st) << endl;
                                                                 salidanasm << "    mov ecx, " << (yyvsp[-1].st) << endl;
                                                                 salidanasm << "    mov[ebx + eax], ecx" << endl; }
-#line 1561 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 53:
-#line 241 "AssemblerParser.y" /* yacc.c:1646  */
-    {salidanasm << "    " << (yyvsp[-1].st) << ":" << endl;}
 #line 1567 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 54:
-#line 243 "AssemblerParser.y" /* yacc.c:1646  */
-    {salidanasm << "    JMP " << (yyvsp[-1].st) << endl; }
+  case 53:
+#line 250 "AssemblerParser.y" /* yacc.c:1646  */
+    {salidanasm << "    " << (yyvsp[-1].st) << ":" << endl;}
 #line 1573 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
+  case 54:
+#line 252 "AssemblerParser.y" /* yacc.c:1646  */
+    {salidanasm << "    JMP " << (yyvsp[-1].st) << endl; }
+#line 1579 "AssemblerParser.cpp" /* yacc.c:1646  */
+    break;
+
   case 55:
-#line 245 "AssemblerParser.y" /* yacc.c:1646  */
+#line 254 "AssemblerParser.y" /* yacc.c:1646  */
     {
                                                                         QString oprel = (yyvsp[-5].st);
                                                                         salidanasm << "    mov eax, " << (yyvsp[-6].st) << endl;
@@ -1593,55 +1599,55 @@ yyreduce:
                                                                           salidanasm << "    JLE " << (yyvsp[-1].st) << endl;
                                                                         }
                                                                     }
-#line 1597 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1603 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 265 "AssemblerParser.y" /* yacc.c:1646  */
+#line 274 "AssemblerParser.y" /* yacc.c:1646  */
     {
                                                       salidanasm << "    mov eax, ptr" << endl;
                                                       salidanasm << "    add eax, "<< (yyvsp[-1].st) << endl;  
                                                       salidanasm << "    mov [" << (yyvsp[-5].st) << "], eax" << endl;
                                                       }
-#line 1607 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1613 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 271 "AssemblerParser.y" /* yacc.c:1646  */
+#line 280 "AssemblerParser.y" /* yacc.c:1646  */
     {
                                                       salidanasm << "    mov eax, ptr" << endl;
                                                       salidanasm << "    add eax, "<< (yyvsp[-1].st) << endl;  
                                                       salidanasm << "    mov [ptr], eax" << endl;
                                                       }
-#line 1617 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1623 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 277 "AssemblerParser.y" /* yacc.c:1646  */
+#line 286 "AssemblerParser.y" /* yacc.c:1646  */
     {
                                                       salidanasm << "    mov eax, ptr" << endl;
                                                       salidanasm << "    sub eax, "<< (yyvsp[-1].st) << endl;  
                                                       salidanasm << "    mov [ptr], eax" << endl;
                                                       }
-#line 1627 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1633 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 283 "AssemblerParser.y" /* yacc.c:1646  */
+#line 292 "AssemblerParser.y" /* yacc.c:1646  */
     {  salidanasm << "    mov eax, ptrH" << endl;
                                               salidanasm << "    mov [" << (yyvsp[-3].st) << "], eax" << endl; }
-#line 1634 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1640 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 285 "AssemblerParser.y" /* yacc.c:1646  */
+#line 294 "AssemblerParser.y" /* yacc.c:1646  */
     {salidanasm << "    mov eax, " << (yyvsp[-1].st) << endl;
                                               salidanasm << "    mov [" << (yyvsp[-3].st) << "], eax" << endl; }
-#line 1641 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1647 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 288 "AssemblerParser.y" /* yacc.c:1646  */
+#line 297 "AssemblerParser.y" /* yacc.c:1646  */
     {salidanasm << "    mov eax, " << (yyvsp[-3].st) << endl;
                                               QString op = (yyvsp[-2].st);
                                               if(op == "+") {
@@ -1655,11 +1661,11 @@ yyreduce:
                                               }
                                               salidanasm << "    mov [" << (yyvsp[-5].st) << "], eax" << endl;
                                               }
-#line 1659 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1665 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 301 "AssemblerParser.y" /* yacc.c:1646  */
+#line 310 "AssemblerParser.y" /* yacc.c:1646  */
     {salidanasm << "    mov eax, " << (yyvsp[-3].st) << endl;
                                               QString op = (yyvsp[-2].st);
                                               if(op == "+") {
@@ -1673,87 +1679,109 @@ yyreduce:
                                               }
                                               salidanasm << "    mov [" << (yyvsp[-5].st) << "], eax" << endl;
                                               }
-#line 1677 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 63:
-#line 315 "AssemblerParser.y" /* yacc.c:1646  */
-    {(yyval.st) = (yyvsp[0].st);}
 #line 1683 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 64:
-#line 315 "AssemblerParser.y" /* yacc.c:1646  */
+  case 63:
+#line 324 "AssemblerParser.y" /* yacc.c:1646  */
     {(yyval.st) = (yyvsp[0].st);}
 #line 1689 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 65:
-#line 315 "AssemblerParser.y" /* yacc.c:1646  */
+  case 64:
+#line 324 "AssemblerParser.y" /* yacc.c:1646  */
     {(yyval.st) = (yyvsp[0].st);}
 #line 1695 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 66:
-#line 315 "AssemblerParser.y" /* yacc.c:1646  */
+  case 65:
+#line 324 "AssemblerParser.y" /* yacc.c:1646  */
     {(yyval.st) = (yyvsp[0].st);}
 #line 1701 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 67:
-#line 317 "AssemblerParser.y" /* yacc.c:1646  */
-    {salidanasm << "    call " << (yyvsp[-3].st) << endl;}
+  case 66:
+#line 324 "AssemblerParser.y" /* yacc.c:1646  */
+    {(yyval.st) = (yyvsp[0].st);}
 #line 1707 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 69:
-#line 321 "AssemblerParser.y" /* yacc.c:1646  */
-    {(yyval.st) = (yyvsp[0].st);}
+  case 67:
+#line 326 "AssemblerParser.y" /* yacc.c:1646  */
+    {salidanasm << "    call " << (yyvsp[-3].st) << endl;}
 #line 1713 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 70:
-#line 321 "AssemblerParser.y" /* yacc.c:1646  */
+  case 69:
+#line 330 "AssemblerParser.y" /* yacc.c:1646  */
     {(yyval.st) = (yyvsp[0].st);}
 #line 1719 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 71:
-#line 321 "AssemblerParser.y" /* yacc.c:1646  */
+  case 70:
+#line 330 "AssemblerParser.y" /* yacc.c:1646  */
     {(yyval.st) = (yyvsp[0].st);}
 #line 1725 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 72:
-#line 321 "AssemblerParser.y" /* yacc.c:1646  */
+  case 71:
+#line 330 "AssemblerParser.y" /* yacc.c:1646  */
     {(yyval.st) = (yyvsp[0].st);}
 #line 1731 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 73:
-#line 321 "AssemblerParser.y" /* yacc.c:1646  */
+  case 72:
+#line 330 "AssemblerParser.y" /* yacc.c:1646  */
     {(yyval.st) = (yyvsp[0].st);}
 #line 1737 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 74:
-#line 321 "AssemblerParser.y" /* yacc.c:1646  */
+  case 73:
+#line 330 "AssemblerParser.y" /* yacc.c:1646  */
     {(yyval.st) = (yyvsp[0].st);}
 #line 1743 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
+  case 74:
+#line 330 "AssemblerParser.y" /* yacc.c:1646  */
+    {(yyval.st) = (yyvsp[0].st);}
+#line 1749 "AssemblerParser.cpp" /* yacc.c:1646  */
+    break;
+
   case 75:
-#line 323 "AssemblerParser.y" /* yacc.c:1646  */
+#line 332 "AssemblerParser.y" /* yacc.c:1646  */
     {
                                                       salidanasm << "    mov eax, ptrH" << endl;
-                                                      salidanasm << "    add eax, "<< (yyvsp[-1].st) << endl;  
+                                                      salidanasm << "    add eax, " << (yyvsp[-1].st) << endl;  
                                                       salidanasm << "    mov [ptrH], eax" << endl;
                                                       }
-#line 1753 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1759 "AssemblerParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 78:
+#line 340 "AssemblerParser.y" /* yacc.c:1646  */
+    {  salidanasm << "    mov eax, 4" << endl;
+                                                                                        salidanasm << "    mov ebx, 1" << endl;
+                                                                                        salidanasm << "    mov ecx, " << (yyvsp[-3].st) << endl;
+                                                                                        salidanasm << "    mov edx, 100" << endl;
+                                                                                        salidanasm << "    int 80h" << endl; 
+                                                                                         }
+#line 1770 "AssemblerParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 79:
+#line 347 "AssemblerParser.y" /* yacc.c:1646  */
+    {                      salidanasm << "    mov eax, 4" << endl;
+                                                                                        salidanasm << "    mov ebx, 1" << endl;
+                                                                                        salidanasm << "    mov ecx, " << (yyvsp[-3].st) << endl; 
+                                                                                        salidanasm << "    mov edx, 100" << endl;
+                                                                                        salidanasm << "    int 80h" << endl; 
+                                                                                         }
+#line 1781 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
 
-#line 1757 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1785 "AssemblerParser.cpp" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1981,6 +2009,6 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 334 "AssemblerParser.y" /* yacc.c:1906  */
+#line 354 "AssemblerParser.y" /* yacc.c:1906  */
 
 

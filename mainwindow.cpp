@@ -46,7 +46,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_compilarBtn_clicked()
 {
-    cout<<"analizando...."<<endl;
+    this->ui->erroresText->setText("Analizando código de alto nivel...");
     QString codigo = this->ui->sourceArea->toPlainText();
     analizarCodigoFuente(codigo.toStdString());
 
@@ -63,7 +63,29 @@ void MainWindow::on_compilarBtn_clicked()
            inputFile.close();
         }
 
-        this->ui->erroresText->setText(errores);
+        if(errores!=""){
+            this->ui->erroresText->setText(errores);
+        } else {
+            this->ui->erroresText->append("Generando código de tres direcciones...");
+            this->ui->erroresText->append("Generando código ensamblador...");
+
+            QString codigo3D = "";
+
+            QFile tresdirFile("3D.cpp");
+            if(tresdirFile.open(QIODevice::ReadOnly)){
+                QTextStream in(&tresdirFile);
+                while (!in.atEnd() ){
+                    QString line = in.readLine();
+                    codigo3D += line;
+                }
+            }
+
+            analizarCodigo3D(codigo3D.toStdString());
+        }
+
+
+
+
 }
 
 void MainWindow::on_compilarBtn_2_clicked()
@@ -78,8 +100,6 @@ void MainWindow::on_compilarBtn_2_clicked()
 
 void MainWindow::on_compilar3d_btn_clicked()
 {
-    cout<<"analizando codigo de tres direcciones..."<<endl;
-    QString codigo = this->ui->sourceArea->toPlainText();
-    analizarCodigo3D(codigo.toStdString());
+
 
 }

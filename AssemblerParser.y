@@ -22,7 +22,7 @@ cout << "Error SINTACTICO en la fila: " << assemblerparserlineno << " y columna:
 }
 
 void Iniciar(){
-  salidanasm.open("assembler.nasm");
+  salidanasm.open("assembler.asm");
 }
 
 
@@ -156,8 +156,17 @@ DECMETODOS:       DECMETODOS DECMETODO
                 | { salidanasm << "section .text" << endl; } DECMETODO;
 
 DECMETODO:      void_rsv id par_a par_c p_coma
-              | void_rsv id par_a par_c llave_a {salidanasm << $2 << ":" << endl; salidanasm << "    pusha" << endl; } CUERPOMETODO llave_c { salidanasm << "    popa" << endl; }
-              | int_rsv main_rsv par_a par_c llave_a {salidanasm << "global _main" << endl; salidanasm << "_main:" << endl;} CUERPOMETODO llave_c {
+              | void_rsv id par_a par_c llave_a { salidanasm << $2 << ":" << endl; 
+                                                  salidanasm << "    push rax" << endl;
+                                                  salidanasm << "    push rcx" << endl; } 
+
+                                                  CUERPOMETODO llave_c {
+                                                                        salidanasm << "    pop rax" << endl;
+                                                                        salidanasm << "    pop rcx" << endl;
+                                                                        salidanasm << "    ret" << endl;
+                                                                      }
+
+              | int_rsv main_rsv par_a par_c llave_a {salidanasm << "global _start" << endl; salidanasm << "_start:" << endl;} CUERPOMETODO llave_c {
                                                                                                                                                   salidanasm << "    exit:" << endl;
                                                                                                                                                   salidanasm << "    mov eax, 1" << endl;
                                                                                                                                                   salidanasm << "    mov ebx, 0" << endl;
@@ -206,7 +215,7 @@ INSTRUCCIONESMETODO:  OBTENERDESTACK
 
 
 OBTENERDESTACK:   id sig_igual stack_rsv cor_a id cor_c p_coma {
-                                                                  salidanasm << "    mov ebx, Stack" << endl;
+                                                                  salidanasm << "    mov ebx, [Stack]" << endl;
                                                                   salidanasm << "    mov eax, " << $5 << endl;
                                                                   salidanasm << "    mov ecx, [ebx + eax]" << endl;
                                                                   salidanasm << "    mov eax, ecx" << endl;
@@ -214,7 +223,7 @@ OBTENERDESTACK:   id sig_igual stack_rsv cor_a id cor_c p_coma {
                                                                   } ;
 
 OBTENERDEHEAP:    id sig_igual heap_rsv cor_a id cor_c p_coma {
-                                                                  salidanasm << "    mov ebx, Heap" << endl;
+                                                                  salidanasm << "    mov ebx, [Heap]" << endl;
                                                                   salidanasm << "    mov eax, " << $5 << endl;
                                                                   salidanasm << "    mov ecx, [ebx + eax]" << endl;
                                                                   salidanasm << "    mov eax, ecx" << endl;
@@ -222,18 +231,18 @@ OBTENERDEHEAP:    id sig_igual heap_rsv cor_a id cor_c p_coma {
                                                                   } ;
 
 ASIGSTACK:        stack_rsv cor_a id cor_c sig_igual id p_coma {
-                                                                salidanasm << "    mov ebx, Stack" << endl; 
+                                                                salidanasm << "    mov ebx, [Stack]" << endl; 
                                                                 salidanasm << "    mov eax, " << $3 << endl;
                                                                 salidanasm << "    mov ecx, " << $6 << endl;
                                                                 salidanasm << "    mov[ebx + eax], ecx" << endl; } ;
 
 ASIGHEAP:         heap_rsv cor_a id cor_c sig_igual id p_coma {
-                                                                salidanasm << "    mov ebx, Heap" << endl; 
+                                                                salidanasm << "    mov ebx, [Heap]" << endl; 
                                                                 salidanasm << "    mov eax, " << $3 << endl;
                                                                 salidanasm << "    mov ecx, " << $6 << endl;
                                                                 salidanasm << "    mov[ebx + eax], ecx" << endl; }
                 | heap_rsv cor_a id cor_c sig_igual numero p_coma {
-                                                                salidanasm << "    mov ebx, Heap" << endl; 
+                                                                salidanasm << "    mov ebx, [Heap]" << endl; 
                                                                 salidanasm << "    mov eax, " << $3 << endl;
                                                                 salidanasm << "    mov ecx, " << $6 << endl;
                                                                 salidanasm << "    mov[ebx + eax], ecx" << endl; };
@@ -322,14 +331,25 @@ OPREL:      menor {$$ = $1;} | mayor {$$ = $1;} | mayorigual {$$ = $1;} | menori
 
 AUMENTARHEAP: ptrH sig_igual ptrH mas numero p_coma {
                                                       salidanasm << "    mov eax, ptrH" << endl;
-                                                      salidanasm << "    add eax, "<< $5 << endl;  
+                                                      salidanasm << "    add eax, " << $5 << endl;  
                                                       salidanasm << "    mov [ptrH], eax" << endl;
                                                       };
 
 IMPRIMIR:     cout_rsv doblemenor par_a char_rsv par_c id p_coma
             | cout_rsv doblemenor endl_rsv
-            | cout_rsv doblemenor par_a char_rsv par_c id doblemenor endl_rsv p_coma
-            | cout_rsv doblemenor id doblemenor endl_rsv p_coma;
+            | cout_rsv doblemenor par_a char_rsv par_c id doblemenor endl_rsv p_coma {  salidanasm << "    mov eax, 4" << endl;
+                                                                                        salidanasm << "    mov ebx, 1" << endl;
+                                                                                        salidanasm << "    mov ecx, " << $6 << endl;
+                                                                                        salidanasm << "    mov edx, 100" << endl;
+                                                                                        salidanasm << "    int 80h" << endl; 
+                                                                                         }
+
+            | cout_rsv doblemenor id doblemenor endl_rsv p_coma  {                      salidanasm << "    mov eax, 4" << endl;
+                                                                                        salidanasm << "    mov ebx, 1" << endl;
+                                                                                        salidanasm << "    mov ecx, " << $3 << endl; 
+                                                                                        salidanasm << "    mov edx, 100" << endl;
+                                                                                        salidanasm << "    int 80h" << endl; 
+                                                                                         } ;
 
 %%
 
