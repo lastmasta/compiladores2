@@ -19,7 +19,6 @@ public:
     void limpiar();
 
 
-
 private:
     QHash<QString, Simbolo>* tabla;
     ofstream myfile;

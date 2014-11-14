@@ -36,6 +36,11 @@ void inicializar() {
     gdc.generarImprimir();
 }
 
+TablaSimbolos *getTabla()
+{
+  TablaSimbolos *t = &gdc.tabla;
+  return t;
+}
 
 void mainparsererror(const char *s) {
 cout << "Error SINTACTICO en la fila: " << mainparserlineno << " y columna: " << mainparsercolno<< ": "<<mainparsertext << endl;

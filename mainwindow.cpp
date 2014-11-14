@@ -4,9 +4,14 @@
 
 extern int assemblerparserparse();
 extern int mainparserparse();
-extern void inicializar();
+extern int inversaparserparse();
+
 extern FILE *mainparserin;
 extern FILE *assemblerparserin;
+extern FILE *inversaparserin;
+
+extern void inicializar();
+extern TablaSimbolos *getTabla();
 
 void guardarCodigo(string texto)
 {
@@ -24,12 +29,21 @@ int  analizarCodigoFuente(string cadena)
         mainparserin=fopen("codigofuente.txt","rt");
         mainparserparse();
     }
+    return 0;
 }
 
 int analizarCodigo3D(string cadena){
     guardarCodigo(cadena);
     assemblerparserin=fopen("codigofuente.txt","rt");
     assemblerparserparse();
+    return 0;
+}
+
+int realizarIngenieriaInversa(string cadena){
+    guardarCodigo(cadena);
+    inversaparserin=fopen("codigofuente.txt","rt");
+    inversaparserparse();
+    return 0;
 }
 
 
@@ -121,11 +135,29 @@ void MainWindow::on_compilarBtn_2_clicked()
 void MainWindow::on_compilar3d_btn_clicked()
 {
 
-
 }
+
 
 void MainWindow::on_ejecutar_btn_clicked()
 {
     system("g++ 3D.cpp -o salida");
     system("xfce4-terminal --hold -e ./salida");
+}
+
+void MainWindow::on_compilarBtn_3_clicked()
+{
+    TablaSimbolos *t = getTabla();
+
+    QString codigo3D = "";
+
+    QFile tresdirFile("3D.cpp");
+    if(tresdirFile.open(QIODevice::ReadOnly)){
+        QTextStream in(&tresdirFile);
+        while (!in.atEnd() ){
+            QString line = in.readLine();
+            codigo3D += line;
+            this->ui->tresText->append(line);
+        }
+    }
+    realizarIngenieriaInversa(codigo3D.toStdString());
 }

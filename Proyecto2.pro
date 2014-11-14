@@ -23,7 +23,9 @@ SOURCES += main.cpp\
     tablasimbolos.cpp \
     errores.cpp \
     AssemblerParser.cpp \
-    AssemblerScanner.cpp
+    AssemblerScanner.cpp \
+    InversaParser.cpp \
+    InversaScanner.cpp
 
 HEADERS  += mainwindow.h \
     MainScanner.h \
@@ -38,11 +40,15 @@ HEADERS  += mainwindow.h \
     GlobalGenerador.h \
     AssemblerScanner.l \
     AssemblerParser.h \
-    AssemblerScanner.h
+    AssemblerScanner.h \
+    InversaParser.h \
+    InversaScanner.h \
+    InversaScanner.l
 
 FORMS    += mainwindow.ui
 
 OTHER_FILES += \
     MainParser.y \
     ../archivo_prueba.txt \
-    AssemblerParser.y
+    AssemblerParser.y \
+    InversaParser.y

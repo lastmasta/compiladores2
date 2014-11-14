@@ -157,12 +157,11 @@ DECMETODOS:       DECMETODOS DECMETODO
 
 DECMETODO:      void_rsv id par_a par_c p_coma
               | void_rsv id par_a par_c llave_a { salidanasm << $2 << ":" << endl; 
-                                                  salidanasm << "    push rax" << endl;
-                                                  salidanasm << "    push rcx" << endl; } 
+                                                  salidanasm << "    pusha" << endl;
+                                                   } 
 
                                                   CUERPOMETODO llave_c {
-                                                                        salidanasm << "    pop rax" << endl;
-                                                                        salidanasm << "    pop rcx" << endl;
+                                                                        salidanasm << "    popa" << endl;
                                                                         salidanasm << "    ret" << endl;
                                                                       }
 

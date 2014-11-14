@@ -11,11 +11,12 @@ public:
 
     enum Rol {atributo, variable, metodo, objeto, clase};
 
-    Simbolo(QString nombre, QString ambito, int nivel, int posicion, QString tipo, QString rol, int tamano, QString visibilidad);
-    Simbolo(QString nombre, QString ambito, int nivel, int posicion, QString tipo, QString rol, int tamano, QString visibilidad, QList<Nodo>* dimensiones);
+    Simbolo(QString nombre, QString id, QString ambito, int nivel, int posicion, QString tipo, QString rol, int tamano, QString visibilidad);
+    Simbolo(QString nombre, QString id, QString ambito, int nivel, int posicion, QString tipo, QString rol, int tamano, QString visibilidad, QList<Nodo>* dimensiones);
     Simbolo();
     QList<Nodo>* dimensiones;
     QString nombre;
+    QString id;
     QString ambito;
     int nivel;
     int posicion;

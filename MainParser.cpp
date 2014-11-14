@@ -109,6 +109,11 @@ void inicializar() {
     gdc.generarImprimir();
 }
 
+TablaSimbolos *getTabla()
+{
+  TablaSimbolos *t = &gdc.tabla;
+  return t;
+}
 
 void mainparsererror(const char *s) {
 cout << "Error SINTACTICO en la fila: " << mainparserlineno << " y columna: " << mainparsercolno<< ": "<<mainparsertext << endl;
@@ -116,7 +121,7 @@ cout << "Error SINTACTICO en la fila: " << mainparserlineno << " y columna: " <<
 
 
 
-#line 120 "MainParser.cpp" /* yacc.c:339  */
+#line 125 "MainParser.cpp" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -146,11 +151,11 @@ cout << "Error SINTACTICO en la fila: " << mainparserlineno << " y columna: " <<
 extern int mainparserdebug;
 #endif
 /* "%code requires" blocks.  */
-#line 47 "MainParser.y" /* yacc.c:355  */
+#line 52 "MainParser.y" /* yacc.c:355  */
 
    #include "nodo.h"
 
-#line 154 "MainParser.cpp" /* yacc.c:355  */
+#line 159 "MainParser.cpp" /* yacc.c:355  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -226,12 +231,12 @@ extern int mainparserdebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 51 "MainParser.y" /* yacc.c:355  */
+#line 56 "MainParser.y" /* yacc.c:355  */
 
 char *st;
 Nodo *nodo;
 
-#line 235 "MainParser.cpp" /* yacc.c:355  */
+#line 240 "MainParser.cpp" /* yacc.c:355  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -246,7 +251,7 @@ int mainparserparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 250 "MainParser.cpp" /* yacc.c:358  */
+#line 255 "MainParser.cpp" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -549,20 +554,20 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   200,   200,   207,   215,   222,   229,   241,   253,   259,
-     265,   272,   281,   287,   293,   300,   306,   312,   317,   322,
-     329,   339,   351,   362,   375,   381,   387,   393,   399,   405,
-     411,   417,   423,   430,   436,   444,   456,   467,   478,   490,
-     496,   502,   511,   524,   530,   536,   541,   546,   551,   556,
-     561,   566,   571,   576,   581,   587,   593,   603,   614,   620,
-     628,   636,   644,   646,   654,   662,   670,   678,   686,   694,
-     702,   704,   712,   720,   728,   736,   744,   746,   747,   753,
-     759,   760,   761,   763,   771,   780,   791,   797,   803,   809,
-     818,   823,   832,   842,   852,   862,   872,   879,   886,   893,
-     901,   911,   923,   928,   935,   943,   951,   956,   961,   968,
-     973,   979,   985,   991,   997,  1003,  1011,  1018,  1029,  1034,
-    1039,  1045,  1053,  1060,  1068,  1075,  1082,  1089,  1097,  1106,
-    1113,  1122,  1131,  1140
+       0,   205,   205,   212,   220,   227,   234,   246,   258,   264,
+     270,   277,   286,   292,   298,   305,   311,   317,   322,   327,
+     334,   344,   356,   367,   380,   386,   392,   398,   404,   410,
+     416,   422,   428,   435,   441,   449,   461,   472,   483,   495,
+     501,   507,   516,   529,   535,   541,   546,   551,   556,   561,
+     566,   571,   576,   581,   586,   592,   598,   608,   619,   625,
+     633,   641,   649,   651,   659,   667,   675,   683,   691,   699,
+     707,   709,   717,   725,   733,   741,   749,   751,   752,   758,
+     764,   765,   766,   768,   776,   785,   796,   802,   808,   814,
+     823,   828,   837,   847,   857,   867,   877,   884,   891,   898,
+     906,   916,   928,   933,   940,   948,   956,   961,   966,   973,
+     978,   984,   990,   996,  1002,  1008,  1016,  1023,  1034,  1039,
+    1044,  1050,  1058,  1065,  1073,  1080,  1087,  1094,  1102,  1111,
+    1118,  1127,  1136,  1145
 };
 #endif
 
@@ -1580,7 +1585,7 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 200 "MainParser.y" /* yacc.c:1646  */
+#line 205 "MainParser.y" /* yacc.c:1646  */
     {
                         Nodo* nodo = new Nodo("INICIO");
                         nodo->AgregarHijo((yyvsp[0].nodo));
@@ -1588,11 +1593,11 @@ yyreduce:
                         ga->Graficar(nodo);
                         gdc.AgregarAbol(nodo);
                       }
-#line 1592 "MainParser.cpp" /* yacc.c:1646  */
+#line 1597 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 207 "MainParser.y" /* yacc.c:1646  */
+#line 212 "MainParser.y" /* yacc.c:1646  */
     {
                                     Nodo* nodo = new Nodo("INICIO");
                                     nodo->AgregarHijo((yyvsp[-1].nodo));
@@ -1601,32 +1606,32 @@ yyreduce:
                                     ga->Graficar(nodo);
                                     gdc.AgregarAbol(nodo);
                                   }
-#line 1605 "MainParser.cpp" /* yacc.c:1646  */
+#line 1610 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 215 "MainParser.y" /* yacc.c:1646  */
+#line 220 "MainParser.y" /* yacc.c:1646  */
     {
                             Nodo* nodo = new Nodo("CLASE_LIST");
                             nodo->AgregarHijo((yyvsp[-1].nodo));
                             nodo->AgregarHijo((yyvsp[0].nodo));
                             (yyval.nodo) = nodo;
                             }
-#line 1616 "MainParser.cpp" /* yacc.c:1646  */
+#line 1621 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 222 "MainParser.y" /* yacc.c:1646  */
+#line 227 "MainParser.y" /* yacc.c:1646  */
     {
                         Nodo* nodo = new Nodo("CLASE_LIST");
                         nodo->AgregarHijo((yyvsp[0].nodo));
                         (yyval.nodo) = nodo;
                       }
-#line 1626 "MainParser.cpp" /* yacc.c:1646  */
+#line 1631 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 229 "MainParser.y" /* yacc.c:1646  */
+#line 234 "MainParser.y" /* yacc.c:1646  */
     {
                                                                               Nodo* nodo = new Nodo("CLASE");
                                                                               nodo->AgregarHijo((yyvsp[-5].nodo));
@@ -1638,11 +1643,11 @@ yyreduce:
                                                                               nodo->AgregarHijo((yyvsp[-1].nodo));
                                                                               (yyval.nodo) = nodo;
                                                                             }
-#line 1642 "MainParser.cpp" /* yacc.c:1646  */
+#line 1647 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 241 "MainParser.y" /* yacc.c:1646  */
+#line 246 "MainParser.y" /* yacc.c:1646  */
     {
                                                                               Nodo* nodo = new Nodo("CLASE");
                                                                               nodo->AgregarHijo((yyvsp[-6].nodo));
@@ -1654,44 +1659,44 @@ yyreduce:
                                                                               nodo->AgregarHijo((yyvsp[-1].nodo));
                                                                               (yyval.nodo) = nodo;
                                                                             }
-#line 1658 "MainParser.cpp" /* yacc.c:1646  */
+#line 1663 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 253 "MainParser.y" /* yacc.c:1646  */
+#line 258 "MainParser.y" /* yacc.c:1646  */
     {
                                 Nodo* nodo = new Nodo("TIPO_ACCESO");
                                 Nodo* val = new Nodo(QString::fromStdString((yyvsp[0].st)));
                                 nodo->AgregarHijo(val);
                                 (yyval.nodo) = nodo;
                               }
-#line 1669 "MainParser.cpp" /* yacc.c:1646  */
+#line 1674 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 259 "MainParser.y" /* yacc.c:1646  */
+#line 264 "MainParser.y" /* yacc.c:1646  */
     {
                                 Nodo* nodo = new Nodo("TIPO_ACCESO");
                                 Nodo* val = new Nodo(QString::fromStdString((yyvsp[0].st)));
                                 nodo->AgregarHijo(val);
                                 (yyval.nodo) = nodo;
                               }
-#line 1680 "MainParser.cpp" /* yacc.c:1646  */
+#line 1685 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 265 "MainParser.y" /* yacc.c:1646  */
+#line 270 "MainParser.y" /* yacc.c:1646  */
     {
                                 Nodo* nodo = new Nodo("TIPO_ACCESO");
                                 Nodo* val = new Nodo(QString::fromStdString((yyvsp[0].st)));
                                 nodo->AgregarHijo(val);
                                 (yyval.nodo) = nodo;
                               }
-#line 1691 "MainParser.cpp" /* yacc.c:1646  */
+#line 1696 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 272 "MainParser.y" /* yacc.c:1646  */
+#line 277 "MainParser.y" /* yacc.c:1646  */
     {
                                     Nodo* nodo = new Nodo("EXTIENDE");
                                     Nodo* id = new Nodo("ID");
@@ -1700,94 +1705,94 @@ yyreduce:
                                     nodo->AgregarHijo(id);
                                     (yyval.nodo) = nodo;
                                   }
-#line 1704 "MainParser.cpp" /* yacc.c:1646  */
+#line 1709 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 281 "MainParser.y" /* yacc.c:1646  */
+#line 286 "MainParser.y" /* yacc.c:1646  */
     {
                           Nodo* nodo = new Nodo("IMPORT_LIST");
                           nodo->AgregarHijo((yyvsp[-1].nodo));
                           nodo->AgregarHijo((yyvsp[0].nodo));
                           (yyval.nodo) = nodo;
                         }
-#line 1715 "MainParser.cpp" /* yacc.c:1646  */
+#line 1720 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 287 "MainParser.y" /* yacc.c:1646  */
+#line 292 "MainParser.y" /* yacc.c:1646  */
     {
                           Nodo* nodo = new Nodo("IMPORT_LIST");
                           nodo->AgregarHijo((yyvsp[0].nodo));
                           (yyval.nodo) = nodo;
                         }
-#line 1725 "MainParser.cpp" /* yacc.c:1646  */
+#line 1730 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 293 "MainParser.y" /* yacc.c:1646  */
+#line 298 "MainParser.y" /* yacc.c:1646  */
     {
                                           Nodo* nodo = new Nodo("IMPORT");
                                           Nodo* val = new Nodo(QString::fromStdString((yyvsp[0].st)));
                                           nodo->AgregarHijo(val);
                                           (yyval.nodo) = nodo;
                                         }
-#line 1736 "MainParser.cpp" /* yacc.c:1646  */
+#line 1741 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 300 "MainParser.y" /* yacc.c:1646  */
+#line 305 "MainParser.y" /* yacc.c:1646  */
     {
                                   Nodo* nodo = new Nodo("CUERPO_CLASE");
                                   nodo->AgregarHijo((yyvsp[-1].nodo));
                                   nodo->AgregarHijo((yyvsp[0].nodo));
                                   (yyval.nodo) = nodo;
                                 }
-#line 1747 "MainParser.cpp" /* yacc.c:1646  */
+#line 1752 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 306 "MainParser.y" /* yacc.c:1646  */
+#line 311 "MainParser.y" /* yacc.c:1646  */
     {
                                   Nodo* nodo = new Nodo("CUERPO_CLASE");
                                   nodo->AgregarHijo((yyvsp[0].nodo));
                                   (yyval.nodo) = nodo;
                                 }
-#line 1757 "MainParser.cpp" /* yacc.c:1646  */
+#line 1762 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 312 "MainParser.y" /* yacc.c:1646  */
+#line 317 "MainParser.y" /* yacc.c:1646  */
     {
                                     Nodo* nodo = new Nodo("SENTENCIAS_CLASE");
                                     nodo->AgregarHijo((yyvsp[-1].nodo));
                                     (yyval.nodo) = nodo;
                                   }
-#line 1767 "MainParser.cpp" /* yacc.c:1646  */
+#line 1772 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 317 "MainParser.y" /* yacc.c:1646  */
+#line 322 "MainParser.y" /* yacc.c:1646  */
     {
                                     Nodo* nodo = new Nodo("SENTENCIAS_CLASE");
                                     nodo->AgregarHijo((yyvsp[0].nodo));
                                     (yyval.nodo) = nodo;
                                   }
-#line 1777 "MainParser.cpp" /* yacc.c:1646  */
+#line 1782 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 322 "MainParser.y" /* yacc.c:1646  */
+#line 327 "MainParser.y" /* yacc.c:1646  */
     {
                                     Nodo* nodo = new Nodo("SENTENCIAS_CLASE");
                                     nodo->AgregarHijo((yyvsp[-1].nodo));
                                     (yyval.nodo) = nodo;
                                   }
-#line 1787 "MainParser.cpp" /* yacc.c:1646  */
+#line 1792 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 329 "MainParser.y" /* yacc.c:1646  */
+#line 334 "MainParser.y" /* yacc.c:1646  */
     {
                                                                   Nodo* nodo = new Nodo("DECATR");
                                                                   nodo->AgregarHijo((yyvsp[-2].nodo));
@@ -1798,11 +1803,11 @@ yyreduce:
                                                                   nodo->AgregarHijo((yyvsp[0].nodo));
                                                                   (yyval.nodo) = nodo;
                                                                 }
-#line 1802 "MainParser.cpp" /* yacc.c:1646  */
+#line 1807 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 339 "MainParser.y" /* yacc.c:1646  */
+#line 344 "MainParser.y" /* yacc.c:1646  */
     {
                                                                   Nodo* nodo = new Nodo("DECATR");
                                                                   nodo->AgregarHijo((yyvsp[-4].nodo));
@@ -1814,11 +1819,11 @@ yyreduce:
                                                                   nodo->AgregarHijo((yyvsp[0].nodo));
                                                                   (yyval.nodo) = nodo;
                                                                 }
-#line 1818 "MainParser.cpp" /* yacc.c:1646  */
+#line 1823 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 351 "MainParser.y" /* yacc.c:1646  */
+#line 356 "MainParser.y" /* yacc.c:1646  */
     {
                                                                               Nodo* nodo = new Nodo("DECARRATR");
                                                                               nodo->AgregarHijo((yyvsp[-3].nodo));
@@ -1830,11 +1835,11 @@ yyreduce:
                                                                               nodo->AgregarHijo((yyvsp[0].nodo));
                                                                               (yyval.nodo) = nodo;
                                                                             }
-#line 1834 "MainParser.cpp" /* yacc.c:1646  */
+#line 1839 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 362 "MainParser.y" /* yacc.c:1646  */
+#line 367 "MainParser.y" /* yacc.c:1646  */
     {
                                                                               Nodo* nodo = new Nodo("DECARRATR");
                                                                               nodo->AgregarHijo((yyvsp[-5].nodo));
@@ -1847,130 +1852,130 @@ yyreduce:
                                                                               nodo->AgregarHijo((yyvsp[0].nodo));
                                                                               (yyval.nodo) = nodo;
                                                                             }
-#line 1851 "MainParser.cpp" /* yacc.c:1646  */
+#line 1856 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 375 "MainParser.y" /* yacc.c:1646  */
+#line 380 "MainParser.y" /* yacc.c:1646  */
     {
                           Nodo* nodo = new Nodo("DIMLIST");
                           nodo->AgregarHijo((yyvsp[-1].nodo));
                           nodo->AgregarHijo((yyvsp[0].nodo));
                           (yyval.nodo) = nodo;
                         }
-#line 1862 "MainParser.cpp" /* yacc.c:1646  */
+#line 1867 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 381 "MainParser.y" /* yacc.c:1646  */
+#line 386 "MainParser.y" /* yacc.c:1646  */
     {
                   Nodo* nodo = new Nodo("DIMLIST");
                   nodo->AgregarHijo((yyvsp[0].nodo));
                   (yyval.nodo) = nodo;
                 }
-#line 1872 "MainParser.cpp" /* yacc.c:1646  */
+#line 1877 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 387 "MainParser.y" /* yacc.c:1646  */
+#line 392 "MainParser.y" /* yacc.c:1646  */
     {
                                     Nodo* nodo = new Nodo("DIM");
                                     nodo->AgregarHijo((yyvsp[-1].nodo));
                                     (yyval.nodo) = nodo;
                                     }
-#line 1882 "MainParser.cpp" /* yacc.c:1646  */
+#line 1887 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 393 "MainParser.y" /* yacc.c:1646  */
+#line 398 "MainParser.y" /* yacc.c:1646  */
     {
             Nodo* nodo = new Nodo("TIPO");
             Nodo* val = new Nodo(QString::fromStdString((yyvsp[0].st)));
             nodo->AgregarHijo(val);
             (yyval.nodo) = nodo;
           }
-#line 1893 "MainParser.cpp" /* yacc.c:1646  */
+#line 1898 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 399 "MainParser.y" /* yacc.c:1646  */
+#line 404 "MainParser.y" /* yacc.c:1646  */
     {
             Nodo* nodo = new Nodo("TIPO");
             Nodo* val = new Nodo(QString::fromStdString((yyvsp[0].st)));
             nodo->AgregarHijo(val);
             (yyval.nodo) = nodo;
           }
-#line 1904 "MainParser.cpp" /* yacc.c:1646  */
+#line 1909 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 405 "MainParser.y" /* yacc.c:1646  */
+#line 410 "MainParser.y" /* yacc.c:1646  */
     {
             Nodo* nodo = new Nodo("TIPO");
             Nodo* val = new Nodo(QString::fromStdString((yyvsp[0].st)));
             nodo->AgregarHijo(val);
             (yyval.nodo) = nodo;
           }
-#line 1915 "MainParser.cpp" /* yacc.c:1646  */
+#line 1920 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 411 "MainParser.y" /* yacc.c:1646  */
+#line 416 "MainParser.y" /* yacc.c:1646  */
     {
             Nodo* nodo = new Nodo("TIPO");
             Nodo* val = new Nodo(QString::fromStdString((yyvsp[0].st)));
             nodo->AgregarHijo(val);
             (yyval.nodo) = nodo;
           }
-#line 1926 "MainParser.cpp" /* yacc.c:1646  */
+#line 1931 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 417 "MainParser.y" /* yacc.c:1646  */
+#line 422 "MainParser.y" /* yacc.c:1646  */
     {
             Nodo* nodo = new Nodo("TIPO");
             Nodo* val = new Nodo(QString::fromStdString((yyvsp[0].st)));
             nodo->AgregarHijo(val);
             (yyval.nodo) = nodo;
           }
-#line 1937 "MainParser.cpp" /* yacc.c:1646  */
+#line 1942 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 423 "MainParser.y" /* yacc.c:1646  */
+#line 428 "MainParser.y" /* yacc.c:1646  */
     {
             Nodo* nodo = new Nodo("TIPO");
             Nodo* val = new Nodo(QString::fromStdString((yyvsp[0].st)));
             nodo->AgregarHijo(val);
             (yyval.nodo) = nodo;
           }
-#line 1948 "MainParser.cpp" /* yacc.c:1646  */
+#line 1953 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 430 "MainParser.y" /* yacc.c:1646  */
+#line 435 "MainParser.y" /* yacc.c:1646  */
     {
                   Nodo* nodo = new Nodo("BOOL");
                   Nodo* val = new Nodo("true");
                   nodo->AgregarHijo(val);
                   (yyval.nodo) = nodo;
                 }
-#line 1959 "MainParser.cpp" /* yacc.c:1646  */
+#line 1964 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 436 "MainParser.y" /* yacc.c:1646  */
+#line 441 "MainParser.y" /* yacc.c:1646  */
     {
                   Nodo* nodo = new Nodo("BOOL");
                   Nodo* val = new Nodo("false");
                   nodo->AgregarHijo(val);
                   (yyval.nodo) = nodo;
                 }
-#line 1970 "MainParser.cpp" /* yacc.c:1646  */
+#line 1975 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 444 "MainParser.y" /* yacc.c:1646  */
+#line 449 "MainParser.y" /* yacc.c:1646  */
     {
                                                                                           Nodo* nodo = new Nodo("DECMETODO");
                                                                                           nodo->AgregarHijo((yyvsp[-8].nodo));
@@ -1983,11 +1988,11 @@ yyreduce:
                                                                                           nodo->AgregarHijo((yyvsp[-1].nodo));
                                                                                           (yyval.nodo) = nodo;
                                                                                         }
-#line 1987 "MainParser.cpp" /* yacc.c:1646  */
+#line 1992 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 456 "MainParser.y" /* yacc.c:1646  */
+#line 461 "MainParser.y" /* yacc.c:1646  */
     {
                                                                               Nodo* nodo = new Nodo("DECMETODO");
                                                                               Nodo* id = new Nodo("ID");
@@ -1999,11 +2004,11 @@ yyreduce:
                                                                               nodo->AgregarHijo((yyvsp[-1].nodo));
                                                                               (yyval.nodo) = nodo;
                                                                           }
-#line 2003 "MainParser.cpp" /* yacc.c:1646  */
+#line 2008 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 467 "MainParser.y" /* yacc.c:1646  */
+#line 472 "MainParser.y" /* yacc.c:1646  */
     {
                                                                               Nodo* nodo = new Nodo("DECMETODO");
                                                                               nodo->AgregarHijo((yyvsp[-7].nodo));
@@ -2015,11 +2020,11 @@ yyreduce:
                                                                               nodo->AgregarHijo((yyvsp[-1].nodo));
                                                                               (yyval.nodo) = nodo;
                                                                             }
-#line 2019 "MainParser.cpp" /* yacc.c:1646  */
+#line 2024 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 478 "MainParser.y" /* yacc.c:1646  */
+#line 483 "MainParser.y" /* yacc.c:1646  */
     {
                                                                   Nodo* nodo = new Nodo("DECMETODO");
                                                                   Nodo* id = new Nodo("ID");
@@ -2030,32 +2035,32 @@ yyreduce:
                                                                   nodo->AgregarHijo((yyvsp[-1].nodo));
                                                                   (yyval.nodo) = nodo;
                                                                 }
-#line 2034 "MainParser.cpp" /* yacc.c:1646  */
+#line 2039 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 490 "MainParser.y" /* yacc.c:1646  */
+#line 495 "MainParser.y" /* yacc.c:1646  */
     {
                                     Nodo* nodo = new Nodo("PARAMLIST");
                                     nodo->AgregarHijo((yyvsp[-2].nodo));
                                     nodo->AgregarHijo((yyvsp[0].nodo));
                                     (yyval.nodo) = nodo;
                                   }
-#line 2045 "MainParser.cpp" /* yacc.c:1646  */
+#line 2050 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 496 "MainParser.y" /* yacc.c:1646  */
+#line 501 "MainParser.y" /* yacc.c:1646  */
     {
                     Nodo* nodo = new Nodo("PARAMLIST");
                     nodo->AgregarHijo((yyvsp[0].nodo));
                     (yyval.nodo) = nodo;
           }
-#line 2055 "MainParser.cpp" /* yacc.c:1646  */
+#line 2060 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 502 "MainParser.y" /* yacc.c:1646  */
+#line 507 "MainParser.y" /* yacc.c:1646  */
     {
                     Nodo* nodo = new Nodo("PARAM");
                     Nodo* id = new Nodo("ID");
@@ -2065,11 +2070,11 @@ yyreduce:
                     nodo->AgregarHijo((yyvsp[0].nodo));
                     (yyval.nodo) = nodo;
                   }
-#line 2069 "MainParser.cpp" /* yacc.c:1646  */
+#line 2074 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 511 "MainParser.y" /* yacc.c:1646  */
+#line 516 "MainParser.y" /* yacc.c:1646  */
     {
                             Nodo* nodo = new Nodo("REFPARAM");
                             Nodo* ref = new Nodo("ref");
@@ -2081,142 +2086,142 @@ yyreduce:
                             nodo->AgregarHijo((yyvsp[0].nodo));
                             (yyval.nodo) = nodo;
                           }
-#line 2085 "MainParser.cpp" /* yacc.c:1646  */
+#line 2090 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 524 "MainParser.y" /* yacc.c:1646  */
+#line 529 "MainParser.y" /* yacc.c:1646  */
     {
                                           Nodo* nodo = new Nodo("INSTRUCCIONES");
                                           nodo->AgregarHijo((yyvsp[-1].nodo));
                                           nodo->AgregarHijo((yyvsp[0].nodo));
                                           (yyval.nodo) = nodo;
                             }
-#line 2096 "MainParser.cpp" /* yacc.c:1646  */
+#line 2101 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 530 "MainParser.y" /* yacc.c:1646  */
+#line 535 "MainParser.y" /* yacc.c:1646  */
     {
                             Nodo* nodo = new Nodo("INSTRUCCIONES");
                             nodo->AgregarHijo((yyvsp[0].nodo));
                             (yyval.nodo) = nodo;
                             }
-#line 2106 "MainParser.cpp" /* yacc.c:1646  */
+#line 2111 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 536 "MainParser.y" /* yacc.c:1646  */
-    {
-                                      Nodo* nodo = new Nodo("SENTENCIAS");
-                                      nodo->AgregarHijo((yyvsp[-1].nodo));
-                                      (yyval.nodo) = nodo;
-                                    }
-#line 2116 "MainParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 46:
 #line 541 "MainParser.y" /* yacc.c:1646  */
     {
                                       Nodo* nodo = new Nodo("SENTENCIAS");
                                       nodo->AgregarHijo((yyvsp[-1].nodo));
                                       (yyval.nodo) = nodo;
                                     }
-#line 2126 "MainParser.cpp" /* yacc.c:1646  */
+#line 2121 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 47:
+  case 46:
 #line 546 "MainParser.y" /* yacc.c:1646  */
     {
                                       Nodo* nodo = new Nodo("SENTENCIAS");
-                                      nodo->AgregarHijo((yyvsp[0].nodo));
+                                      nodo->AgregarHijo((yyvsp[-1].nodo));
                                       (yyval.nodo) = nodo;
                                     }
-#line 2136 "MainParser.cpp" /* yacc.c:1646  */
+#line 2131 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 48:
+  case 47:
 #line 551 "MainParser.y" /* yacc.c:1646  */
     {
                                       Nodo* nodo = new Nodo("SENTENCIAS");
                                       nodo->AgregarHijo((yyvsp[0].nodo));
                                       (yyval.nodo) = nodo;
                                     }
-#line 2146 "MainParser.cpp" /* yacc.c:1646  */
+#line 2141 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 49:
+  case 48:
 #line 556 "MainParser.y" /* yacc.c:1646  */
     {
                                       Nodo* nodo = new Nodo("SENTENCIAS");
-                                      nodo->AgregarHijo((yyvsp[-1].nodo));
+                                      nodo->AgregarHijo((yyvsp[0].nodo));
                                       (yyval.nodo) = nodo;
                                     }
-#line 2156 "MainParser.cpp" /* yacc.c:1646  */
+#line 2151 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 50:
+  case 49:
 #line 561 "MainParser.y" /* yacc.c:1646  */
     {
                                       Nodo* nodo = new Nodo("SENTENCIAS");
                                       nodo->AgregarHijo((yyvsp[-1].nodo));
                                       (yyval.nodo) = nodo;
                                     }
-#line 2166 "MainParser.cpp" /* yacc.c:1646  */
+#line 2161 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 51:
+  case 50:
 #line 566 "MainParser.y" /* yacc.c:1646  */
     {
                                       Nodo* nodo = new Nodo("SENTENCIAS");
                                       nodo->AgregarHijo((yyvsp[-1].nodo));
                                       (yyval.nodo) = nodo;
                                     }
-#line 2176 "MainParser.cpp" /* yacc.c:1646  */
+#line 2171 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 52:
+  case 51:
 #line 571 "MainParser.y" /* yacc.c:1646  */
     {
                                       Nodo* nodo = new Nodo("SENTENCIAS");
                                       nodo->AgregarHijo((yyvsp[-1].nodo));
                                       (yyval.nodo) = nodo;
                                     }
-#line 2186 "MainParser.cpp" /* yacc.c:1646  */
+#line 2181 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 53:
+  case 52:
 #line 576 "MainParser.y" /* yacc.c:1646  */
     {
                                       Nodo* nodo = new Nodo("SENTENCIAS");
                                       nodo->AgregarHijo((yyvsp[-1].nodo));
                                       (yyval.nodo) = nodo;
                                     }
-#line 2196 "MainParser.cpp" /* yacc.c:1646  */
+#line 2191 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 54:
+  case 53:
 #line 581 "MainParser.y" /* yacc.c:1646  */
     {
                                       Nodo* nodo = new Nodo("SENTENCIAS");
                                       nodo->AgregarHijo((yyvsp[-1].nodo));
                                       (yyval.nodo) = nodo;
                                     }
-#line 2206 "MainParser.cpp" /* yacc.c:1646  */
+#line 2201 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
-  case 55:
-#line 587 "MainParser.y" /* yacc.c:1646  */
+  case 54:
+#line 586 "MainParser.y" /* yacc.c:1646  */
     {
                                       Nodo* nodo = new Nodo("SENTENCIAS");
                                       nodo->AgregarHijo((yyvsp[-1].nodo));
                                       (yyval.nodo) = nodo;
                                     }
-#line 2216 "MainParser.cpp" /* yacc.c:1646  */
+#line 2211 "MainParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 55:
+#line 592 "MainParser.y" /* yacc.c:1646  */
+    {
+                                      Nodo* nodo = new Nodo("SENTENCIAS");
+                                      nodo->AgregarHijo((yyvsp[-1].nodo));
+                                      (yyval.nodo) = nodo;
+                                    }
+#line 2221 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 593 "MainParser.y" /* yacc.c:1646  */
+#line 598 "MainParser.y" /* yacc.c:1646  */
     {
                   Nodo* nodo = new Nodo("DECVAR");
                   Nodo* id = new Nodo("ID");
@@ -2226,11 +2231,11 @@ yyreduce:
                   nodo->AgregarHijo((yyvsp[0].nodo));
                   (yyval.nodo) = nodo;
                 }
-#line 2230 "MainParser.cpp" /* yacc.c:1646  */
+#line 2235 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 603 "MainParser.y" /* yacc.c:1646  */
+#line 608 "MainParser.y" /* yacc.c:1646  */
     {
                                           Nodo* nodo = new Nodo("DECVAR");
                                           Nodo* id = new Nodo("ID");
@@ -2241,21 +2246,21 @@ yyreduce:
                                           nodo->AgregarHijo((yyvsp[0].nodo));
                                           (yyval.nodo) = nodo;
                                         }
-#line 2245 "MainParser.cpp" /* yacc.c:1646  */
+#line 2250 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 614 "MainParser.y" /* yacc.c:1646  */
+#line 619 "MainParser.y" /* yacc.c:1646  */
     {
                                   Nodo* nodo = new Nodo("RETORNO");
                                   nodo->AgregarHijo((yyvsp[0].nodo));
                                   (yyval.nodo) = nodo;
                                 }
-#line 2255 "MainParser.cpp" /* yacc.c:1646  */
+#line 2260 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 620 "MainParser.y" /* yacc.c:1646  */
+#line 625 "MainParser.y" /* yacc.c:1646  */
     {
                     Nodo* nodo = new Nodo("EXPLOG");
                     Nodo* op = new Nodo(QString::fromStdString((yyvsp[-1].st)));
@@ -2264,11 +2269,11 @@ yyreduce:
                     nodo->AgregarHijo((yyvsp[0].nodo));
                     (yyval.nodo) = nodo;
             }
-#line 2268 "MainParser.cpp" /* yacc.c:1646  */
+#line 2273 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 628 "MainParser.y" /* yacc.c:1646  */
+#line 633 "MainParser.y" /* yacc.c:1646  */
     {
                     Nodo* nodo = new Nodo("EXPLOG");
                     Nodo* op = new Nodo(QString::fromStdString((yyvsp[-1].st)));
@@ -2277,11 +2282,11 @@ yyreduce:
                     nodo->AgregarHijo((yyvsp[0].nodo));
                     (yyval.nodo) = nodo;
             }
-#line 2281 "MainParser.cpp" /* yacc.c:1646  */
+#line 2286 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 636 "MainParser.y" /* yacc.c:1646  */
+#line 641 "MainParser.y" /* yacc.c:1646  */
     {
                 Nodo* nodo = new Nodo("EXPLOG");
                 Nodo* op = new Nodo(QString::fromStdString((yyvsp[-1].st)));
@@ -2289,17 +2294,17 @@ yyreduce:
                 nodo->AgregarHijo((yyvsp[0].nodo));
                 (yyval.nodo) = nodo;
             }
-#line 2293 "MainParser.cpp" /* yacc.c:1646  */
+#line 2298 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 644 "MainParser.y" /* yacc.c:1646  */
+#line 649 "MainParser.y" /* yacc.c:1646  */
     {(yyval.nodo) = (yyvsp[0].nodo);}
-#line 2299 "MainParser.cpp" /* yacc.c:1646  */
+#line 2304 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 646 "MainParser.y" /* yacc.c:1646  */
+#line 651 "MainParser.y" /* yacc.c:1646  */
     {
                                         Nodo* nodo = new Nodo("EXPRESION");
                                         Nodo* op = new Nodo(QString::fromStdString((yyvsp[-1].st)));
@@ -2308,11 +2313,11 @@ yyreduce:
                                         nodo->AgregarHijo((yyvsp[0].nodo));
                                         (yyval.nodo) = nodo;
                                       }
-#line 2312 "MainParser.cpp" /* yacc.c:1646  */
+#line 2317 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 654 "MainParser.y" /* yacc.c:1646  */
+#line 659 "MainParser.y" /* yacc.c:1646  */
     {
                                         Nodo* nodo = new Nodo("EXPRESION");
                                         Nodo* op = new Nodo(QString::fromStdString((yyvsp[-1].st)));
@@ -2321,11 +2326,11 @@ yyreduce:
                                         nodo->AgregarHijo((yyvsp[0].nodo));
                                         (yyval.nodo) = nodo;
                                       }
-#line 2325 "MainParser.cpp" /* yacc.c:1646  */
+#line 2330 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 662 "MainParser.y" /* yacc.c:1646  */
+#line 667 "MainParser.y" /* yacc.c:1646  */
     {
                                         Nodo* nodo = new Nodo("EXPRESION");
                                         Nodo* op = new Nodo(QString::fromStdString((yyvsp[-1].st)));
@@ -2334,11 +2339,11 @@ yyreduce:
                                         nodo->AgregarHijo((yyvsp[0].nodo));
                                         (yyval.nodo) = nodo;
                                       }
-#line 2338 "MainParser.cpp" /* yacc.c:1646  */
+#line 2343 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 670 "MainParser.y" /* yacc.c:1646  */
+#line 675 "MainParser.y" /* yacc.c:1646  */
     {
                                         Nodo* nodo = new Nodo("EXPRESION");
                                         Nodo* op = new Nodo(QString::fromStdString((yyvsp[-1].st)));
@@ -2347,11 +2352,11 @@ yyreduce:
                                         nodo->AgregarHijo((yyvsp[0].nodo));
                                         (yyval.nodo) = nodo;
                                       }
-#line 2351 "MainParser.cpp" /* yacc.c:1646  */
+#line 2356 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 678 "MainParser.y" /* yacc.c:1646  */
+#line 683 "MainParser.y" /* yacc.c:1646  */
     {
                                         Nodo* nodo = new Nodo("EXPRESION");
                                         Nodo* op = new Nodo(QString::fromStdString((yyvsp[-1].st)));
@@ -2360,11 +2365,11 @@ yyreduce:
                                         nodo->AgregarHijo((yyvsp[0].nodo));
                                         (yyval.nodo) = nodo;
                                       }
-#line 2364 "MainParser.cpp" /* yacc.c:1646  */
+#line 2369 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 686 "MainParser.y" /* yacc.c:1646  */
+#line 691 "MainParser.y" /* yacc.c:1646  */
     {
                                         Nodo* nodo = new Nodo("EXPRESION");
                                         Nodo* op = new Nodo(QString::fromStdString((yyvsp[-1].st)));
@@ -2373,11 +2378,11 @@ yyreduce:
                                         nodo->AgregarHijo((yyvsp[0].nodo));
                                         (yyval.nodo) = nodo;
                                       }
-#line 2377 "MainParser.cpp" /* yacc.c:1646  */
+#line 2382 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 694 "MainParser.y" /* yacc.c:1646  */
+#line 699 "MainParser.y" /* yacc.c:1646  */
     {
                                         Nodo* nodo = new Nodo("EXPRESION");
                                         Nodo* op = new Nodo(QString::fromStdString((yyvsp[-1].st)));
@@ -2386,17 +2391,17 @@ yyreduce:
                                         nodo->AgregarHijo((yyvsp[0].nodo));
                                         (yyval.nodo) = nodo;
                                       }
-#line 2390 "MainParser.cpp" /* yacc.c:1646  */
+#line 2395 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 702 "MainParser.y" /* yacc.c:1646  */
+#line 707 "MainParser.y" /* yacc.c:1646  */
     {(yyval.nodo) = (yyvsp[0].nodo);}
-#line 2396 "MainParser.cpp" /* yacc.c:1646  */
+#line 2401 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 704 "MainParser.y" /* yacc.c:1646  */
+#line 709 "MainParser.y" /* yacc.c:1646  */
     {
                                         Nodo* nodo = new Nodo("EXPMAT");
                                         Nodo* op = new Nodo(QString::fromStdString((yyvsp[-1].st)));
@@ -2405,11 +2410,11 @@ yyreduce:
                                         nodo->AgregarHijo((yyvsp[0].nodo));
                                         (yyval.nodo) = nodo;
                                       }
-#line 2409 "MainParser.cpp" /* yacc.c:1646  */
+#line 2414 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 712 "MainParser.y" /* yacc.c:1646  */
+#line 717 "MainParser.y" /* yacc.c:1646  */
     {
                                         Nodo* nodo = new Nodo("EXPMAT");
                                         Nodo* op = new Nodo(QString::fromStdString((yyvsp[-1].st)));
@@ -2418,11 +2423,11 @@ yyreduce:
                                         nodo->AgregarHijo((yyvsp[0].nodo));
                                         (yyval.nodo) = nodo;
                                       }
-#line 2422 "MainParser.cpp" /* yacc.c:1646  */
+#line 2427 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 720 "MainParser.y" /* yacc.c:1646  */
+#line 725 "MainParser.y" /* yacc.c:1646  */
     {
                                         Nodo* nodo = new Nodo("EXPMAT");
                                         Nodo* op = new Nodo(QString::fromStdString((yyvsp[-1].st)));
@@ -2431,11 +2436,11 @@ yyreduce:
                                         nodo->AgregarHijo((yyvsp[0].nodo));
                                         (yyval.nodo) = nodo;
                                       }
-#line 2435 "MainParser.cpp" /* yacc.c:1646  */
+#line 2440 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 728 "MainParser.y" /* yacc.c:1646  */
+#line 733 "MainParser.y" /* yacc.c:1646  */
     {
                                         Nodo* nodo = new Nodo("EXPMAT");
                                         Nodo* op = new Nodo(QString::fromStdString((yyvsp[-1].st)));
@@ -2444,11 +2449,11 @@ yyreduce:
                                         nodo->AgregarHijo((yyvsp[0].nodo));
                                         (yyval.nodo) = nodo;
                                       }
-#line 2448 "MainParser.cpp" /* yacc.c:1646  */
+#line 2453 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 736 "MainParser.y" /* yacc.c:1646  */
+#line 741 "MainParser.y" /* yacc.c:1646  */
     {
                                         Nodo* nodo = new Nodo("EXPMAT");
                                         Nodo* op = new Nodo(QString::fromStdString((yyvsp[-1].st)));
@@ -2457,63 +2462,63 @@ yyreduce:
                                         nodo->AgregarHijo((yyvsp[0].nodo));
                                         (yyval.nodo) = nodo;
                                       }
-#line 2461 "MainParser.cpp" /* yacc.c:1646  */
+#line 2466 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 744 "MainParser.y" /* yacc.c:1646  */
+#line 749 "MainParser.y" /* yacc.c:1646  */
     {(yyval.nodo) = (yyvsp[0].nodo);}
-#line 2467 "MainParser.cpp" /* yacc.c:1646  */
+#line 2472 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 746 "MainParser.y" /* yacc.c:1646  */
+#line 751 "MainParser.y" /* yacc.c:1646  */
     {(yyval.nodo) = (yyvsp[-1].nodo);}
-#line 2473 "MainParser.cpp" /* yacc.c:1646  */
+#line 2478 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 747 "MainParser.y" /* yacc.c:1646  */
+#line 752 "MainParser.y" /* yacc.c:1646  */
     {
                       Nodo* nodo = new Nodo("ID");
                       Nodo* id = new Nodo(QString::fromStdString((yyvsp[0].st)));
                       nodo->AgregarHijo(id);
                       (yyval.nodo) = nodo;
                     }
-#line 2484 "MainParser.cpp" /* yacc.c:1646  */
+#line 2489 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 753 "MainParser.y" /* yacc.c:1646  */
+#line 758 "MainParser.y" /* yacc.c:1646  */
     {
                       Nodo* nodo = new Nodo("NUM");
                       Nodo* num = new Nodo(QString::fromStdString((yyvsp[0].st)));
                       nodo->AgregarHijo(num);
                       (yyval.nodo) = nodo;
                     }
-#line 2495 "MainParser.cpp" /* yacc.c:1646  */
+#line 2500 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 759 "MainParser.y" /* yacc.c:1646  */
+#line 764 "MainParser.y" /* yacc.c:1646  */
     {(yyval.nodo) = (yyvsp[0].nodo);}
-#line 2501 "MainParser.cpp" /* yacc.c:1646  */
+#line 2506 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 81:
-#line 760 "MainParser.y" /* yacc.c:1646  */
+#line 765 "MainParser.y" /* yacc.c:1646  */
     {(yyval.nodo) = (yyvsp[0].nodo);}
-#line 2507 "MainParser.cpp" /* yacc.c:1646  */
+#line 2512 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 82:
-#line 761 "MainParser.y" /* yacc.c:1646  */
+#line 766 "MainParser.y" /* yacc.c:1646  */
     {(yyval.nodo) = (yyvsp[0].nodo);}
-#line 2513 "MainParser.cpp" /* yacc.c:1646  */
+#line 2518 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 83:
-#line 763 "MainParser.y" /* yacc.c:1646  */
+#line 768 "MainParser.y" /* yacc.c:1646  */
     {
                                                                                                                                   Nodo* nodo = new Nodo("IF");
                                                                                                                                   Nodo* cond = new Nodo("COND");
@@ -2522,11 +2527,11 @@ yyreduce:
                                                                                                                                   nodo->AgregarHijo((yyvsp[-1].nodo));
                                                                                                                                   (yyval.nodo) = nodo;
                                                                                                                                   }
-#line 2526 "MainParser.cpp" /* yacc.c:1646  */
+#line 2531 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 84:
-#line 771 "MainParser.y" /* yacc.c:1646  */
+#line 776 "MainParser.y" /* yacc.c:1646  */
     {
                                                                                                                                   Nodo* nodo = new Nodo("IF");
                                                                                                                                   Nodo* cond = new Nodo("COND");
@@ -2536,11 +2541,11 @@ yyreduce:
                                                                                                                                   nodo->AgregarHijo((yyvsp[0].nodo));
                                                                                                                                   (yyval.nodo) = nodo;
                                                                                                                                   }
-#line 2540 "MainParser.cpp" /* yacc.c:1646  */
+#line 2545 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 85:
-#line 780 "MainParser.y" /* yacc.c:1646  */
+#line 785 "MainParser.y" /* yacc.c:1646  */
     {
                                                                                                                                   Nodo* nodo = new Nodo("IF");
                                                                                                                                   Nodo* cond = new Nodo("COND");
@@ -2551,42 +2556,42 @@ yyreduce:
                                                                                                                                   nodo->AgregarHijo((yyvsp[0].nodo));
                                                                                                                                   (yyval.nodo) = nodo;
                                                                                                                                   }
-#line 2555 "MainParser.cpp" /* yacc.c:1646  */
+#line 2560 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 86:
-#line 791 "MainParser.y" /* yacc.c:1646  */
+#line 796 "MainParser.y" /* yacc.c:1646  */
     {
                                                         Nodo* nodo = new Nodo("ELSE");
                                                         nodo->AgregarHijo((yyvsp[-1].nodo));
                                                         (yyval.nodo) = nodo;
                                                     }
-#line 2565 "MainParser.cpp" /* yacc.c:1646  */
+#line 2570 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 87:
-#line 797 "MainParser.y" /* yacc.c:1646  */
+#line 802 "MainParser.y" /* yacc.c:1646  */
     {
                                   Nodo* nodo = new Nodo("ELSEIFLIST");
                                   nodo->AgregarHijo((yyvsp[-1].nodo));
                                   nodo->AgregarHijo((yyvsp[0].nodo));
                                   (yyval.nodo) = nodo;
                       }
-#line 2576 "MainParser.cpp" /* yacc.c:1646  */
+#line 2581 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 88:
-#line 803 "MainParser.y" /* yacc.c:1646  */
+#line 808 "MainParser.y" /* yacc.c:1646  */
     {
                       Nodo* nodo = new Nodo("ELSEIFLIST");
                       nodo->AgregarHijo((yyvsp[0].nodo));
                       (yyval.nodo) = nodo;
                       }
-#line 2586 "MainParser.cpp" /* yacc.c:1646  */
+#line 2591 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 89:
-#line 809 "MainParser.y" /* yacc.c:1646  */
+#line 814 "MainParser.y" /* yacc.c:1646  */
     {
                                                                               Nodo* nodo = new Nodo("ELSEIF");
                                                                               Nodo* cond = new Nodo("COND");
@@ -2595,19 +2600,19 @@ yyreduce:
                                                                               nodo->AgregarHijo((yyvsp[-1].nodo));
                                                                               (yyval.nodo) = nodo;
                                                                             }
-#line 2599 "MainParser.cpp" /* yacc.c:1646  */
+#line 2604 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 90:
-#line 818 "MainParser.y" /* yacc.c:1646  */
+#line 823 "MainParser.y" /* yacc.c:1646  */
     {Nodo* nodo = new Nodo("DETENER");
                             (yyval.nodo) = nodo;
                           }
-#line 2607 "MainParser.cpp" /* yacc.c:1646  */
+#line 2612 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 91:
-#line 823 "MainParser.y" /* yacc.c:1646  */
+#line 828 "MainParser.y" /* yacc.c:1646  */
     {
                                                                                       Nodo* nodo = new Nodo("CICLO");
                                                                                       Nodo* cond = new Nodo("COND");
@@ -2616,11 +2621,11 @@ yyreduce:
                                                                                       nodo->AgregarHijo((yyvsp[-1].nodo));
                                                                                       (yyval.nodo) = nodo;
                                                                                     }
-#line 2620 "MainParser.cpp" /* yacc.c:1646  */
+#line 2625 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 92:
-#line 832 "MainParser.y" /* yacc.c:1646  */
+#line 837 "MainParser.y" /* yacc.c:1646  */
     {
                                               Nodo* nodo = new Nodo("OPSIMP");
                                               Nodo* id = new Nodo("ID");
@@ -2631,11 +2636,11 @@ yyreduce:
                                               nodo->AgregarHijo(op);
                                               (yyval.nodo) = nodo;
                                             }
-#line 2635 "MainParser.cpp" /* yacc.c:1646  */
+#line 2640 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 93:
-#line 842 "MainParser.y" /* yacc.c:1646  */
+#line 847 "MainParser.y" /* yacc.c:1646  */
     {
                                               Nodo* nodo = new Nodo("OPSIMP");
                                               Nodo* id = new Nodo("ID");
@@ -2646,11 +2651,11 @@ yyreduce:
                                               nodo->AgregarHijo(op);
                                               (yyval.nodo) = nodo;
                                             }
-#line 2650 "MainParser.cpp" /* yacc.c:1646  */
+#line 2655 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 94:
-#line 852 "MainParser.y" /* yacc.c:1646  */
+#line 857 "MainParser.y" /* yacc.c:1646  */
     {
                                               Nodo* nodo = new Nodo("OPSIMP");
                                               Nodo* id = new Nodo("ID");
@@ -2661,11 +2666,11 @@ yyreduce:
                                               nodo->AgregarHijo(op);
                                               (yyval.nodo) = nodo;
                                             }
-#line 2665 "MainParser.cpp" /* yacc.c:1646  */
+#line 2670 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 95:
-#line 862 "MainParser.y" /* yacc.c:1646  */
+#line 867 "MainParser.y" /* yacc.c:1646  */
     {
                                               Nodo* nodo = new Nodo("OPSIMP");
                                               Nodo* id = new Nodo("ID");
@@ -2676,11 +2681,11 @@ yyreduce:
                                               nodo->AgregarHijo(op);
                                               (yyval.nodo) = nodo;
                                             }
-#line 2680 "MainParser.cpp" /* yacc.c:1646  */
+#line 2685 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 96:
-#line 872 "MainParser.y" /* yacc.c:1646  */
+#line 877 "MainParser.y" /* yacc.c:1646  */
     {
                                               Nodo* nodo = new Nodo("OPSIMP");
                                               nodo->AgregarHijo((yyvsp[-1].nodo));
@@ -2688,11 +2693,11 @@ yyreduce:
                                               nodo->AgregarHijo(op);
                                               (yyval.nodo) = nodo;
                                             }
-#line 2692 "MainParser.cpp" /* yacc.c:1646  */
+#line 2697 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 97:
-#line 879 "MainParser.y" /* yacc.c:1646  */
+#line 884 "MainParser.y" /* yacc.c:1646  */
     {
                                               Nodo* nodo = new Nodo("OPSIMP");
                                               nodo->AgregarHijo((yyvsp[-1].nodo));
@@ -2700,11 +2705,11 @@ yyreduce:
                                               nodo->AgregarHijo(op);
                                               (yyval.nodo) = nodo;
                                             }
-#line 2704 "MainParser.cpp" /* yacc.c:1646  */
+#line 2709 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 98:
-#line 886 "MainParser.y" /* yacc.c:1646  */
+#line 891 "MainParser.y" /* yacc.c:1646  */
     {
                                               Nodo* nodo = new Nodo("OPSIMP");
                                               nodo->AgregarHijo((yyvsp[-1].nodo));
@@ -2712,11 +2717,11 @@ yyreduce:
                                               nodo->AgregarHijo(op);
                                               (yyval.nodo) = nodo;
                                             }
-#line 2716 "MainParser.cpp" /* yacc.c:1646  */
+#line 2721 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 99:
-#line 893 "MainParser.y" /* yacc.c:1646  */
+#line 898 "MainParser.y" /* yacc.c:1646  */
     {
                                               Nodo* nodo = new Nodo("OPSIMP");
                                               nodo->AgregarHijo((yyvsp[-1].nodo));
@@ -2724,11 +2729,11 @@ yyreduce:
                                               nodo->AgregarHijo(op);
                                               (yyval.nodo) = nodo;
                                             }
-#line 2728 "MainParser.cpp" /* yacc.c:1646  */
+#line 2733 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 100:
-#line 901 "MainParser.y" /* yacc.c:1646  */
+#line 906 "MainParser.y" /* yacc.c:1646  */
     {
                                 Nodo* nodo = new Nodo("DECARRVAR");
                                 Nodo* id = new Nodo("ID");
@@ -2739,11 +2744,11 @@ yyreduce:
                                 nodo->AgregarHijo((yyvsp[0].nodo));
                                 (yyval.nodo) = nodo;
                               }
-#line 2743 "MainParser.cpp" /* yacc.c:1646  */
+#line 2748 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 101:
-#line 911 "MainParser.y" /* yacc.c:1646  */
+#line 916 "MainParser.y" /* yacc.c:1646  */
     {
                                                       Nodo* nodo = new Nodo("DECARRVAR");
                                                       Nodo* id = new Nodo("ID");
@@ -2755,31 +2760,31 @@ yyreduce:
                                                       nodo->AgregarHijo((yyvsp[0].nodo));
                                                       (yyval.nodo) = nodo;
                                                     }
-#line 2759 "MainParser.cpp" /* yacc.c:1646  */
+#line 2764 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 102:
-#line 923 "MainParser.y" /* yacc.c:1646  */
+#line 928 "MainParser.y" /* yacc.c:1646  */
     {
                       Nodo* nodo = new Nodo("ASIGNACION");
                       nodo->AgregarHijo((yyvsp[0].nodo));
                       (yyval.nodo) = nodo;
                     }
-#line 2769 "MainParser.cpp" /* yacc.c:1646  */
+#line 2774 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 103:
-#line 928 "MainParser.y" /* yacc.c:1646  */
+#line 933 "MainParser.y" /* yacc.c:1646  */
     {
               Nodo* nodo = new Nodo("ASIGNACION");
               nodo->AgregarHijo((yyvsp[0].nodo));
               (yyval.nodo) = nodo;
             }
-#line 2779 "MainParser.cpp" /* yacc.c:1646  */
+#line 2784 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 104:
-#line 935 "MainParser.y" /* yacc.c:1646  */
+#line 940 "MainParser.y" /* yacc.c:1646  */
     {
                         Nodo* nodo = new Nodo("VALOR");
                         Nodo* n1 = new Nodo("CADENA");
@@ -2788,11 +2793,11 @@ yyreduce:
                         nodo->AgregarHijo(n1);
                         (yyval.nodo) = nodo;
                         }
-#line 2792 "MainParser.cpp" /* yacc.c:1646  */
+#line 2797 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 105:
-#line 943 "MainParser.y" /* yacc.c:1646  */
+#line 948 "MainParser.y" /* yacc.c:1646  */
     {
                         Nodo* nodo = new Nodo("VALOR");
                         Nodo* n1 = new Nodo("CHAR");
@@ -2801,103 +2806,103 @@ yyreduce:
                         nodo->AgregarHijo(n1);
                         (yyval.nodo) = nodo;
                         }
-#line 2805 "MainParser.cpp" /* yacc.c:1646  */
+#line 2810 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 106:
-#line 951 "MainParser.y" /* yacc.c:1646  */
+#line 956 "MainParser.y" /* yacc.c:1646  */
     {
                     Nodo* nodo = new Nodo("VALOR");
                     nodo->AgregarHijo((yyvsp[0].nodo));
                     (yyval.nodo) = nodo;
                   }
-#line 2815 "MainParser.cpp" /* yacc.c:1646  */
+#line 2820 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 107:
-#line 956 "MainParser.y" /* yacc.c:1646  */
+#line 961 "MainParser.y" /* yacc.c:1646  */
     {
                         Nodo* nodo = new Nodo("VALOR");
                         nodo->AgregarHijo((yyvsp[0].nodo));
                         (yyval.nodo) = nodo;
                       }
-#line 2825 "MainParser.cpp" /* yacc.c:1646  */
+#line 2830 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 108:
-#line 961 "MainParser.y" /* yacc.c:1646  */
+#line 966 "MainParser.y" /* yacc.c:1646  */
     {
                   Nodo* nodo = new Nodo("VALOR");
                   nodo->AgregarHijo((yyvsp[0].nodo));
                   (yyval.nodo) = nodo;
                 }
-#line 2835 "MainParser.cpp" /* yacc.c:1646  */
+#line 2840 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 109:
-#line 968 "MainParser.y" /* yacc.c:1646  */
-    {
-                                              Nodo* nodo = new Nodo("INICIAR_ARR");
-                                              nodo->AgregarHijo((yyvsp[-1].nodo));
-                                              (yyval.nodo) = nodo;
-                                            }
-#line 2845 "MainParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 110:
 #line 973 "MainParser.y" /* yacc.c:1646  */
     {
                                               Nodo* nodo = new Nodo("INICIAR_ARR");
                                               nodo->AgregarHijo((yyvsp[-1].nodo));
                                               (yyval.nodo) = nodo;
                                             }
-#line 2855 "MainParser.cpp" /* yacc.c:1646  */
+#line 2850 "MainParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 110:
+#line 978 "MainParser.y" /* yacc.c:1646  */
+    {
+                                              Nodo* nodo = new Nodo("INICIAR_ARR");
+                                              nodo->AgregarHijo((yyvsp[-1].nodo));
+                                              (yyval.nodo) = nodo;
+                                            }
+#line 2860 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 111:
-#line 979 "MainParser.y" /* yacc.c:1646  */
+#line 984 "MainParser.y" /* yacc.c:1646  */
     {
                                                     Nodo* nodo = new Nodo("LISTA_ASIG_ARR");
                                                     nodo->AgregarHijo((yyvsp[-2].nodo));
                                                     nodo->AgregarHijo((yyvsp[0].nodo));
                                                     (yyval.nodo) = nodo;
                                                   }
-#line 2866 "MainParser.cpp" /* yacc.c:1646  */
+#line 2871 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 112:
-#line 985 "MainParser.y" /* yacc.c:1646  */
+#line 990 "MainParser.y" /* yacc.c:1646  */
     {
                                 Nodo* nodo = new Nodo("LISTA_ASIG_ARR");
                                 nodo->AgregarHijo((yyvsp[0].nodo));
                                 (yyval.nodo) = nodo;
                               }
-#line 2876 "MainParser.cpp" /* yacc.c:1646  */
+#line 2881 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 113:
-#line 991 "MainParser.y" /* yacc.c:1646  */
+#line 996 "MainParser.y" /* yacc.c:1646  */
     {
                                             Nodo* nodo = new Nodo("ASIGLIST");
                                             nodo->AgregarHijo((yyvsp[-2].nodo));
                                             nodo->AgregarHijo((yyvsp[0].nodo));
                                             (yyval.nodo) = nodo;
                                           }
-#line 2887 "MainParser.cpp" /* yacc.c:1646  */
+#line 2892 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 114:
-#line 997 "MainParser.y" /* yacc.c:1646  */
+#line 1002 "MainParser.y" /* yacc.c:1646  */
     {
                               Nodo* nodo = new Nodo("ASIGLIST");
                               nodo->AgregarHijo((yyvsp[0].nodo));
                               (yyval.nodo) = nodo;
                             }
-#line 2897 "MainParser.cpp" /* yacc.c:1646  */
+#line 2902 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 115:
-#line 1003 "MainParser.y" /* yacc.c:1646  */
+#line 1008 "MainParser.y" /* yacc.c:1646  */
     {
                               Nodo* nodo = new Nodo("ARR_ACCESO");
                               Nodo* n1 = new Nodo(QString::fromStdString((yyvsp[-1].st)));
@@ -2905,22 +2910,22 @@ yyreduce:
                               nodo->AgregarHijo((yyvsp[0].nodo));
                               (yyval.nodo) = nodo;
                             }
-#line 2909 "MainParser.cpp" /* yacc.c:1646  */
+#line 2914 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 116:
-#line 1011 "MainParser.y" /* yacc.c:1646  */
+#line 1016 "MainParser.y" /* yacc.c:1646  */
     {
                                                 Nodo* nodo = new Nodo("ASIG_ARR");
                                                 nodo->AgregarHijo((yyvsp[-2].nodo));
                                                 nodo->AgregarHijo((yyvsp[0].nodo));
                                                 (yyval.nodo) = nodo;
                                               }
-#line 2920 "MainParser.cpp" /* yacc.c:1646  */
+#line 2925 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 117:
-#line 1018 "MainParser.y" /* yacc.c:1646  */
+#line 1023 "MainParser.y" /* yacc.c:1646  */
     {
                                         Nodo* nodo = new Nodo("VAR_ASIG");
                                         Nodo* n1 = new Nodo(QString::fromStdString((yyvsp[-2].st)));
@@ -2928,42 +2933,42 @@ yyreduce:
                                         nodo->AgregarHijo((yyvsp[0].nodo));
                                         (yyval.nodo) = nodo;
                                       }
-#line 2932 "MainParser.cpp" /* yacc.c:1646  */
+#line 2937 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 118:
-#line 1029 "MainParser.y" /* yacc.c:1646  */
+#line 1034 "MainParser.y" /* yacc.c:1646  */
     {
                           Nodo* nodo = new Nodo("FUNCALL");
                           nodo->AgregarHijo((yyvsp[0].nodo));
                           (yyval.nodo) = nodo;
                             }
-#line 2942 "MainParser.cpp" /* yacc.c:1646  */
+#line 2947 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 119:
-#line 1034 "MainParser.y" /* yacc.c:1646  */
+#line 1039 "MainParser.y" /* yacc.c:1646  */
     {
                               Nodo* nodo = new Nodo("FUNCALL");
                               nodo->AgregarHijo((yyvsp[0].nodo));
                               (yyval.nodo) = nodo;
                             }
-#line 2952 "MainParser.cpp" /* yacc.c:1646  */
+#line 2957 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 120:
-#line 1039 "MainParser.y" /* yacc.c:1646  */
+#line 1044 "MainParser.y" /* yacc.c:1646  */
     {
                                 Nodo* nodo = new Nodo("FUNCALL");
                                 Nodo* n1 = new Nodo(QString::fromStdString((yyvsp[-2].st)));
                                 nodo->AgregarHijo(n1);
                                 (yyval.nodo) = nodo;
                               }
-#line 2963 "MainParser.cpp" /* yacc.c:1646  */
+#line 2968 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 121:
-#line 1045 "MainParser.y" /* yacc.c:1646  */
+#line 1050 "MainParser.y" /* yacc.c:1646  */
     {
                                         Nodo* nodo = new Nodo("FUNCALL");
                                         Nodo* n1 = new Nodo(QString::fromStdString((yyvsp[-3].st)));
@@ -2971,21 +2976,21 @@ yyreduce:
                                         nodo->AgregarHijo((yyvsp[-1].nodo));
                                         (yyval.nodo) = nodo;
                                       }
-#line 2975 "MainParser.cpp" /* yacc.c:1646  */
+#line 2980 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 122:
-#line 1053 "MainParser.y" /* yacc.c:1646  */
+#line 1058 "MainParser.y" /* yacc.c:1646  */
     {
                                                   Nodo* nodo = new Nodo("IMPRIMIR");
                                                   nodo->AgregarHijo((yyvsp[-1].nodo));
                                                   (yyval.nodo) = nodo;
                                               }
-#line 2985 "MainParser.cpp" /* yacc.c:1646  */
+#line 2990 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 123:
-#line 1060 "MainParser.y" /* yacc.c:1646  */
+#line 1065 "MainParser.y" /* yacc.c:1646  */
     {
                                                             Nodo* nodo = new Nodo("INSTANCIAR");
                                                             Nodo* constructor = new Nodo(QString::fromStdString((yyvsp[-3].st)));
@@ -2993,43 +2998,43 @@ yyreduce:
                                                             nodo->AgregarHijo((yyvsp[-1].nodo));
                                                             (yyval.nodo) = nodo;
                                                       }
-#line 2997 "MainParser.cpp" /* yacc.c:1646  */
+#line 3002 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 124:
-#line 1068 "MainParser.y" /* yacc.c:1646  */
+#line 1073 "MainParser.y" /* yacc.c:1646  */
     {
                                                                 Nodo* nodo = new Nodo("INSTANCIAR");
                                                                 Nodo* constructor = new Nodo(QString::fromStdString((yyvsp[-2].st)));
                                                                 nodo->AgregarHijo(constructor);
                                                                 (yyval.nodo) = nodo;
                                                               }
-#line 3008 "MainParser.cpp" /* yacc.c:1646  */
+#line 3013 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 125:
-#line 1075 "MainParser.y" /* yacc.c:1646  */
+#line 1080 "MainParser.y" /* yacc.c:1646  */
     {
                                 Nodo* nodo = new Nodo("PARAMS");
                                 nodo->AgregarHijo((yyvsp[-2].nodo));
                                 nodo->AgregarHijo((yyvsp[0].nodo));
                                 (yyval.nodo) = nodo;
                               }
-#line 3019 "MainParser.cpp" /* yacc.c:1646  */
+#line 3024 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 126:
-#line 1082 "MainParser.y" /* yacc.c:1646  */
+#line 1087 "MainParser.y" /* yacc.c:1646  */
     {
                     Nodo* nodo = new Nodo("PARAMS");
                     nodo->AgregarHijo((yyvsp[0].nodo));
                     (yyval.nodo) = nodo;
                   }
-#line 3029 "MainParser.cpp" /* yacc.c:1646  */
+#line 3034 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 127:
-#line 1089 "MainParser.y" /* yacc.c:1646  */
+#line 1094 "MainParser.y" /* yacc.c:1646  */
     {
                                 Nodo* nodo = new Nodo("ACCESOATRIBUTO");
                                 Nodo* n1 = new Nodo(QString::fromStdString((yyvsp[-2].st)));
@@ -3038,11 +3043,11 @@ yyreduce:
                                 nodo->AgregarHijo(n2);
                                 (yyval.nodo) = nodo;
                               }
-#line 3042 "MainParser.cpp" /* yacc.c:1646  */
+#line 3047 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 128:
-#line 1097 "MainParser.y" /* yacc.c:1646  */
+#line 1102 "MainParser.y" /* yacc.c:1646  */
     {
                                 Nodo* nodo = new Nodo("ACCESOATRIBUTO");
                                 Nodo* n1 = new Nodo("este");
@@ -3051,22 +3056,22 @@ yyreduce:
                                 nodo->AgregarHijo(n2);
                                 (yyval.nodo) = nodo;
                               }
-#line 3055 "MainParser.cpp" /* yacc.c:1646  */
+#line 3060 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 129:
-#line 1106 "MainParser.y" /* yacc.c:1646  */
+#line 1111 "MainParser.y" /* yacc.c:1646  */
     {
                                                       Nodo* nodo = new Nodo("MODIFATRIBUTO");
                                                       nodo->AgregarHijo((yyvsp[-2].nodo));
                                                       nodo->AgregarHijo((yyvsp[0].nodo));
                                                       (yyval.nodo)=nodo;
                                                     }
-#line 3066 "MainParser.cpp" /* yacc.c:1646  */
+#line 3071 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 130:
-#line 1113 "MainParser.y" /* yacc.c:1646  */
+#line 1118 "MainParser.y" /* yacc.c:1646  */
     {
                                          Nodo* nodo = new Nodo("ACCESOMETODO");
                                          Nodo* n1 = new Nodo(QString::fromStdString((yyvsp[-4].st)));
@@ -3075,11 +3080,11 @@ yyreduce:
                                          nodo->AgregarHijo(n2);
                                          (yyval.nodo) = nodo;
                                          }
-#line 3079 "MainParser.cpp" /* yacc.c:1646  */
+#line 3084 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 131:
-#line 1122 "MainParser.y" /* yacc.c:1646  */
+#line 1127 "MainParser.y" /* yacc.c:1646  */
     {
                                                 Nodo* nodo = new Nodo("ACCESOMETODO");
                                                 Nodo* n1 = new Nodo("este");
@@ -3088,11 +3093,11 @@ yyreduce:
                                                 nodo->AgregarHijo(n2);
                                                 (yyval.nodo) = nodo;
                                               }
-#line 3092 "MainParser.cpp" /* yacc.c:1646  */
+#line 3097 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 132:
-#line 1131 "MainParser.y" /* yacc.c:1646  */
+#line 1136 "MainParser.y" /* yacc.c:1646  */
     {
                                                 Nodo* nodo = new Nodo("ACCESOMETODO");
                                                 Nodo* n1 = new Nodo(QString::fromStdString((yyvsp[-5].st)));
@@ -3102,11 +3107,11 @@ yyreduce:
                                                 nodo->AgregarHijo((yyvsp[-1].nodo));
                                                 (yyval.nodo) = nodo;
                                               }
-#line 3106 "MainParser.cpp" /* yacc.c:1646  */
+#line 3111 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
   case 133:
-#line 1140 "MainParser.y" /* yacc.c:1646  */
+#line 1145 "MainParser.y" /* yacc.c:1646  */
     {
                                                     Nodo* nodo = new Nodo("ACCESOMETODO");
                                                     Nodo* n1 = new Nodo("este");
@@ -3116,11 +3121,11 @@ yyreduce:
                                                     nodo->AgregarHijo((yyvsp[-1].nodo));
                                                     (yyval.nodo) = nodo;
                                               }
-#line 3120 "MainParser.cpp" /* yacc.c:1646  */
+#line 3125 "MainParser.cpp" /* yacc.c:1646  */
     break;
 
 
-#line 3124 "MainParser.cpp" /* yacc.c:1646  */
+#line 3129 "MainParser.cpp" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -3348,6 +3353,6 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 1153 "MainParser.y" /* yacc.c:1906  */
+#line 1158 "MainParser.y" /* yacc.c:1906  */
 
 

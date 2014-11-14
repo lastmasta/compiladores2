@@ -12,8 +12,6 @@ GeneradorDeCodigo::GeneradorDeCodigo()
 void GeneradorDeCodigo::Iniciar(){
     archivo3D.open ("3D.cpp");
     archivo3D.flush();
-    int tmp = 0;
-    int etq = 0;
     decIniciales = "#include <iostream>|";
     decIniciales += "using namespace std;|";
     decIniciales += "long Stack[10000];|";
@@ -93,7 +91,7 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
                     llenarTabla(arbol->hijos[i]);
                 }
             }
-            Simbolo* s = new Simbolo(id, "N/A", -1, -1, "N/A", "clase", posicion, accesoClase);
+            Simbolo* s = new Simbolo(id, id, "N/A", -1, -1, "N/A", "clase", posicion, accesoClase);
             if(!tabla.existeSimbolo(id)){
                 tabla.agregarSimbolo(id,s);
             } else {
@@ -125,7 +123,7 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
                 hijo = arbol->hijos[i];
             }
             QString nombre = ambito+"_"+id;
-            Simbolo* s = new Simbolo(nombre,ambito,nivel,posicion,tipo,"atributo",TAMANO,visibilidad);
+            Simbolo* s = new Simbolo(nombre, id, ambito,nivel,posicion,tipo,"atributo",TAMANO,visibilidad);
             if(!tabla.existeSimbolo(nombre)){
                 tabla.agregarSimbolo(nombre,s);
                 posicion++;
@@ -171,7 +169,7 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
             nivel++;
 
             //Agregamos el "this" en la posicion 0 del metodo
-            Simbolo* This = new Simbolo(ambito+"_this",ambito,nivel,0,"entero","variable",1,"N/A");
+            Simbolo* This = new Simbolo(ambito+"_this",id,ambito,nivel,0,"entero","variable",1,"N/A");
             tabla.agregarSimbolo(ambito+"_this",This);
             tamanoMetodo++;
 
@@ -182,7 +180,7 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
 
             //Agregamos el "return" en la posicion 1 del metodo
             if (!(tipo=="ninguno")){
-                Simbolo *s = new Simbolo(ambito+"_return", ambito, nivel, posicion, tipo, "retorno", TAMANO, "N/A");
+                Simbolo *s = new Simbolo(ambito+"_return", id, ambito, nivel, posicion, tipo, "retorno", TAMANO, "N/A");
                 if(!tabla.existeSimbolo(ambito+"_return")) {tabla.agregarSimbolo(ambito+"_return", s);}
                 posicion++;
                 tamanoMetodo++;
@@ -197,9 +195,9 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
             nombre+="()";
             Simbolo* s = NULL;
             if(id == idClase && tipo=="ninguno"){
-                s = new Simbolo(nombre,ambitotemp,nivel,-1,tipo,"constructor",tamanoMetodo,acceso);
+                s = new Simbolo(nombre,id,ambitotemp,nivel,-1,tipo,"constructor",tamanoMetodo,acceso);
             } else {
-                s = new Simbolo(nombre,ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo,acceso);
+                s = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo,acceso);
             }
 
             //Agregamos los identificadores de los parametros al simbolo
@@ -237,7 +235,7 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
             QString id = arbol->hijos[0]->hijos[0]->Etiqueta();
             QString tipo = arbol->hijos[1]->hijos[0]->Etiqueta();
             QString nombre = ambito+"_"+id;
-            Simbolo* s = new Simbolo(nombre,ambito,nivel,posicion,tipo,"variable",TAMANO,"N/A");
+            Simbolo* s = new Simbolo(nombre,id,ambito,nivel,posicion,tipo,"variable",TAMANO,"N/A");
             if(!tabla.existeSimbolo(nombre)){
                 tabla.agregarSimbolo(nombre,s);
                 posicion++;
@@ -314,7 +312,7 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
             if(!tabla.existeSimbolo(nombre)){
                 QList<Nodo>* dimensiones = new QList<Nodo>();
                 dimensiones = getDimensiones(dimensiones,arbol->hijos[3]);
-                Simbolo* s = new Simbolo(nombre,ambito,nivel,posicion,tipo,rol,TAMANO,acceso,dimensiones);
+                Simbolo* s = new Simbolo(nombre,id,ambito,nivel,posicion,tipo,rol,TAMANO,acceso,dimensiones);
                 tabla.agregarSimbolo(nombre,s);
                 posicion++;
             } else {ExisteSimbolo(id,ambito);}
@@ -326,7 +324,7 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
             if(!tabla.existeSimbolo(nombre)){
                 QList<Nodo>* dimensiones = new QList<Nodo>();
                 dimensiones = getDimensiones(dimensiones,arbol->hijos[2]);
-                Simbolo* s = new Simbolo(nombre,ambito,nivel,posicion,tipo,"arreglo",TAMANO,"N/A",dimensiones);
+                Simbolo* s = new Simbolo(nombre,id,ambito,nivel,posicion,tipo,"arreglo",TAMANO,"N/A",dimensiones);
                 tabla.agregarSimbolo(nombre,s);
                 posicion++;
                 tamanoMetodo++;
@@ -458,7 +456,7 @@ QList<QString> * GeneradorDeCodigo::llenarConParametros(QList<QString> *identifi
             identificadores->push_back(id);
             QString tipo = arbol->hijos[1]->hijos[0]->Etiqueta();
             QString nombre = ambito +"_"+id;
-            Simbolo* s = new Simbolo(nombre, ambito,nivel,posicion,tipo,"parametro_val",TAMANO,"N/A");
+            Simbolo* s = new Simbolo(nombre,id, ambito,nivel,posicion,tipo,"parametro_val",TAMANO,"N/A");
             if(!tabla.existeSimbolo(nombre)){
                 tabla.agregarSimbolo(nombre,s);
                 posicion++;
@@ -472,7 +470,7 @@ QList<QString> * GeneradorDeCodigo::llenarConParametros(QList<QString> *identifi
             identificadores->push_back(id);
             QString tipo = arbol->hijos[2]->hijos[0]->Etiqueta();
             QString nombre = ambito +"_"+id;
-            Simbolo* s = new Simbolo(nombre, ambito,nivel,posicion,tipo,"parametro_ref",TAMANO,"N/A");
+            Simbolo* s = new Simbolo(nombre,id, ambito,nivel,posicion,tipo,"parametro_ref",TAMANO,"N/A");
             if(!tabla.existeSimbolo(nombre)){
                 tabla.agregarSimbolo(nombre,s);
                 posicion++;
@@ -503,7 +501,6 @@ QString GeneradorDeCodigo::generarCodigo3D(int &tmp,int &etq, Nodo* arbol) {
         }
 
         else if (etiqueta=="CLASE"){
-            int i = 0;
             idClase = arbol->hijos[1]->hijos[0]->Etiqueta();
             ambito = idClase;
             generarCodigo3D(tmp,etq,arbol->hijos[2]);

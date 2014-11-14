@@ -30,21 +30,21 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-#ifndef YY_MAINPARSER_MAINPARSER_H_INCLUDED
-# define YY_MAINPARSER_MAINPARSER_H_INCLUDED
+#ifndef YY_INVERSAPARSER_INVERSAPARSER_H_INCLUDED
+# define YY_INVERSAPARSER_INVERSAPARSER_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
 #endif
 #if YYDEBUG
-extern int mainparserdebug;
+extern int inversaparserdebug;
 #endif
 /* "%code requires" blocks.  */
-#line 52 "MainParser.y" /* yacc.c:1909  */
+#line 27 "InversaParser.y" /* yacc.c:1909  */
 
    #include "nodo.h"
 
-#line 48 "MainParser.h" /* yacc.c:1909  */
+#line 48 "InversaParser.h" /* yacc.c:1909  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -52,66 +52,50 @@ extern int mainparserdebug;
   enum yytokentype
   {
     ERROR = 258,
-    par_a = 259,
-    par_c = 260,
-    llave_a = 261,
-    llave_c = 262,
-    sig_igual = 263,
-    p_coma = 264,
-    dos_p = 265,
-    punto = 266,
-    comillas = 267,
-    coma = 268,
-    id = 269,
-    numero = 270,
-    string_token = 271,
-    caracter_token = 272,
-    clase_rsv = 273,
-    extiende_rsv = 274,
-    paratodos_rsv = 275,
-    protegido_rsv = 276,
-    privado_rsv = 277,
-    dolar = 278,
-    traer_rsv = 279,
-    decattr_rsv = 280,
-    entero_rsv = 281,
-    bool_rsv = 282,
-    caracter_rsv = 283,
-    cadena_rsv = 284,
-    def_rsv = 285,
-    ninguno_rsv = 286,
-    retornar_rsv = 287,
-    ref_rsv = 288,
-    si_cumple_rsv = 289,
-    sino_intente = 290,
-    sino_cumple_rsv = 291,
-    repetir_mientras_rsv = 292,
-    detener_rsv = 293,
-    decarr_rsv = 294,
-    true_rsv = 295,
-    false_rsv = 296,
-    imprimir_rsv = 297,
-    instanciar_rsv = 298,
-    este_rsv = 299,
-    esigual = 300,
-    noigual = 301,
-    mayor = 302,
-    menor = 303,
-    mayorigual = 304,
-    menorigual = 305,
-    esnulo = 306,
-    orOp = 307,
-    andOp = 308,
-    notOp = 309,
-    mas = 310,
-    menos = 311,
-    por = 312,
-    divOp = 313,
-    potencia = 314,
-    numeralnumeral = 315,
-    masmas = 316,
-    menosmenos = 317,
-    porpor = 318
+    stack_rsv = 259,
+    heap_rsv = 260,
+    include_rsv = 261,
+    using_rsv = 262,
+    int_rsv = 263,
+    long_rsv = 264,
+    void_rsv = 265,
+    goto_rsv = 266,
+    if_rsv = 267,
+    char_rsv = 268,
+    main_rsv = 269,
+    iostream_rsv = 270,
+    namespace_rsv = 271,
+    std_rsv = 272,
+    ptr = 273,
+    ptrH = 274,
+    return_rsv = 275,
+    cout_rsv = 276,
+    endl_rsv = 277,
+    esIgual = 278,
+    noigual = 279,
+    mayor = 280,
+    menor = 281,
+    mayorigual = 282,
+    menorigual = 283,
+    mas = 284,
+    menos = 285,
+    por = 286,
+    divOp = 287,
+    potencia = 288,
+    numeral = 289,
+    cor_a = 290,
+    cor_c = 291,
+    par_a = 292,
+    par_c = 293,
+    llave_a = 294,
+    llave_c = 295,
+    sig_igual = 296,
+    p_coma = 297,
+    coma = 298,
+    dos_p = 299,
+    doblemenor = 300,
+    id = 301,
+    numero = 302
   };
 #endif
 
@@ -120,20 +104,20 @@ extern int mainparserdebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 56 "MainParser.y" /* yacc.c:1909  */
+#line 31 "InversaParser.y" /* yacc.c:1909  */
 
 char *st;
 Nodo *nodo;
 
-#line 129 "MainParser.h" /* yacc.c:1909  */
+#line 113 "InversaParser.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
 
 
-extern YYSTYPE mainparserlval;
+extern YYSTYPE inversaparserlval;
 
-int mainparserparse (void);
+int inversaparserparse (void);
 
-#endif /* !YY_MAINPARSER_MAINPARSER_H_INCLUDED  */
+#endif /* !YY_INVERSAPARSER_INVERSAPARSER_H_INCLUDED  */

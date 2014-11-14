@@ -6,6 +6,8 @@
 #include "generadordecodigo.h"
 #include "MainParser.h"
 #include "AssemblerParser.h"
+#include "InversaParser.h"
+#include "tablasimbolos.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -36,6 +38,8 @@ private slots:
     void on_compilar3d_btn_clicked();
 
     void on_ejecutar_btn_clicked();
+
+    void on_compilarBtn_3_clicked();
 
 private:
     Ui::MainWindow *ui;

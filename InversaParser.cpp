@@ -60,20 +60,20 @@
 
 
 /* Substitute the variable and function names.  */
-#define yyparse         assemblerparserparse
-#define yylex           assemblerparserlex
-#define yyerror         assemblerparsererror
-#define yydebug         assemblerparserdebug
-#define yynerrs         assemblerparsernerrs
+#define yyparse         inversaparserparse
+#define yylex           inversaparserlex
+#define yyerror         inversaparsererror
+#define yydebug         inversaparserdebug
+#define yynerrs         inversaparsernerrs
 
-#define yylval          assemblerparserlval
-#define yychar          assemblerparserchar
+#define yylval          inversaparserlval
+#define yychar          inversaparserchar
 
 /* Copy the first part of user declarations.  */
-#line 1 "AssemblerParser.y" /* yacc.c:339  */
+#line 1 "InversaParser.y" /* yacc.c:339  */
 
 
-  #include "AssemblerScanner.h"
+  #include "InversaScanner.h"
   #include <fstream>
   #include <stdio.h>
   #include <stdlib.h>
@@ -81,26 +81,22 @@
   #include <QString>
   using namespace std;
 
-  extern int assemblerparserlex(void);
-  extern char *assemblerparsertext;
-  extern int assemblerparserlineno;
-  extern int assemblerparsercolno;
+  extern int inversaparserlex(void);
+  extern char *inversaparsertext;
+  extern int inversaparserlineno;
+  extern int inversaparsercolno;
   extern FILE *Mainin;
-  ofstream salidanasm;
-  void assemblerparsererror(char*s);
+  void inversaparsererror(char*s);
 
 
-void assemblerparsererror(const char *s) {
-cout << "Error SINTACTICO en la fila: " << assemblerparserlineno << " y columna: " << assemblerparsercolno<< ": "<<assemblerparsertext << endl;
-}
-
-void Iniciar(){
-  salidanasm.open("assembler.asm");
+void inversaparsererror(const char *s) {
+cout << "Error SINTACTICO en la fila: " << inversaparserlineno << " y columna: " << inversaparsercolno<< ": "<<inversaparsertext << endl;
 }
 
 
 
-#line 104 "AssemblerParser.cpp" /* yacc.c:339  */
+
+#line 100 "InversaParser.cpp" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -119,22 +115,22 @@ void Iniciar(){
 #endif
 
 /* In a future release of Bison, this section will be replaced
-   by #include "AssemblerParser.h".  */
-#ifndef YY_ASSEMBLERPARSER_ASSEMBLERPARSER_H_INCLUDED
-# define YY_ASSEMBLERPARSER_ASSEMBLERPARSER_H_INCLUDED
+   by #include "InversaParser.h".  */
+#ifndef YY_INVERSAPARSER_INVERSAPARSER_H_INCLUDED
+# define YY_INVERSAPARSER_INVERSAPARSER_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
 #endif
 #if YYDEBUG
-extern int assemblerparserdebug;
+extern int inversaparserdebug;
 #endif
 /* "%code requires" blocks.  */
-#line 31 "AssemblerParser.y" /* yacc.c:355  */
+#line 27 "InversaParser.y" /* yacc.c:355  */
 
    #include "nodo.h"
 
-#line 138 "AssemblerParser.cpp" /* yacc.c:355  */
+#line 134 "InversaParser.cpp" /* yacc.c:355  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -194,27 +190,27 @@ extern int assemblerparserdebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 35 "AssemblerParser.y" /* yacc.c:355  */
+#line 31 "InversaParser.y" /* yacc.c:355  */
 
 char *st;
 Nodo *nodo;
 
-#line 203 "AssemblerParser.cpp" /* yacc.c:355  */
+#line 199 "InversaParser.cpp" /* yacc.c:355  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
 
 
-extern YYSTYPE assemblerparserlval;
+extern YYSTYPE inversaparserlval;
 
-int assemblerparserparse (void);
+int inversaparserparse (void);
 
-#endif /* !YY_ASSEMBLERPARSER_ASSEMBLERPARSER_H_INCLUDED  */
+#endif /* !YY_INVERSAPARSER_INVERSAPARSER_H_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
-#line 218 "AssemblerParser.cpp" /* yacc.c:358  */
+#line 214 "InversaParser.cpp" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -454,18 +450,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  3
+#define YYFINAL  26
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   180
+#define YYLAST   177
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  48
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  36
+#define YYNNTS  32
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  79
+#define YYNRULES  75
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  185
+#define YYNSTATES  181
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
@@ -514,16 +510,16 @@ static const yytype_uint8 yytranslate[] =
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_uint16 yyrline[] =
+static const yytype_uint8 yyrline[] =
 {
-       0,   138,   138,   138,   140,   141,   143,   144,   145,   146,
-     147,   148,   150,   152,   153,   155,   156,   156,   158,   159,
-     159,   168,   168,   175,   177,   181,   186,   190,   191,   193,
-     194,   197,   198,   199,   200,   201,   202,   203,   204,   205,
-     206,   207,   208,   209,   210,   211,   212,   213,   216,   224,
-     232,   238,   243,   249,   251,   253,   273,   279,   285,   291,
-     293,   296,   309,   323,   323,   323,   323,   325,   327,   329,
-     329,   329,   329,   329,   329,   331,   337,   338,   339,   346
+       0,   134,   134,   136,   137,   139,   140,   141,   142,   143,
+     144,   146,   148,   149,   151,   152,   154,   155,   156,   158,
+     159,   161,   163,   165,   166,   168,   169,   172,   173,   174,
+     175,   176,   177,   178,   179,   180,   181,   182,   183,   184,
+     185,   186,   187,   188,   191,   193,   195,   197,   198,   200,
+     202,   204,   206,   208,   210,   212,   213,   215,   216,   218,
+     218,   218,   218,   220,   222,   224,   224,   224,   224,   224,
+     224,   226,   228,   229,   230,   231
 };
 #endif
 
@@ -540,13 +536,13 @@ static const char *const yytname[] =
   "menorigual", "mas", "menos", "por", "divOp", "potencia", "numeral",
   "cor_a", "cor_c", "par_a", "par_c", "llave_a", "llave_c", "sig_igual",
   "p_coma", "coma", "dos_p", "doblemenor", "id", "numero", "$accept",
-  "INICIO", "$@1", "INSTRUCCIONES", "TRESDIRECCIONES", "DECTEMPORALES",
-  "TEMPORALES_LIST", "DECMETODOS", "$@2", "DECMETODO", "$@3", "$@4",
-  "DECPUNTEROS", "DECSTACK", "DECHEAP", "INCLUDES", "CUERPOMETODO",
-  "INSTRUCCIONESMETODO", "OBTENERDESTACK", "OBTENERDEHEAP", "ASIGSTACK",
-  "ASIGHEAP", "LABEL", "SALTONOCOND", "SALTOCOND", "CAMBIOVIRTUAL",
-  "CAMBIODEAMBITO", "REGRESODEAMBITO", "TEMPASIG", "TEMPOP", "OP",
-  "FUNCALL", "RETURN", "OPREL", "AUMENTARHEAP", "IMPRIMIR", YY_NULLPTR
+  "INICIO", "INSTRUCCIONES", "TRESDIRECCIONES", "DECTEMPORALES",
+  "TEMPORALES_LIST", "DECMETODOS", "DECMETODO", "DECPUNTEROS", "DECSTACK",
+  "DECHEAP", "INCLUDES", "CUERPOMETODO", "INSTRUCCIONESMETODO",
+  "OBTENERDESTACK", "OBTENERDEHEAP", "ASIGSTACK", "ASIGHEAP", "LABEL",
+  "SALTONOCOND", "SALTOCOND", "CAMBIOVIRTUAL", "CAMBIODEAMBITO",
+  "REGRESODEAMBITO", "TEMPASIG", "TEMPOP", "OP", "FUNCALL", "RETURN",
+  "OPREL", "AUMENTARHEAP", "IMPRIMIR", YY_NULLPTR
 };
 #endif
 
@@ -563,12 +559,12 @@ static const yytype_uint16 yytoknum[] =
 };
 # endif
 
-#define YYPACT_NINF -61
+#define YYPACT_NINF -53
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-61)))
+  (!!((Yystate) == (-53)))
 
-#define YYTABLE_NINF -17
+#define YYTABLE_NINF -1
 
 #define yytable_value_is_error(Yytable_value) \
   0
@@ -577,25 +573,25 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-     -61,    39,    -1,   -61,    41,   -14,     8,    40,    15,   -61,
-     -61,    55,    55,   -61,   -61,   -61,   -61,    69,    14,    46,
-     -61,   -12,    54,    56,    73,   -61,    78,    50,   -61,   -61,
-      51,    52,    57,   -61,    59,    60,    61,   -61,    58,    63,
-     -61,    64,    67,   -61,    62,    65,    72,    74,   -61,   -61,
-      71,    75,    76,     6,   -61,   -61,   -61,   -61,   -61,    48,
-      48,    68,    79,    70,    81,    80,    82,    77,    66,   -61,
-      10,    -2,   -61,   -61,   -61,   -61,   -61,   -61,   -61,   -61,
-     -61,   -61,   -61,   -61,   -61,   -61,   -61,   -61,   -61,    16,
-      83,    84,    85,    86,   101,   103,    89,     4,    87,    -4,
-     -61,   -61,   -61,   -61,    90,    92,   -61,    47,    53,    91,
-     -61,   -61,   120,    93,    94,    99,   100,   108,    97,    49,
-      98,   102,   104,   -61,   -61,   -61,   -61,   -61,   -61,    95,
-     105,   106,   107,   109,   122,   -61,    96,   110,   111,   -61,
-     -61,   -61,   -61,   -61,    30,   -61,   113,    38,   112,   115,
-     118,   119,   116,   121,   128,   129,   124,   125,   126,   127,
-     130,   131,   135,   -61,   -61,   -61,    19,   -61,   132,   133,
-     -61,   -61,   -61,   -61,   -61,   -61,   134,   -61,   148,   -61,
-     -61,   136,   137,   -61,   -61
+      15,   -12,    -7,    60,   -40,    40,    55,    15,   -53,   -53,
+      53,   -53,   -53,   -53,   -53,   -53,    63,    20,    44,    45,
+     -53,    34,    52,    54,    51,    76,   -53,   -53,    78,   -53,
+      56,    57,    46,    50,   -53,    58,    59,    61,    62,   -53,
+     -53,    64,    65,    67,   -53,    66,    69,   -34,    48,   -53,
+     -53,    68,    70,    48,   -53,    79,    80,    71,    74,    72,
+      75,    73,    77,   -53,    10,    -2,   -53,   -53,   -53,   -53,
+     -53,   -53,   -53,   -53,   -53,   -53,   -53,   -53,   -53,   -53,
+     -53,   -53,   -53,   -53,   -53,    16,    81,    82,    83,    84,
+     100,   102,    87,     4,    85,    -4,   -53,   -53,   -53,   -53,
+      88,    90,   -53,    47,    49,   103,   -53,   -53,    86,    89,
+      91,    96,   101,   106,    95,     0,    97,    99,   104,   -53,
+     -53,   -53,   -53,   -53,   -53,    92,    94,   105,   107,   108,
+     120,   -53,    98,   109,   110,   -53,   -53,   -53,   -53,   -53,
+      35,   -53,   112,    37,   111,   114,   117,   118,   115,   121,
+     126,   128,   123,   124,   125,   127,   129,   130,   132,   -53,
+     -53,   -53,     3,   -53,   131,   133,   -53,   -53,   -53,   -53,
+     -53,   -53,   122,   -53,   148,   -53,   -53,   134,   135,   -53,
+     -53
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -603,143 +599,141 @@ static const yytype_int16 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       2,     0,    16,     1,     0,     0,     0,     0,     3,     5,
-       8,     7,     0,     9,    10,    11,     6,     0,     0,     0,
-      14,     0,     0,     0,     0,     4,     0,     0,    15,    17,
-       0,     0,     0,    12,     0,     0,     0,    27,     0,     0,
-      28,     0,     0,    13,     0,     0,     0,     0,    23,    24,
-       0,     0,     0,     0,    25,    26,    21,    19,    18,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,    47,
-       0,     0,    30,    31,    32,    33,    34,    35,    36,    37,
-      38,    39,    40,    41,    42,    43,    44,    45,    46,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-      53,    22,    29,    20,     0,     0,    54,     0,     0,     0,
-      68,    77,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,    74,    73,    70,    69,    71,    72,     0,
-       0,     0,     0,     0,     0,    67,     0,     0,     0,    59,
-      63,    64,    65,    66,     0,    60,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,    57,    58,    75,     0,    79,     0,     0,
-      56,    61,    62,    50,    51,    52,     0,    76,     0,    48,
-      49,     0,     0,    55,    78
+       0,     0,     0,     0,     0,     0,     0,     2,     4,     7,
+       6,    15,     8,     9,    10,     5,     0,     0,     0,     0,
+      13,     0,     0,     0,     0,     0,     1,     3,     0,    14,
+       0,     0,     0,     0,    11,     0,     0,     0,     0,    23,
+      24,     0,     0,     0,    12,     0,     0,     0,     0,    19,
+      20,     0,     0,     0,    16,     0,     0,     0,     0,     0,
+       0,     0,     0,    43,     0,     0,    26,    27,    28,    29,
+      30,    31,    32,    33,    34,    35,    36,    37,    38,    39,
+      40,    41,    42,    21,    22,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,    49,    18,    25,    17,
+       0,     0,    50,     0,     0,     0,    64,    73,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,    70,
+      69,    66,    65,    67,    68,     0,     0,     0,     0,     0,
+       0,    63,     0,     0,     0,    55,    59,    60,    61,    62,
+       0,    56,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,    53,
+      54,    71,     0,    75,     0,     0,    52,    57,    58,    46,
+      47,    48,     0,    72,     0,    44,    45,     0,     0,    51,
+      74
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int16 yypgoto[] =
 {
-     -61,   -61,   -61,   -61,   140,   -61,   -61,   -61,   -61,   139,
-     -61,   -61,   -61,   -61,   -61,   -61,    37,   -60,   -61,   -61,
-     -61,   -61,   -61,   -61,   -61,   -61,   -61,   -61,   -61,   -61,
-     -61,   -61,   -61,   -61,   -61,   -61
+     -53,   -53,   -53,   140,   -53,   -53,   -53,   138,   -53,   -53,
+     -53,   -53,    43,   -52,   -53,   -53,   -53,   -53,   -53,   -53,
+     -53,   -53,   -53,   -53,   -53,   -53,   -53,   -53,   -53,   -53,
+     -53,   -53
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int16 yydefgoto[] =
 {
-      -1,     1,     2,     8,     9,    10,    21,    11,    12,    28,
-      60,    59,    13,    14,    15,    16,    71,    72,    73,    74,
-      75,    76,    77,    78,    79,    80,    81,    82,    83,    84,
-     144,    85,    86,   129,    87,    88
+      -1,     6,     7,     8,     9,    21,    10,    11,    12,    13,
+      14,    15,    65,    66,    67,    68,    69,    70,    71,    72,
+      73,    74,    75,    76,    77,    78,   140,    79,    80,   125,
+      81,    82
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
      positive, shift that token.  If negative, reduce the rule whose
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
-static const yytype_int16 yytable[] =
+static const yytype_uint8 yytable[] =
 {
-     115,   116,    61,    62,    18,    19,     4,     5,     6,    63,
-      64,   102,    22,    23,   117,   118,    65,    66,    67,    68,
-      61,    62,     4,     5,     6,   -16,   111,    63,    64,   102,
-      33,    34,    20,     7,    65,    66,    67,    68,   101,     3,
-      69,   112,   119,   120,    70,    57,    24,    98,    58,     7,
-     113,    99,    61,    62,   100,    31,   103,    17,    69,    63,
-      64,   177,    70,    26,   178,    27,    65,    66,    67,    68,
-     123,   124,   125,   126,   127,   128,   157,   158,   140,   141,
-     142,   143,   130,   131,   160,   161,    30,    32,    37,    35,
-      69,    36,    38,    40,    70,    46,    39,    89,    50,    41,
-      47,    51,     0,    90,    42,    43,    48,    44,    45,    49,
-      52,    97,    53,    54,    91,    56,    92,    55,    93,   108,
-     132,    94,   109,    95,    96,   114,   121,   106,   122,   104,
-     105,   110,   107,   133,   136,   137,   135,   138,   134,   139,
-     145,   148,   154,   146,   153,   147,   176,   152,    25,     0,
-     162,    29,   149,   150,   151,     0,   155,   163,   156,   159,
-     164,   165,   166,   167,   168,   169,   170,   171,   172,   173,
-     182,     0,   174,   175,   179,   180,     0,     0,   183,   184,
-     181
+     111,   112,    55,    56,    16,    53,    24,    17,    54,    57,
+      58,    18,    19,    98,   113,   114,    59,    60,    61,    62,
+      55,    56,     1,     2,     3,     4,   107,    57,    58,   136,
+     137,   138,   139,    98,    59,    60,    61,    62,    97,    20,
+      63,   108,   115,   116,    64,   173,    25,    94,   174,     5,
+     109,    95,    55,    56,    96,    26,    99,    31,    63,    57,
+      58,    28,    64,     4,    22,    23,    59,    60,    61,    62,
+     119,   120,   121,   122,   123,   124,    34,    35,   126,   127,
+      30,   153,   154,   156,   157,    32,    33,    36,    38,    37,
+      63,    39,    17,    42,    64,    41,    85,    43,    40,   129,
+      47,     0,    51,    48,    44,    52,    45,    49,    46,    50,
+      83,    89,    84,    90,    86,    87,    91,    88,   104,     0,
+      92,   105,    93,   110,   117,   102,   118,   100,   101,   106,
+     103,   132,   128,   131,   130,   134,   133,   135,   144,   141,
+     142,   145,   149,   172,   150,   143,   148,    27,    29,   158,
+       0,     0,   146,     0,   147,   151,   159,   152,   155,   160,
+     161,   162,   164,   163,   165,   166,   167,   168,   177,   169,
+     178,   170,   171,   175,     0,   176,   179,   180
 };
 
 static const yytype_int8 yycheck[] =
 {
-       4,     5,     4,     5,    18,    19,     7,     8,     9,    11,
-      12,    71,     4,     5,    18,    19,    18,    19,    20,    21,
-       4,     5,     7,     8,     9,    10,    22,    11,    12,    89,
-      42,    43,    46,    34,    18,    19,    20,    21,    40,     0,
-      42,    37,    46,    47,    46,    39,     6,    37,    42,    34,
-      46,    41,     4,     5,    44,    41,    40,    16,    42,    11,
-      12,    42,    46,     8,    45,    10,    18,    19,    20,    21,
-      23,    24,    25,    26,    27,    28,    46,    47,    29,    30,
-      31,    32,    29,    30,    46,    47,    17,    41,    15,    35,
-      42,    35,    14,    42,    46,    37,    46,    60,    36,    47,
-      37,    36,    -1,    35,    47,    46,    42,    47,    47,    42,
-      38,    45,    38,    42,    35,    39,    46,    42,    37,    18,
-      29,    41,    19,    41,    47,    38,    36,    42,    36,    46,
-      46,    42,    46,    13,    35,    35,    42,    29,    45,    42,
-      42,    46,    46,    41,    22,    41,    11,    38,     8,    -1,
-      38,    12,    47,    47,    47,    -1,    46,    42,    47,    46,
-      42,    42,    46,    42,    36,    36,    42,    42,    42,    42,
-      22,    -1,    42,    42,    42,    42,    -1,    -1,    42,    42,
-      46
+       4,     5,     4,     5,    16,    39,    46,    14,    42,    11,
+      12,    18,    19,    65,    18,    19,    18,    19,    20,    21,
+       4,     5,     7,     8,     9,    10,    22,    11,    12,    29,
+      30,    31,    32,    85,    18,    19,    20,    21,    40,    46,
+      42,    37,    46,    47,    46,    42,     6,    37,    45,    34,
+      46,    41,     4,     5,    44,     0,    40,    37,    42,    11,
+      12,     8,    46,    10,     4,     5,    18,    19,    20,    21,
+      23,    24,    25,    26,    27,    28,    42,    43,    29,    30,
+      17,    46,    47,    46,    47,    41,    41,    35,    37,    35,
+      42,    15,    14,    47,    46,    38,    53,    47,    42,    13,
+      38,    -1,    36,    39,    46,    36,    47,    42,    47,    42,
+      42,    37,    42,    41,    35,    35,    41,    46,    18,    -1,
+      47,    19,    45,    38,    36,    42,    36,    46,    46,    42,
+      46,    35,    29,    42,    45,    29,    35,    42,    46,    42,
+      41,    47,    22,    11,    46,    41,    38,     7,    10,    38,
+      -1,    -1,    47,    -1,    47,    46,    42,    47,    46,    42,
+      42,    46,    36,    42,    36,    42,    42,    42,    46,    42,
+      22,    42,    42,    42,    -1,    42,    42,    42
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,    49,    50,     0,     7,     8,     9,    34,    51,    52,
-      53,    55,    56,    60,    61,    62,    63,    16,    18,    19,
-      46,    54,     4,     5,     6,    52,     8,    10,    57,    57,
-      17,    41,    41,    42,    43,    35,    35,    15,    14,    46,
-      42,    47,    47,    46,    47,    47,    37,    37,    42,    42,
-      36,    36,    38,    38,    42,    42,    39,    39,    42,    59,
-      58,     4,     5,    11,    12,    18,    19,    20,    21,    42,
-      46,    64,    65,    66,    67,    68,    69,    70,    71,    72,
-      73,    74,    75,    76,    77,    79,    80,    82,    83,    64,
-      35,    35,    46,    37,    41,    41,    47,    45,    37,    41,
-      44,    40,    65,    40,    46,    46,    42,    46,    18,    19,
-      42,    22,    37,    46,    38,     4,     5,    18,    19,    46,
-      47,    36,    36,    23,    24,    25,    26,    27,    28,    81,
-      29,    30,    29,    13,    45,    42,    35,    35,    29,    42,
-      29,    30,    31,    32,    78,    42,    41,    41,    46,    47,
-      47,    47,    38,    22,    46,    46,    47,    46,    47,    46,
-      46,    47,    38,    42,    42,    42,    46,    42,    36,    36,
-      42,    42,    42,    42,    42,    42,    11,    42,    45,    42,
-      42,    46,    22,    42,    42
+       0,     7,     8,     9,    10,    34,    49,    50,    51,    52,
+      54,    55,    56,    57,    58,    59,    16,    14,    18,    19,
+      46,    53,     4,     5,    46,     6,     0,    51,     8,    55,
+      17,    37,    41,    41,    42,    43,    35,    35,    37,    15,
+      42,    38,    47,    47,    46,    47,    47,    38,    39,    42,
+      42,    36,    36,    39,    42,     4,     5,    11,    12,    18,
+      19,    20,    21,    42,    46,    60,    61,    62,    63,    64,
+      65,    66,    67,    68,    69,    70,    71,    72,    73,    75,
+      76,    78,    79,    42,    42,    60,    35,    35,    46,    37,
+      41,    41,    47,    45,    37,    41,    44,    40,    61,    40,
+      46,    46,    42,    46,    18,    19,    42,    22,    37,    46,
+      38,     4,     5,    18,    19,    46,    47,    36,    36,    23,
+      24,    25,    26,    27,    28,    77,    29,    30,    29,    13,
+      45,    42,    35,    35,    29,    42,    29,    30,    31,    32,
+      74,    42,    41,    41,    46,    47,    47,    47,    38,    22,
+      46,    46,    47,    46,    47,    46,    46,    47,    38,    42,
+      42,    42,    46,    42,    36,    36,    42,    42,    42,    42,
+      42,    42,    11,    42,    45,    42,    42,    46,    22,    42,
+      42
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    48,    50,    49,    51,    51,    52,    52,    52,    52,
-      52,    52,    53,    54,    54,    55,    56,    55,    57,    58,
-      57,    59,    57,    60,    60,    61,    62,    63,    63,    64,
-      64,    65,    65,    65,    65,    65,    65,    65,    65,    65,
-      65,    65,    65,    65,    65,    65,    65,    65,    66,    67,
-      68,    69,    69,    70,    71,    72,    73,    74,    75,    76,
-      76,    77,    77,    78,    78,    78,    78,    79,    80,    81,
-      81,    81,    81,    81,    81,    82,    83,    83,    83,    83
+       0,    48,    49,    50,    50,    51,    51,    51,    51,    51,
+      51,    52,    53,    53,    54,    54,    55,    55,    55,    56,
+      56,    57,    58,    59,    59,    60,    60,    61,    61,    61,
+      61,    61,    61,    61,    61,    61,    61,    61,    61,    61,
+      61,    61,    61,    61,    62,    63,    64,    65,    65,    66,
+      67,    68,    69,    70,    71,    72,    72,    73,    73,    74,
+      74,    74,    74,    75,    76,    77,    77,    77,    77,    77,
+      77,    78,    79,    79,    79,    79
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     0,     2,     2,     1,     1,     1,     1,     1,
-       1,     1,     3,     3,     1,     2,     0,     2,     5,     0,
-       8,     0,     8,     5,     5,     6,     6,     3,     4,     2,
+       0,     2,     1,     2,     1,     1,     1,     1,     1,     1,
+       1,     3,     3,     1,     2,     1,     5,     7,     7,     5,
+       5,     6,     6,     3,     4,     2,     1,     1,     1,     1,
        1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     1,     1,     1,     1,     7,     7,
-       7,     7,     7,     2,     3,     9,     6,     6,     6,     4,
-       4,     6,     6,     1,     1,     1,     1,     4,     3,     1,
-       1,     1,     1,     1,     1,     6,     7,     3,     9,     6
+       1,     1,     1,     1,     7,     7,     7,     7,     7,     2,
+       3,     9,     6,     6,     6,     4,     4,     6,     6,     1,
+       1,     1,     1,     4,     3,     1,     1,     1,     1,     1,
+       1,     6,     7,     3,     9,     6
 };
 
 
@@ -1416,371 +1410,13 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 138 "AssemblerParser.y" /* yacc.c:1646  */
-    {Iniciar();}
-#line 1422 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 3:
-#line 138 "AssemblerParser.y" /* yacc.c:1646  */
-    { cout << "Final de la gramatica" << endl; salidanasm.close(); }
-#line 1428 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 13:
-#line 152 "AssemblerParser.y" /* yacc.c:1646  */
-    { salidanasm << "    " << (yyvsp[0].st) << " : resd 1" << endl; }
-#line 1434 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 14:
-#line 153 "AssemblerParser.y" /* yacc.c:1646  */
-    { salidanasm << "    " << (yyvsp[0].st) << " : resd 1" << endl; }
-#line 1440 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 16:
-#line 156 "AssemblerParser.y" /* yacc.c:1646  */
-    { salidanasm << "section .text" << endl; }
-#line 1446 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 19:
-#line 159 "AssemblerParser.y" /* yacc.c:1646  */
-    { salidanasm << (yyvsp[-3].st) << ":" << endl; 
-                                                  salidanasm << "    pusha" << endl;
-                                                   }
-#line 1454 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 20:
-#line 163 "AssemblerParser.y" /* yacc.c:1646  */
-    {
-                                                                        salidanasm << "    popa" << endl;
-                                                                        salidanasm << "    ret" << endl;
-                                                                      }
-#line 1463 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 21:
-#line 168 "AssemblerParser.y" /* yacc.c:1646  */
-    {salidanasm << "global _start" << endl; salidanasm << "_start:" << endl;}
-#line 1469 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 22:
-#line 168 "AssemblerParser.y" /* yacc.c:1646  */
-    {
-                                                                                                                                                  salidanasm << "    exit:" << endl;
-                                                                                                                                                  salidanasm << "    mov eax, 1" << endl;
-                                                                                                                                                  salidanasm << "    mov ebx, 0" << endl;
-                                                                                                                                                  salidanasm << "    int 80h" << endl; 
-                                                                                                                                                  }
-#line 1480 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 23:
-#line 175 "AssemblerParser.y" /* yacc.c:1646  */
-    { salidanasm << "section .data" << endl;
-                                                      salidanasm << "    ptr: dd 0" << endl; }
-#line 1487 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 24:
-#line 177 "AssemblerParser.y" /* yacc.c:1646  */
-    {
-                                                        salidanasm << "    ptrH: dd 0" << endl;  
-                                                      }
-#line 1495 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 25:
-#line 181 "AssemblerParser.y" /* yacc.c:1646  */
-    {
-                                                              salidanasm << "section .bss" << endl; 
-                                                              salidanasm << "    Stack: resd 10000" << endl;
-                                                              }
-#line 1504 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 26:
-#line 186 "AssemblerParser.y" /* yacc.c:1646  */
-    {
-                                                              salidanasm << "    Heap: resd 10000" << endl;
-                                                            }
-#line 1512 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 48:
-#line 216 "AssemblerParser.y" /* yacc.c:1646  */
-    {
-                                                                  salidanasm << "    mov ebx, [Stack]" << endl;
-                                                                  salidanasm << "    mov eax, " << (yyvsp[-2].st) << endl;
-                                                                  salidanasm << "    mov ecx, [ebx + eax]" << endl;
-                                                                  salidanasm << "    mov eax, ecx" << endl;
-                                                                  salidanasm << "    mov ["<< (yyvsp[-6].st) << "], eax" << endl;
-                                                                  }
-#line 1524 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 49:
-#line 224 "AssemblerParser.y" /* yacc.c:1646  */
-    {
-                                                                  salidanasm << "    mov ebx, [Heap]" << endl;
-                                                                  salidanasm << "    mov eax, " << (yyvsp[-2].st) << endl;
-                                                                  salidanasm << "    mov ecx, [ebx + eax]" << endl;
-                                                                  salidanasm << "    mov eax, ecx" << endl;
-                                                                  salidanasm << "    mov ["<< (yyvsp[-6].st) << "], eax" << endl;
-                                                                  }
-#line 1536 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 50:
-#line 232 "AssemblerParser.y" /* yacc.c:1646  */
-    {
-                                                                salidanasm << "    mov ebx, [Stack]" << endl; 
-                                                                salidanasm << "    mov eax, " << (yyvsp[-4].st) << endl;
-                                                                salidanasm << "    mov ecx, " << (yyvsp[-1].st) << endl;
-                                                                salidanasm << "    mov[ebx + eax], ecx" << endl; }
-#line 1546 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 51:
-#line 238 "AssemblerParser.y" /* yacc.c:1646  */
-    {
-                                                                salidanasm << "    mov ebx, [Heap]" << endl; 
-                                                                salidanasm << "    mov eax, " << (yyvsp[-4].st) << endl;
-                                                                salidanasm << "    mov ecx, " << (yyvsp[-1].st) << endl;
-                                                                salidanasm << "    mov[ebx + eax], ecx" << endl; }
-#line 1556 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 52:
-#line 243 "AssemblerParser.y" /* yacc.c:1646  */
-    {
-                                                                salidanasm << "    mov ebx, [Heap]" << endl; 
-                                                                salidanasm << "    mov eax, " << (yyvsp[-4].st) << endl;
-                                                                salidanasm << "    mov ecx, " << (yyvsp[-1].st) << endl;
-                                                                salidanasm << "    mov[ebx + eax], ecx" << endl; }
-#line 1566 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 53:
-#line 249 "AssemblerParser.y" /* yacc.c:1646  */
-    {salidanasm << "    " << (yyvsp[-1].st) << ":" << endl;}
-#line 1572 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 54:
-#line 251 "AssemblerParser.y" /* yacc.c:1646  */
-    {salidanasm << "    JMP " << (yyvsp[-1].st) << endl; }
-#line 1578 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 55:
-#line 253 "AssemblerParser.y" /* yacc.c:1646  */
-    {
-                                                                        QString oprel = (yyvsp[-5].st);
-                                                                        salidanasm << "    mov eax, " << (yyvsp[-6].st) << endl;
-                                                                        salidanasm << "    mov ebx, " << (yyvsp[-4].st) << endl;
-                                                                        salidanasm << "    cmp eax, ebx" << endl;
-                                                                        if(oprel == "==") {
-                                                                          salidanasm << "    JE " << (yyvsp[-1].st) << endl;
-                                                                        } else if (oprel == "!="){
-                                                                          salidanasm << "    JNE " << (yyvsp[-1].st) << endl;
-                                                                        } else if (oprel == ">"){
-                                                                          salidanasm << "    JG " << (yyvsp[-1].st) << endl;
-                                                                        } else if (oprel == ">="){
-                                                                          salidanasm << "    JGE " << (yyvsp[-1].st) << endl;
-                                                                        } else if (oprel == "<"){
-                                                                          salidanasm << "    JL " << (yyvsp[-1].st) << endl;
-                                                                        } else if (oprel == "<="){
-                                                                          salidanasm << "    JLE " << (yyvsp[-1].st) << endl;
-                                                                        }
-                                                                    }
-#line 1602 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 56:
-#line 273 "AssemblerParser.y" /* yacc.c:1646  */
-    {
-                                                      salidanasm << "    mov eax, ptr" << endl;
-                                                      salidanasm << "    add eax, "<< (yyvsp[-1].st) << endl;  
-                                                      salidanasm << "    mov [" << (yyvsp[-5].st) << "], eax" << endl;
-                                                      }
-#line 1612 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 57:
-#line 279 "AssemblerParser.y" /* yacc.c:1646  */
-    {
-                                                      salidanasm << "    mov eax, ptr" << endl;
-                                                      salidanasm << "    add eax, "<< (yyvsp[-1].st) << endl;  
-                                                      salidanasm << "    mov [ptr], eax" << endl;
-                                                      }
-#line 1622 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 58:
-#line 285 "AssemblerParser.y" /* yacc.c:1646  */
-    {
-                                                      salidanasm << "    mov eax, ptr" << endl;
-                                                      salidanasm << "    sub eax, "<< (yyvsp[-1].st) << endl;  
-                                                      salidanasm << "    mov [ptr], eax" << endl;
-                                                      }
-#line 1632 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 59:
-#line 291 "AssemblerParser.y" /* yacc.c:1646  */
-    {  salidanasm << "    mov eax, ptrH" << endl;
-                                              salidanasm << "    mov [" << (yyvsp[-3].st) << "], eax" << endl; }
-#line 1639 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 60:
-#line 293 "AssemblerParser.y" /* yacc.c:1646  */
-    {salidanasm << "    mov eax, " << (yyvsp[-1].st) << endl;
-                                              salidanasm << "    mov [" << (yyvsp[-3].st) << "], eax" << endl; }
-#line 1646 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 61:
-#line 296 "AssemblerParser.y" /* yacc.c:1646  */
-    {salidanasm << "    mov eax, " << (yyvsp[-3].st) << endl;
-                                              QString op = (yyvsp[-2].st);
-                                              if(op == "+") {
-                                                salidanasm << "    add eax, " << (yyvsp[-1].st) << endl;
-                                              } else if(op=="-"){
-                                                salidanasm << "    sub eax, " << (yyvsp[-1].st) << endl;
-                                              } else if(op=="*"){
-                                                salidanasm << "    mul " << (yyvsp[-1].st) << endl;
-                                              } else if (op=="/"){
-                                                salidanasm << "   div " << (yyvsp[-1].st) << endl;
-                                              }
-                                              salidanasm << "    mov [" << (yyvsp[-5].st) << "], eax" << endl;
-                                              }
-#line 1664 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 62:
-#line 309 "AssemblerParser.y" /* yacc.c:1646  */
-    {salidanasm << "    mov eax, " << (yyvsp[-3].st) << endl;
-                                              QString op = (yyvsp[-2].st);
-                                              if(op == "+") {
-                                                salidanasm << "    add eax, " << (yyvsp[-1].st) << endl;
-                                              } else if(op=="-"){
-                                                salidanasm << "    sub eax, " << (yyvsp[-1].st) << endl;
-                                              } else if(op=="*"){
-                                                salidanasm << "    mul " << (yyvsp[-1].st) << endl;
-                                              } else if (op=="/"){
-                                                salidanasm << "   div " << (yyvsp[-1].st) << endl;
-                                              }
-                                              salidanasm << "    mov [" << (yyvsp[-5].st) << "], eax" << endl;
-                                              }
-#line 1682 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 63:
-#line 323 "AssemblerParser.y" /* yacc.c:1646  */
-    {(yyval.st) = (yyvsp[0].st);}
-#line 1688 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 64:
-#line 323 "AssemblerParser.y" /* yacc.c:1646  */
-    {(yyval.st) = (yyvsp[0].st);}
-#line 1694 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 65:
-#line 323 "AssemblerParser.y" /* yacc.c:1646  */
-    {(yyval.st) = (yyvsp[0].st);}
-#line 1700 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 66:
-#line 323 "AssemblerParser.y" /* yacc.c:1646  */
-    {(yyval.st) = (yyvsp[0].st);}
-#line 1706 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 67:
-#line 325 "AssemblerParser.y" /* yacc.c:1646  */
-    {salidanasm << "    call " << (yyvsp[-3].st) << endl;}
-#line 1712 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 69:
-#line 329 "AssemblerParser.y" /* yacc.c:1646  */
-    {(yyval.st) = (yyvsp[0].st);}
-#line 1718 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 70:
-#line 329 "AssemblerParser.y" /* yacc.c:1646  */
-    {(yyval.st) = (yyvsp[0].st);}
-#line 1724 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 71:
-#line 329 "AssemblerParser.y" /* yacc.c:1646  */
-    {(yyval.st) = (yyvsp[0].st);}
-#line 1730 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 72:
-#line 329 "AssemblerParser.y" /* yacc.c:1646  */
-    {(yyval.st) = (yyvsp[0].st);}
-#line 1736 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 73:
-#line 329 "AssemblerParser.y" /* yacc.c:1646  */
-    {(yyval.st) = (yyvsp[0].st);}
-#line 1742 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 74:
-#line 329 "AssemblerParser.y" /* yacc.c:1646  */
-    {(yyval.st) = (yyvsp[0].st);}
-#line 1748 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 75:
-#line 331 "AssemblerParser.y" /* yacc.c:1646  */
-    {
-                                                      salidanasm << "    mov eax, ptrH" << endl;
-                                                      salidanasm << "    add eax, " << (yyvsp[-1].st) << endl;  
-                                                      salidanasm << "    mov [ptrH], eax" << endl;
-                                                      }
-#line 1758 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 78:
-#line 339 "AssemblerParser.y" /* yacc.c:1646  */
-    {  salidanasm << "    mov eax, 4" << endl;
-                                                                                        salidanasm << "    mov ebx, 1" << endl;
-                                                                                        salidanasm << "    mov ecx, " << (yyvsp[-3].st) << endl;
-                                                                                        salidanasm << "    mov edx, 100" << endl;
-                                                                                        salidanasm << "    int 80h" << endl; 
-                                                                                         }
-#line 1769 "AssemblerParser.cpp" /* yacc.c:1646  */
-    break;
-
-  case 79:
-#line 346 "AssemblerParser.y" /* yacc.c:1646  */
-    {                      salidanasm << "    mov eax, 4" << endl;
-                                                                                        salidanasm << "    mov ebx, 1" << endl;
-                                                                                        salidanasm << "    mov ecx, " << (yyvsp[-3].st) << endl; 
-                                                                                        salidanasm << "    mov edx, 100" << endl;
-                                                                                        salidanasm << "    int 80h" << endl; 
-                                                                                         }
-#line 1780 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 134 "InversaParser.y" /* yacc.c:1646  */
+    { cout << "Final de ingenieria inversa" << endl; }
+#line 1416 "InversaParser.cpp" /* yacc.c:1646  */
     break;
 
 
-#line 1784 "AssemblerParser.cpp" /* yacc.c:1646  */
+#line 1420 "InversaParser.cpp" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2008,6 +1644,6 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 353 "AssemblerParser.y" /* yacc.c:1906  */
+#line 233 "InversaParser.y" /* yacc.c:1906  */
 
 
