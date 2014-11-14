@@ -6,8 +6,6 @@ GeneradorDeCodigo::GeneradorDeCodigo()
     this->etq = 0;
     this->tmp = 0;
     this->listaAboles = new QList<Nodo*>();
-    this->decIniciales = "";
-    this->decMetodos = "";
     this->contadorImports = 0;
 }
 
@@ -22,7 +20,6 @@ void GeneradorDeCodigo::Iniciar(){
     decIniciales += "long Heap[10000];|";
     cout << "Generando codigo de 3 direcciones..." << endl;
     cicloIf = false;
-    generarImprimir();
     emitirCodigo3D();
     archivo3D.close();
 }
@@ -49,8 +46,6 @@ void GeneradorDeCodigo::analizarImports(Nodo *arbol){
             generarCodigo3D(tmp,etq,arbol);
             Iniciar();
             errores.close();
-
-
         }
     }
 }
@@ -61,8 +56,6 @@ void GeneradorDeCodigo::AgregarAbol(Nodo *arbol)
     analizarImports(arbol);
     this->contadorImports++;
     tabla.imprimir();
-
-
 }
 
 void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
@@ -385,9 +378,7 @@ void GeneradorDeCodigo::generarParametros(QString temporal, QString nombre, Nodo
 
 void GeneradorDeCodigo::generarImprimir()
 {
-    if(this->contadorImports==0){
         // Imprimir Cadena
-        this->decMetodos+="void imprimir_cadena();|";
         escribir("void imprimir_cadena(){");
         QString temp = generaTmp();
         escribir(temp+"=ptr+0;");
@@ -412,7 +403,6 @@ void GeneradorDeCodigo::generarImprimir()
         escribir("}");
 
         //Imprimir número
-        this->decMetodos+="void imprimir_num();|";
         escribir ("void imprimir_num(){");
         temp = generaTmp();
         escribir(temp+"=ptr+0;");
@@ -422,7 +412,6 @@ void GeneradorDeCodigo::generarImprimir()
         escribir("}");
 
         //Imprimir caracter
-        this->decMetodos+="void imprimir_caracter();|";
         escribir ("void imprimir_caracter(){");
         temp = generaTmp();
         escribir(temp+"=ptr+0;");
@@ -431,7 +420,6 @@ void GeneradorDeCodigo::generarImprimir()
         escribir("cout<<(char)"+temp2+"<<endl;");
         escribir("}");
 
-    }
 }
 
 void GeneradorDeCodigo::CompilarImport(QString path)

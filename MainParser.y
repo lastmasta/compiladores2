@@ -7,6 +7,7 @@
   #include <stdio.h>
   #include <stdlib.h>
   #include <iostream>
+  #include <fstream>
   #include "nodo.h"
   using namespace std;
 
@@ -15,10 +16,24 @@
   extern int mainparserlineno;
   extern int mainparsercolno;
   extern FILE *Mainin;
+  ofstream archivo3D;
   void mainparsererror(char*s);
 
-void inicializar() {
 
+void inicializar() {
+    archivo3D.open("3D.cpp");
+    archivo3D.flush();
+    archivo3D.close();
+    gdc.tabla.limpiar();
+    gdc.etq = 0;
+    gdc.tmp = 0;
+    gdc.decMetodos = "";
+    gdc.decIniciales = "";
+    gdc.codigo3D = "";
+    gdc.decMetodos+="void imprimir_cadena();|";
+    gdc.decMetodos+="void imprimir_num();|";
+    gdc.decMetodos+="void imprimir_caracter();|";
+    gdc.generarImprimir();
 }
 
 

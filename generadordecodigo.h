@@ -20,6 +20,7 @@ using namespace std;
 extern int mainparserparse();
 extern FILE *mainparserin;
 
+
 class GeneradorDeCodigo : public Errores
 {
 public:
@@ -39,6 +40,8 @@ public:
     void emitirCodigo3D();
     QString generaTmp();
     QString generaETQ();
+    QString decMetodos;
+    QString decIniciales;
     QString eV;
     QString eF;
     QString eSalida;
@@ -49,6 +52,8 @@ public:
     int etq;
     QList<Nodo*> *listaAboles;
     TablaSimbolos tabla;
+    void generarImprimir();
+
 
 private:
 
@@ -68,11 +73,9 @@ private:
     int contadorImports;
     bool cicloIf;
     void generarParametros(QString temporal, QString nombre, Nodo* arbol, int &cont);
-    void generarImprimir();
     void CompilarImport(QString path);
 
-    QString decIniciales;
-    QString decMetodos;
+
 };
 
 #endif // GENERADORDECODIGO_H

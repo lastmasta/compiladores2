@@ -4,6 +4,7 @@
 
 extern int assemblerparserparse();
 extern int mainparserparse();
+extern void inicializar();
 extern FILE *mainparserin;
 extern FILE *assemblerparserin;
 
@@ -46,9 +47,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_compilarBtn_clicked()
 {
+    inicializar();
+
+    this->ui->erroresText->setText("");
+
+    this->ui->erroresText->setText(">> Analizando código de alto nivel...");
+
     this->ui->tresText->setText("");
     this->ui->nasmText->setText("");
-    this->ui->erroresText->setText(">> Analizando código de alto nivel...");
+
+
     QString codigo = this->ui->sourceArea->toPlainText();
     analizarCodigoFuente(codigo.toStdString());
 
@@ -69,7 +77,6 @@ void MainWindow::on_compilarBtn_clicked()
             this->ui->erroresText->setText(errores);
         } else {
             this->ui->erroresText->append(">> Generando código de tres direcciones...");
-            this->ui->erroresText->append(">> Generando código ensamblador...");
 
             QString codigo3D = "";
 
@@ -83,6 +90,7 @@ void MainWindow::on_compilarBtn_clicked()
                 }
             }
 
+            this->ui->erroresText->append(">> Generando código ensamblador...");
             analizarCodigo3D(codigo3D.toStdString());
 
             QFile nasmFile("assembler.asm");
