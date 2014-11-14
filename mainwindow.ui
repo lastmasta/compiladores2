@@ -6,42 +6,265 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>603</width>
-    <height>533</height>
+    <width>950</width>
+    <height>507</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Proyecto 2 ::: Rodrigo Pineda Arévalo ::: 201020540</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QTextEdit" name="sourceArea">
+   <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>581</width>
-      <height>341</height>
+      <x>0</x>
+      <y>0</y>
+      <width>851</width>
+      <height>461</height>
      </rect>
     </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Editor</string>
+     </attribute>
+     <widget class="QTextEdit" name="sourceArea">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>851</width>
+        <height>291</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="erroresText">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>320</y>
+        <width>841</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="palette">
+       <palette>
+        <active>
+         <colorrole role="Light">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Text">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>255</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="BrightText">
+          <brush brushstyle="SolidPattern">
+           <color alpha="254">
+            <red>0</red>
+            <green>23</green>
+            <blue>75</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Base">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>2</red>
+            <green>0</green>
+            <blue>63</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="Light">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Text">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>255</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="BrightText">
+          <brush brushstyle="SolidPattern">
+           <color alpha="254">
+            <red>0</red>
+            <green>23</green>
+            <blue>75</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Base">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>2</red>
+            <green>0</green>
+            <blue>63</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled>
+         <colorrole role="Light">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Text">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>133</red>
+            <green>133</green>
+            <blue>133</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="BrightText">
+          <brush brushstyle="SolidPattern">
+           <color alpha="254">
+            <red>0</red>
+            <green>23</green>
+            <blue>75</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Base">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>252</red>
+            <green>252</green>
+            <blue>252</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </disabled>
+       </palette>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>300</y>
+        <width>57</width>
+        <height>15</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Salida</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>Salida</string>
+     </attribute>
+     <widget class="QTextEdit" name="tresText">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>421</width>
+        <height>411</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="nasmText">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>20</y>
+        <width>421</width>
+        <height>411</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>141</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Codigo de 3 Direcciones</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>0</y>
+        <width>141</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Codigo NASM</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
    <widget class="QPushButton" name="compilarBtn">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>460</y>
-      <width>271</width>
-      <height>23</height>
+      <x>860</x>
+      <y>30</y>
+      <width>81</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
      <string>Compilar</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="ejecutar_btn">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>100</y>
+      <width>81</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Ejecutar</string>
+    </property>
+   </widget>
    <widget class="QPushButton" name="compilarBtn_2">
     <property name="geometry">
      <rect>
-      <x>510</x>
-      <y>460</y>
+      <x>860</x>
+      <y>170</y>
       <width>81</width>
       <height>23</height>
      </rect>
@@ -50,49 +273,13 @@
      <string>Ver tabla</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>360</y>
-      <width>57</width>
-      <height>15</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Salida</string>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="erroresText">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>380</y>
-      <width>581</width>
-      <height>70</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="compilar3d_btn">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>460</y>
-      <width>211</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Compilar 3 Direcciones</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>603</width>
+     <width>950</width>
      <height>27</height>
     </rect>
    </property>

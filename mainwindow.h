@@ -34,6 +34,8 @@ private slots:
 
     void on_compilar3d_btn_clicked();
 
+    void on_ejecutar_btn_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

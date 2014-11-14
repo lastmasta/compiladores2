@@ -46,7 +46,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_compilarBtn_clicked()
 {
-    this->ui->erroresText->setText("Analizando código de alto nivel...");
+    this->ui->tresText->setText("");
+    this->ui->nasmText->setText("");
+    this->ui->erroresText->setText(">> Analizando código de alto nivel...");
     QString codigo = this->ui->sourceArea->toPlainText();
     analizarCodigoFuente(codigo.toStdString());
 
@@ -58,7 +60,7 @@ void MainWindow::on_compilarBtn_clicked()
            while ( !in.atEnd() )
            {
               QString line = in.readLine();
-              errores += line+'\n';
+              errores += "!¡ "+line+'\n';
            }
            inputFile.close();
         }
@@ -66,8 +68,8 @@ void MainWindow::on_compilarBtn_clicked()
         if(errores!=""){
             this->ui->erroresText->setText(errores);
         } else {
-            this->ui->erroresText->append("Generando código de tres direcciones...");
-            this->ui->erroresText->append("Generando código ensamblador...");
+            this->ui->erroresText->append(">> Generando código de tres direcciones...");
+            this->ui->erroresText->append(">> Generando código ensamblador...");
 
             QString codigo3D = "";
 
@@ -77,10 +79,20 @@ void MainWindow::on_compilarBtn_clicked()
                 while (!in.atEnd() ){
                     QString line = in.readLine();
                     codigo3D += line;
+                    this->ui->tresText->append(line);
                 }
             }
 
             analizarCodigo3D(codigo3D.toStdString());
+
+            QFile nasmFile("assembler.asm");
+            if(nasmFile.open(QIODevice::ReadOnly)){
+                QTextStream in(&nasmFile);
+                while(!in.atEnd() ){
+                    QString line = in.readLine();
+                    this->ui->nasmText->append(line);
+                }
+            }
         }
 
 
@@ -102,4 +114,10 @@ void MainWindow::on_compilar3d_btn_clicked()
 {
 
 
+}
+
+void MainWindow::on_ejecutar_btn_clicked()
+{
+    system("g++ 3D.cpp -o salida");
+    system("xfce4-terminal --hold -e ./salida");
 }
