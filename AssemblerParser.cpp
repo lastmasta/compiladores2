@@ -1482,14 +1482,14 @@ yyreduce:
   case 23:
 #line 175 "AssemblerParser.y" /* yacc.c:1646  */
     { salidanasm << "section .data" << endl;
-                                                      salidanasm << "    ptr: dd 0" << endl; }
+                                                      salidanasm << "    ptr: dw 0" << endl; }
 #line 1487 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;
 
   case 24:
 #line 177 "AssemblerParser.y" /* yacc.c:1646  */
     {
-                                                        salidanasm << "    ptrH: dd 0" << endl;  
+                                                        salidanasm << "    ptrH: dw 0" << endl;  
                                                       }
 #line 1495 "AssemblerParser.cpp" /* yacc.c:1646  */
     break;

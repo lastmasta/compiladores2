@@ -91,7 +91,7 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
                     llenarTabla(arbol->hijos[i]);
                 }
             }
-            Simbolo* s = new Simbolo(id, id, "N/A", -1, -1, "N/A", "clase", posicion, accesoClase);
+            Simbolo* s = new Simbolo(id, id, "N/A", -1, -1, "N/A", "clase", posicion*4, accesoClase);
             if(!tabla.existeSimbolo(id)){
                 tabla.agregarSimbolo(id,s);
             } else {
@@ -123,7 +123,7 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
                 hijo = arbol->hijos[i];
             }
             QString nombre = ambito+"_"+id;
-            Simbolo* s = new Simbolo(nombre, id, ambito,nivel,posicion,tipo,"atributo",TAMANO,visibilidad);
+            Simbolo* s = new Simbolo(nombre, id, ambito,nivel,posicion*4,tipo,"atributo",TAMANO,visibilidad);
             if(!tabla.existeSimbolo(nombre)){
                 tabla.agregarSimbolo(nombre,s);
                 posicion++;
@@ -131,7 +131,7 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
                 ExisteSimbolo(id,ambito);
             }
         } else if (etiqueta == "DECMETODO"){
-            QList<QString> *identificadores;
+            QList<QString> identificadores;
             tamanoMetodo = 0;
             ambitoid = 0;
             params = "";
@@ -152,7 +152,6 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
                     llenarTabla(arbol->hijos[i]);
                     ambito = ambito+"_"+id+params;
                     nivel++;
-                    identificadores = new QList<QString>();
                     identificadores = llenarConParametros(identificadores, arbol->hijos[i]);
                     ambito = ambitotemp;
                     nivel--;
@@ -169,7 +168,7 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
             nivel++;
 
             //Agregamos el "this" en la posicion 0 del metodo
-            Simbolo* This = new Simbolo(ambito+"_this",id,ambito,nivel,0,"entero","variable",1,"N/A");
+            Simbolo* This = new Simbolo(ambito+"_this",id,ambito,nivel,0,"entero","variable",TAMANO,"N/A");
             tabla.agregarSimbolo(ambito+"_this",This);
             tamanoMetodo++;
 
@@ -180,7 +179,7 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
 
             //Agregamos el "return" en la posicion 1 del metodo
             if (!(tipo=="ninguno")){
-                Simbolo *s = new Simbolo(ambito+"_return", id, ambito, nivel, posicion, tipo, "retorno", TAMANO, "N/A");
+                Simbolo *s = new Simbolo(ambito+"_return", id, ambito, nivel, posicion*4, tipo, "retorno", TAMANO, "N/A");
                 if(!tabla.existeSimbolo(ambito+"_return")) {tabla.agregarSimbolo(ambito+"_return", s);}
                 posicion++;
                 tamanoMetodo++;
@@ -195,9 +194,9 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
             nombre+="()";
             Simbolo* s = NULL;
             if(id == idClase && tipo=="ninguno"){
-                s = new Simbolo(nombre,id,ambitotemp,nivel,-1,tipo,"constructor",tamanoMetodo,acceso);
+                s = new Simbolo(nombre,id,ambitotemp,nivel,-1,tipo,"constructor",tamanoMetodo*4,acceso);
             } else {
-                s = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo,acceso);
+                s = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso);
             }
 
             //Agregamos los identificadores de los parametros al simbolo
@@ -235,7 +234,7 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
             QString id = arbol->hijos[0]->hijos[0]->Etiqueta();
             QString tipo = arbol->hijos[1]->hijos[0]->Etiqueta();
             QString nombre = ambito+"_"+id;
-            Simbolo* s = new Simbolo(nombre,id,ambito,nivel,posicion,tipo,"variable",TAMANO,"N/A");
+            Simbolo* s = new Simbolo(nombre,id,ambito,nivel,posicion*4,tipo,"variable",TAMANO,"N/A");
             if(!tabla.existeSimbolo(nombre)){
                 tabla.agregarSimbolo(nombre,s);
                 posicion++;
@@ -312,7 +311,7 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
             if(!tabla.existeSimbolo(nombre)){
                 QList<Nodo>* dimensiones = new QList<Nodo>();
                 dimensiones = getDimensiones(dimensiones,arbol->hijos[3]);
-                Simbolo* s = new Simbolo(nombre,id,ambito,nivel,posicion,tipo,rol,TAMANO,acceso,dimensiones);
+                Simbolo* s = new Simbolo(nombre,id,ambito,nivel,posicion*4,tipo,rol,TAMANO,acceso,dimensiones);
                 tabla.agregarSimbolo(nombre,s);
                 posicion++;
             } else {ExisteSimbolo(id,ambito);}
@@ -324,7 +323,7 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
             if(!tabla.existeSimbolo(nombre)){
                 QList<Nodo>* dimensiones = new QList<Nodo>();
                 dimensiones = getDimensiones(dimensiones,arbol->hijos[2]);
-                Simbolo* s = new Simbolo(nombre,id,ambito,nivel,posicion,tipo,"arreglo",TAMANO,"N/A",dimensiones);
+                Simbolo* s = new Simbolo(nombre,id,ambito,nivel,posicion*4,tipo,"arreglo",TAMANO,"N/A",dimensiones);
                 tabla.agregarSimbolo(nombre,s);
                 posicion++;
                 tamanoMetodo++;
@@ -351,9 +350,9 @@ void GeneradorDeCodigo::generarParametros(QString temporal, QString nombre, Nodo
     for(int i = 0; i<arbol->cantHijos; i++){
         if(arbol->hijos[i]->Etiqueta()=="VALOR"){
             Simbolo metodo = tabla.getSimbolo(nombre+"()");
-            QList<QString>* idList = metodo.parametros;
+            QList<QString> idList = metodo.parametros;
 
-            QString idparam = idList->at(cont);
+            QString idparam = idList.at(cont);
             Simbolo parametro = tabla.getSimbolo(nombre+"_"+idparam);
 
 
@@ -443,7 +442,7 @@ void GeneradorDeCodigo::CompilarImport(QString path)
         mainparserparse();
 }
 
-QList<QString> * GeneradorDeCodigo::llenarConParametros(QList<QString> *identificadores, Nodo *arbol)
+QList<QString> GeneradorDeCodigo::llenarConParametros(QList<QString> &identificadores, Nodo *arbol)
 {
     if(arbol!=NULL){
         QString etiqueta = arbol->Etiqueta();
@@ -453,10 +452,10 @@ QList<QString> * GeneradorDeCodigo::llenarConParametros(QList<QString> *identifi
             }
         } else if (etiqueta=="PARAM"){
             QString id = arbol->hijos[0]->hijos[0]->Etiqueta();
-            identificadores->push_back(id);
+            identificadores.push_back(id);
             QString tipo = arbol->hijos[1]->hijos[0]->Etiqueta();
             QString nombre = ambito +"_"+id;
-            Simbolo* s = new Simbolo(nombre,id, ambito,nivel,posicion,tipo,"parametro_val",TAMANO,"N/A");
+            Simbolo* s = new Simbolo(nombre,id, ambito,nivel,posicion*4,tipo,"parametro_val",TAMANO,"N/A");
             if(!tabla.existeSimbolo(nombre)){
                 tabla.agregarSimbolo(nombre,s);
                 posicion++;
@@ -467,10 +466,10 @@ QList<QString> * GeneradorDeCodigo::llenarConParametros(QList<QString> *identifi
 
         } else if (etiqueta == "REFPARAM"){
             QString id = arbol->hijos[1]->hijos[0]->Etiqueta();
-            identificadores->push_back(id);
+            identificadores.push_back(id);
             QString tipo = arbol->hijos[2]->hijos[0]->Etiqueta();
             QString nombre = ambito +"_"+id;
-            Simbolo* s = new Simbolo(nombre,id, ambito,nivel,posicion,tipo,"parametro_ref",TAMANO,"N/A");
+            Simbolo* s = new Simbolo(nombre,id, ambito,nivel,posicion*4,tipo,"parametro_ref",TAMANO,"N/A");
             if(!tabla.existeSimbolo(nombre)){
                 tabla.agregarSimbolo(nombre,s);
                 posicion++;
@@ -1124,7 +1123,7 @@ QString GeneradorDeCodigo::generarCodigo3D(int &tmp,int &etq, Nodo* arbol) {
                 if(tipoReturn == tipo){
                     QString temp = generaTmp();
                     etRetorno = generaETQ();
-                    escribir(temp+"=ptr+"+QString::number(metodo.tamano-1)+";");
+                    escribir(temp+"=ptr+"+QString::number(metodo.tamano-4)+";");
                     escribir("Stack["+temp+"]="+temporal+";");
                     escribir("goto "+etRetorno+";");
                 } else {
@@ -1513,7 +1512,7 @@ QString GeneradorDeCodigo::generarAsignacion(int &tmp, int &etq, Nodo* arbol){
                 temp = generaTmp();
                 escribir(temp+"=ptr+"+QString::number(metodoPadre.tamano)+";");
                 temp1 = generaTmp();
-                escribir(temp1+"="+temp+"+"+QString::number(metodo.tamano-1)+";");
+                escribir(temp1+"="+temp+"+"+QString::number(metodo.tamano-4)+";");
                 temp2 = generaTmp();
                 escribir(temp2+"=Stack["+temp1+"];");
                 temp = generaTmp();
@@ -1562,7 +1561,7 @@ QString GeneradorDeCodigo::generarAsignacion(int &tmp, int &etq, Nodo* arbol){
                         temporal = generaTmp();
                         escribir (temporal+"=ptr+"+QString::number(size)+";");
                         temp  = generaTmp();
-                        escribir(temp+"="+temporal+"+"+QString::number(metodo.tamano-1)+";");
+                        escribir(temp+"="+temporal+"+"+QString::number(metodo.tamano-4)+";");
                         temporal = generaTmp();
                         escribir(temporal+"=Stack["+temp+"];");
 
@@ -1841,7 +1840,7 @@ QString GeneradorDeCodigo::generarDecVar(int &tmp, int &etq, Nodo *arbol){
                 temp = generaTmp();
                 escribir(temp+"=ptr+"+QString::number(metodoPadre.tamano)+";");
                 temp1 = generaTmp();
-                escribir(temp1+"="+temp+"+"+QString::number(metodo.tamano-1)+";");
+                escribir(temp1+"="+temp+"+"+QString::number(metodo.tamano-4)+";");
                 temp2 = generaTmp();
                 escribir(temp2+"=Stack["+temp1+"];");
                 temp = generaTmp();
@@ -1889,7 +1888,7 @@ QString GeneradorDeCodigo::generarDecVar(int &tmp, int &etq, Nodo *arbol){
                         temporal = generaTmp();
                         escribir (temporal+"=ptr+"+QString::number(size)+";");
                         temp  = generaTmp();
-                        escribir(temp+"="+temporal+"+"+QString::number(metodo.tamano-1)+";");
+                        escribir(temp+"="+temporal+"+"+QString::number(metodo.tamano-4)+";");
                         temporal = generaTmp();
                         escribir(temporal+"=Stack["+temp+"];");
 

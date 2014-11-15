@@ -17,10 +17,11 @@ public:
     bool existeSimbolo(QString nombre);
     void imprimir();
     void limpiar();
+    QHash<QString, Simbolo>* tabla;
 
 
 private:
-    QHash<QString, Simbolo>* tabla;
+
     ofstream myfile;
 };
 

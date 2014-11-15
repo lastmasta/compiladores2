@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     AssemblerParser.cpp \
     AssemblerScanner.cpp \
     InversaParser.cpp \
-    InversaScanner.cpp
+    InversaScanner.cpp \
+    ingenieriainversa.cpp
 
 HEADERS  += mainwindow.h \
     MainScanner.h \
@@ -43,7 +44,8 @@ HEADERS  += mainwindow.h \
     AssemblerScanner.h \
     InversaParser.h \
     InversaScanner.h \
-    InversaScanner.l
+    InversaScanner.l \
+    ingenieriainversa.h
 
 FORMS    += mainwindow.ui
 

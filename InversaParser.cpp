@@ -74,6 +74,8 @@
 
 
   #include "InversaScanner.h"
+  #include "tablasimbolos.h"
+  #include "ingenieriainversa.h"
   #include <fstream>
   #include <stdio.h>
   #include <stdlib.h>
@@ -88,15 +90,21 @@
   extern FILE *Mainin;
   void inversaparsererror(char*s);
 
+  TablaSimbolos *tabla;
+  IngenieriaInversa *ii = new IngenieriaInversa();
+
 
 void inversaparsererror(const char *s) {
 cout << "Error SINTACTICO en la fila: " << inversaparserlineno << " y columna: " << inversaparsercolno<< ": "<<inversaparsertext << endl;
 }
 
+void setTabla(TablaSimbolos *t){
+  ii->setTabla(t);
+}
 
 
 
-#line 100 "InversaParser.cpp" /* yacc.c:339  */
+#line 108 "InversaParser.cpp" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -126,11 +134,11 @@ cout << "Error SINTACTICO en la fila: " << inversaparserlineno << " y columna: "
 extern int inversaparserdebug;
 #endif
 /* "%code requires" blocks.  */
-#line 27 "InversaParser.y" /* yacc.c:355  */
+#line 35 "InversaParser.y" /* yacc.c:355  */
 
    #include "nodo.h"
 
-#line 134 "InversaParser.cpp" /* yacc.c:355  */
+#line 142 "InversaParser.cpp" /* yacc.c:355  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -190,12 +198,12 @@ extern int inversaparserdebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 31 "InversaParser.y" /* yacc.c:355  */
+#line 39 "InversaParser.y" /* yacc.c:355  */
 
 char *st;
 Nodo *nodo;
 
-#line 199 "InversaParser.cpp" /* yacc.c:355  */
+#line 207 "InversaParser.cpp" /* yacc.c:355  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -210,7 +218,7 @@ int inversaparserparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 214 "InversaParser.cpp" /* yacc.c:358  */
+#line 222 "InversaParser.cpp" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -512,14 +520,14 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,   134,   134,   136,   137,   139,   140,   141,   142,   143,
-     144,   146,   148,   149,   151,   152,   154,   155,   156,   158,
-     159,   161,   163,   165,   166,   168,   169,   172,   173,   174,
-     175,   176,   177,   178,   179,   180,   181,   182,   183,   184,
-     185,   186,   187,   188,   191,   193,   195,   197,   198,   200,
-     202,   204,   206,   208,   210,   212,   213,   215,   216,   218,
-     218,   218,   218,   220,   222,   224,   224,   224,   224,   224,
-     224,   226,   228,   229,   230,   231
+       0,   142,   142,   144,   145,   147,   148,   149,   150,   151,
+     152,   154,   156,   157,   159,   160,   162,   163,   167,   171,
+     172,   174,   176,   178,   179,   181,   182,   185,   186,   187,
+     188,   189,   190,   191,   192,   193,   194,   195,   196,   197,
+     198,   199,   200,   201,   204,   206,   208,   210,   211,   213,
+     215,   217,   219,   221,   223,   225,   226,   228,   229,   231,
+     231,   231,   231,   233,   235,   237,   237,   237,   237,   237,
+     237,   239,   241,   242,   243,   244
 };
 #endif
 
@@ -1410,13 +1418,30 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 134 "InversaParser.y" /* yacc.c:1646  */
-    { cout << "Final de ingenieria inversa" << endl; }
-#line 1416 "InversaParser.cpp" /* yacc.c:1646  */
+#line 142 "InversaParser.y" /* yacc.c:1646  */
+    { cout << "Final de ingenieria inversa" << endl; ii->generarSalida(); }
+#line 1424 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 17:
+#line 163 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                                                      QString nombre = (yyvsp[-5].st);
+                                                                      ii->inversaMetodos(nombre);
+                                                                    }
+#line 1433 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 18:
+#line 167 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                                                            ii->buscarPrincipal();
+                                                                          }
+#line 1441 "InversaParser.cpp" /* yacc.c:1646  */
     break;
 
 
-#line 1420 "InversaParser.cpp" /* yacc.c:1646  */
+#line 1445 "InversaParser.cpp" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1644,6 +1669,6 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 233 "InversaParser.y" /* yacc.c:1906  */
+#line 246 "InversaParser.y" /* yacc.c:1906  */
 
 

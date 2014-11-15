@@ -11,6 +11,8 @@ extern FILE *assemblerparserin;
 extern FILE *inversaparserin;
 
 extern void inicializar();
+
+extern void setTabla(TablaSimbolos *t);
 extern TablaSimbolos *getTabla();
 
 void guardarCodigo(string texto)
@@ -159,5 +161,6 @@ void MainWindow::on_compilarBtn_3_clicked()
             this->ui->tresText->append(line);
         }
     }
+    setTabla(t);
     realizarIngenieriaInversa(codigo3D.toStdString());
 }

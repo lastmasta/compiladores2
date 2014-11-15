@@ -173,9 +173,9 @@ DECMETODO:      void_rsv id par_a par_c p_coma
                                                                                                                                                   } ;
 
 DECPUNTEROS:    int_rsv ptr sig_igual numero p_coma { salidanasm << "section .data" << endl;
-                                                      salidanasm << "    ptr: dd 0" << endl; }
+                                                      salidanasm << "    ptr: dw 0" << endl; }
               | int_rsv ptrH sig_igual numero p_coma {
-                                                        salidanasm << "    ptrH: dd 0" << endl;  
+                                                        salidanasm << "    ptrH: dw 0" << endl;  
                                                       };
 
 DECSTACK:       long_rsv stack_rsv cor_a numero cor_c p_coma {

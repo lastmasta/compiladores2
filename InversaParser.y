@@ -1,6 +1,8 @@
 %{
 
   #include "InversaScanner.h"
+  #include "tablasimbolos.h"
+  #include "ingenieriainversa.h"
   #include <fstream>
   #include <stdio.h>
   #include <stdlib.h>
@@ -15,11 +17,17 @@
   extern FILE *Mainin;
   void inversaparsererror(char*s);
 
+  TablaSimbolos *tabla;
+  IngenieriaInversa *ii = new IngenieriaInversa();
+
 
 void inversaparsererror(const char *s) {
 cout << "Error SINTACTICO en la fila: " << inversaparserlineno << " y columna: " << inversaparsercolno<< ": "<<inversaparsertext << endl;
 }
 
+void setTabla(TablaSimbolos *t){
+  ii->setTabla(t);
+}
 
 
 %}
@@ -131,7 +139,7 @@ Nodo *nodo;
 
 //  Reglas Gramaticales
 
-INICIO:         INSTRUCCIONES { cout << "Final de ingenieria inversa" << endl; }  ;
+INICIO:         INSTRUCCIONES { cout << "Final de ingenieria inversa" << endl; ii->generarSalida(); }  ;
 
 INSTRUCCIONES:    INSTRUCCIONES TRESDIRECCIONES 
                 | TRESDIRECCIONES;
@@ -152,8 +160,13 @@ DECMETODOS:       DECMETODOS DECMETODO
                 | DECMETODO;
 
 DECMETODO:      void_rsv id par_a par_c p_coma
-              | void_rsv id par_a par_c llave_a CUERPOMETODO llave_c 
-              | int_rsv main_rsv par_a par_c llave_a CUERPOMETODO llave_c ;
+              | void_rsv id par_a par_c llave_a CUERPOMETODO llave_c {
+                                                                      QString nombre = $2;
+                                                                      ii->inversaMetodos(nombre);
+                                                                    }
+              | int_rsv main_rsv par_a par_c llave_a CUERPOMETODO llave_c {
+                                                                            ii->buscarPrincipal();
+                                                                          } ;
 
 DECPUNTEROS:    int_rsv ptr sig_igual numero p_coma 
               | int_rsv ptrH sig_igual numero p_coma;

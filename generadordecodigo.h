@@ -13,7 +13,7 @@
 #include <QFile>
 #include <QTextStream>
 
-#define TAMANO 1
+#define TAMANO 4
 
 using namespace std;
 
@@ -31,7 +31,7 @@ public:
     void llenarTabla(Nodo* arbol);
     void analizarImports(Nodo* arbol);
     void AgregarAbol(Nodo* arbol);
-    QList<QString> *llenarConParametros(QList<QString> *identificadores, Nodo* arbol);
+    QList<QString> llenarConParametros(QList<QString> &identificadores, Nodo* arbol);
     QString generarCodigo3D(int &tmp, int &etq, Nodo* arbol);
     QString getParamsTipo(QString params, Nodo* arbol);
     QString generarAsignacion(int &tmp, int &etq, Nodo* arbol);
