@@ -40,7 +40,7 @@
 extern int inversaparserdebug;
 #endif
 /* "%code requires" blocks.  */
-#line 35 "InversaParser.y" /* yacc.c:1909  */
+#line 36 "InversaParser.y" /* yacc.c:1909  */
 
    #include "nodo.h"
 
@@ -104,7 +104,7 @@ extern int inversaparserdebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 39 "InversaParser.y" /* yacc.c:1909  */
+#line 40 "InversaParser.y" /* yacc.c:1909  */
 
 char *st;
 Nodo *nodo;

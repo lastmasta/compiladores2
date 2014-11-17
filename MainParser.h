@@ -40,7 +40,7 @@
 extern int mainparserdebug;
 #endif
 /* "%code requires" blocks.  */
-#line 52 "MainParser.y" /* yacc.c:1909  */
+#line 55 "MainParser.y" /* yacc.c:1909  */
 
    #include "nodo.h"
 
@@ -120,7 +120,7 @@ extern int mainparserdebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 56 "MainParser.y" /* yacc.c:1909  */
+#line 59 "MainParser.y" /* yacc.c:1909  */
 
 char *st;
 Nodo *nodo;

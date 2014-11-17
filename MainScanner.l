@@ -2,12 +2,14 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-#include "AssemblerParser.h"
+#include "MainParser.h"
 #include "nodo.h"
 #include <iostream>
+  #include <fstream>
 
 using namespace std;
 
+    extern ofstream errores;
     int mainparsercolno = 0;
     #define YY_USER_ACTION { mainparsercolno += mainparserleng; }
 %}
@@ -99,9 +101,11 @@ caracter_token  '([^'\\\n]|\\.)'
 
 
 [ \t\r]       { }
-\n          {mainparserlineno++; mainparsercolno=1;}
+\n          {mainparserlineno++; mainparsercolno=0;}
  . {
- cout <<"Error léxico: "<< mainparsertext << " Fila: " << mainparserlineno << " Columna: " << mainparsercolno<< endl ; return (ERROR);
+ errores.open("errores.txt");
+ errores <<"Error léxico: "<< mainparsertext << " Fila: " << mainparserlineno << " Columna: " << mainparsercolno<< endl ; return (ERROR);
+ errores.close();
  }
 
 %%

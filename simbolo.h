@@ -24,6 +24,7 @@ public:
     QString rol;
     int tamano;
     QString visibilidad;
+    QString valor;
     QList<QString> parametros;
 private:
 

@@ -150,10 +150,11 @@ TRESDIRECCIONES:    INCLUDES
 DECTEMPORALES:    int_rsv TEMPORALES_LIST p_coma;
 
 TEMPORALES_LIST:        TEMPORALES_LIST coma id { salidanasm << "    " << $3 << " : resd 1" << endl; }
-                      | id { salidanasm << "    " << $1 << " : resd 1" << endl; } ;
+                      | id {  
+                              salidanasm << "    " << $1 << " : resd 1" << endl; } ;
 
 DECMETODOS:       DECMETODOS DECMETODO
-                | { salidanasm << "section .text" << endl; } DECMETODO;
+                | { salidanasm << "section .text" << endl; salidanasm << "global _start" << endl; salidanasm << "extern printf" << endl; } DECMETODO;
 
 DECMETODO:      void_rsv id par_a par_c p_coma
               | void_rsv id par_a par_c llave_a { salidanasm << $2 << ":" << endl; 
@@ -165,15 +166,14 @@ DECMETODO:      void_rsv id par_a par_c p_coma
                                                                         salidanasm << "    ret" << endl;
                                                                       }
 
-              | int_rsv main_rsv par_a par_c llave_a {salidanasm << "global _start" << endl; salidanasm << "_start:" << endl;} CUERPOMETODO llave_c {
+              | int_rsv main_rsv par_a par_c llave_a {salidanasm << "_start:" << endl;} CUERPOMETODO llave_c {
                                                                                                                                                   salidanasm << "    exit:" << endl;
                                                                                                                                                   salidanasm << "    mov eax, 1" << endl;
                                                                                                                                                   salidanasm << "    mov ebx, 0" << endl;
                                                                                                                                                   salidanasm << "    int 80h" << endl; 
                                                                                                                                                   } ;
 
-DECPUNTEROS:    int_rsv ptr sig_igual numero p_coma { salidanasm << "section .data" << endl;
-                                                      salidanasm << "    ptr: dw 0" << endl; }
+DECPUNTEROS:    int_rsv ptr sig_igual numero p_coma { salidanasm << "section .data" << endl; salidanasm << "    ptr: dw 0" << endl; }
               | int_rsv ptrH sig_igual numero p_coma {
                                                         salidanasm << "    ptrH: dw 0" << endl;  
                                                       };
@@ -339,15 +339,16 @@ IMPRIMIR:     cout_rsv doblemenor par_a char_rsv par_c id p_coma
             | cout_rsv doblemenor par_a char_rsv par_c id doblemenor endl_rsv p_coma {  salidanasm << "    mov eax, 4" << endl;
                                                                                         salidanasm << "    mov ebx, 1" << endl;
                                                                                         salidanasm << "    mov ecx, " << $6 << endl;
-                                                                                        salidanasm << "    mov edx, 100" << endl;
-                                                                                        salidanasm << "    int 80h" << endl; 
+                                                                                        salidanasm << "    mov edx, 100" << endl; 
+                                                                                        salidanasm << "    int 80h" << endl;
+                                                                                        
                                                                                          }
 
             | cout_rsv doblemenor id doblemenor endl_rsv p_coma  {                      salidanasm << "    mov eax, 4" << endl;
                                                                                         salidanasm << "    mov ebx, 1" << endl;
-                                                                                        salidanasm << "    mov ecx, " << $3 << endl; 
-                                                                                        salidanasm << "    mov edx, 100" << endl;
-                                                                                        salidanasm << "    int 80h" << endl; 
+                                                                                        salidanasm << "    mov ecx, " << $3 << endl;
+                                                                                        salidanasm << "    mov edx, 100" << endl; 
+                                                                                        salidanasm << "    int 80h" << endl;
                                                                                          } ;
 
 %%

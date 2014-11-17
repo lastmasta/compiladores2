@@ -17,10 +17,12 @@
   extern int mainparsercolno;
   extern FILE *Mainin;
   ofstream archivo3D;
+  ofstream errores;
   void mainparsererror(char*s);
 
 
 void inicializar() {
+    errores.open("errores.txt");
     archivo3D.open("3D.cpp");
     archivo3D.flush();
     archivo3D.close();
@@ -43,11 +45,12 @@ TablaSimbolos *getTabla()
 }
 
 void mainparsererror(const char *s) {
-cout << "Error SINTACTICO en la fila: " << mainparserlineno << " y columna: " << mainparsercolno<< ": "<<mainparsertext << endl;
+errores << "Error SINTACTICO en la fila: " << mainparserlineno << " y columna: " << mainparsercolno<< ": "<<mainparsertext << endl;
 }
 
 
 %}
+
 
 %code requires {
    #include "nodo.h"
@@ -64,7 +67,7 @@ Nodo *nodo;
 %start INICIO
 
 /* Error  */
-%token <st> ERROR
+%token <nodo> ERROR
 
 /* Terminales */
 
@@ -203,19 +206,23 @@ Nodo *nodo;
 
 
 INICIO:         CLASE_LIST {
+                        errores.close();
                         Nodo* nodo = new Nodo("INICIO");
                         nodo->AgregarHijo($1);
                         GraficadorAST* ga = new GraficadorAST();
                         ga->Graficar(nodo);
                         gdc.AgregarAbol(nodo);
+                        
                       }
               | IMPORT_LIST CLASE_LIST {
+                                    errores.close();
                                     Nodo* nodo = new Nodo("INICIO");
                                     nodo->AgregarHijo($1);
                                     nodo->AgregarHijo($2);
                                     GraficadorAST* ga = new GraficadorAST();
                                     ga->Graficar(nodo);
                                     gdc.AgregarAbol(nodo);
+                                    
                                   };
 CLASE_LIST:     CLASE_LIST CLASE {
                             Nodo* nodo = new Nodo("CLASE_LIST");
@@ -489,7 +496,8 @@ DECMETODO: def_rsv TIPO_ACCESO id TIPO par_a PARAMLIST par_c dolar INSTRUCCIONES
                                                                   nodo->AgregarHijo($3);
                                                                   nodo->AgregarHijo($7);
                                                                   $$ = nodo;
-                                                                };
+                                                                }
+        | ERROR {YYERROR;} ;
 
 
 PARAMLIST:  PARAMLIST coma PARAM {
@@ -536,7 +544,9 @@ INSTRUCCIONES:  INSTRUCCIONES SENTENCIAS {
                             Nodo* nodo = new Nodo("INSTRUCCIONES");
                             nodo->AgregarHijo($1);
                             $$ = nodo;
-                            };
+                            }
+
+              | ERROR {YYERROR;}
 
 SENTENCIAS:   DECVAR p_coma {
                                       Nodo* nodo = new Nodo("SENTENCIAS");
@@ -593,7 +603,10 @@ SENTENCIAS:   DECVAR p_coma {
                                       Nodo* nodo = new Nodo("SENTENCIAS");
                                       nodo->AgregarHijo($1);
                                       $$ = nodo;
-                                    };
+                                    }
+            | ERROR p_coma{ YYERROR; };
+
+
 
 DECVAR: id TIPO {
                   Nodo* nodo = new Nodo("DECVAR");

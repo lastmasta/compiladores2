@@ -3,6 +3,7 @@
   #include "InversaScanner.h"
   #include "tablasimbolos.h"
   #include "ingenieriainversa.h"
+  #include "nodo.h"
   #include <fstream>
   #include <stdio.h>
   #include <stdlib.h>
@@ -102,146 +103,360 @@ Nodo *nodo;
 
 
 
-%type <st> TRESDIRECCIONES
-%type <st> INSTRUCCIONES
-%type <st> INCLUDES
-%type <st> DECTEMPORALES
-%type <st> TEMPORALES_LIST
-%type <st> DECMETODOS
-%type <st> DECMETODO
-%type <st> DECPUNTEROS
-%type <st> DECSTACK
-%type <st> DECHEAP
-%type <st> CUERPOMETODO
-%type <st> INSTRUCCIONESMETODO
+%type <nodo> TRESDIRECCIONES
+%type <nodo> INSTRUCCIONES
+%type <nodo> INCLUDES
+%type <nodo> DECTEMPORALES
+%type <nodo> TEMPORALES_LIST
+%type <nodo> DECMETODOS
+%type <nodo> DECMETODO
+%type <nodo> DECPUNTEROS
+%type <nodo> DECSTACK
+%type <nodo> DECHEAP
+%type <nodo> CUERPOMETODO
+%type <nodo> INSTRUCCIONESMETODO
 
-%type <st> OBTENERDESTACK
-%type <st> OBTENERDEHEAP
-%type <st> ASIGSTACK
-%type <st> ASIGHEAP
-%type <st> LABEL
-%type <st> SALTONOCOND
-%type <st> SALTOCOND
-%type <st> CAMBIOVIRTUAL
-%type <st> CAMBIODEAMBITO
-%type <st> REGRESODEAMBITO
-%type <st> TEMPASIG
-%type <st> TEMPOP
-%type <st> OP
-%type <st> OPREL
-%type <st> FUNCALL
-%type <st> RETURN
-%type <st> AUMENTARHEAP
-%type <st> IMPRIMIR
+%type <nodo> OBTENERDESTACK
+%type <nodo> OBTENERDEHEAP
+%type <nodo> ASIGSTACK
+%type <nodo> ASIGHEAP
+%type <nodo> LABEL
+%type <nodo> SALTONOCOND
+%type <nodo> SALTOCOND
+%type <nodo> CAMBIOVIRTUAL
+%type <nodo> CAMBIODEAMBITO
+%type <nodo> REGRESODEAMBITO
+%type <nodo> TEMPASIG
+%type <nodo> TEMPOP
+%type <nodo> OP
+%type <nodo> OPREL
+%type <nodo> FUNCALL
+%type <nodo> RETURN
+%type <nodo> AUMENTARHEAP
+%type <nodo> IMPRIMIR
 
 
 %%
 
 //  Reglas Gramaticales
 
-INICIO:         INSTRUCCIONES { cout << "Final de ingenieria inversa" << endl; ii->generarSalida(); }  ;
+INICIO:         INSTRUCCIONES { cout << "Final de ingenieria inversa" << endl; ii->iniciar($1);}  ;
 
-INSTRUCCIONES:    INSTRUCCIONES TRESDIRECCIONES 
-                | TRESDIRECCIONES;
+INSTRUCCIONES:    INSTRUCCIONES TRESDIRECCIONES {
+                                                    Nodo* nodo = new Nodo("INSTRUCCIONES");
+                                                    nodo->AgregarHijo($1);
+                                                    nodo->AgregarHijo($2);
+                                                    $$ = nodo;
+                                                  }
+                | TRESDIRECCIONES {
+                                    Nodo* nodo = new Nodo("INSTRUCCIONES");
+                                    nodo->AgregarHijo($1);
+                                    $$ = nodo;
+                                  } ;
 
-TRESDIRECCIONES:    INCLUDES 
-                  | DECMETODOS
-                  | DECTEMPORALES
-                  | DECPUNTEROS
-                  | DECSTACK
-                  | DECHEAP;
+TRESDIRECCIONES:    INCLUDES {$$ = $1;}
+                  | DECMETODOS {$$ = $1;}
+                  | DECTEMPORALES {$$ = $1;}
+                  | DECPUNTEROS {$$ = $1;}
+                  | DECSTACK {$$ = $1;}
+                  | DECHEAP {$$ = $1;} ;
 
-DECTEMPORALES:    int_rsv TEMPORALES_LIST p_coma;
+DECTEMPORALES:    int_rsv TEMPORALES_LIST p_coma { Nodo* n = new Nodo("IGNORAR"); $$ = n;};
 
-TEMPORALES_LIST:        TEMPORALES_LIST coma id 
-                      | id 
+TEMPORALES_LIST:        TEMPORALES_LIST coma id { Nodo* n = new Nodo("IGNORAR"); $$ = n;}
+                      | id { Nodo* n = new Nodo("IGNORAR"); $$ = n;}
 
-DECMETODOS:       DECMETODOS DECMETODO
-                | DECMETODO;
+DECMETODOS:       DECMETODOS DECMETODO {
+                                          Nodo* nodo = new Nodo("DECMETODOS");
+                                          nodo->AgregarHijo($1);
+                                          nodo->AgregarHijo($2);
+                                          $$ = nodo;
+                                        }
+                | DECMETODO {
+                              Nodo* nodo = new Nodo("DECMETODOS");
+                              nodo->AgregarHijo($1);
+                              $$ = $1;
+                            } ;
 
-DECMETODO:      void_rsv id par_a par_c p_coma
+DECMETODO:      void_rsv id par_a par_c p_coma {
+                                                Nodo* nodo = new Nodo("IGNORAR");
+                                                $$ = nodo;
+                                              }
               | void_rsv id par_a par_c llave_a CUERPOMETODO llave_c {
                                                                       QString nombre = $2;
                                                                       ii->inversaMetodos(nombre);
+
+                                                                      Nodo* nodo = new Nodo("DECMETODO");
+                                                                      Nodo* id = new Nodo($2);
+                                                                      nodo->AgregarHijo(id);
+                                                                      nodo->AgregarHijo($6);
+                                                                      $$ = nodo;
                                                                     }
               | int_rsv main_rsv par_a par_c llave_a CUERPOMETODO llave_c {
                                                                             ii->buscarPrincipal();
+
+                                                                            Nodo* nodo = new Nodo("DECMAIN");
+                                                                            nodo->AgregarHijo($6);
+                                                                            $$ = nodo;
                                                                           } ;
 
-DECPUNTEROS:    int_rsv ptr sig_igual numero p_coma 
-              | int_rsv ptrH sig_igual numero p_coma;
+DECPUNTEROS:    int_rsv ptr sig_igual numero p_coma  { Nodo* n = new Nodo("IGNORAR"); $$ = n;}
+              | int_rsv ptrH sig_igual numero p_coma { Nodo* n = new Nodo("IGNORAR"); $$ = n;};
 
-DECSTACK:       long_rsv stack_rsv cor_a numero cor_c p_coma ;
+DECSTACK:       long_rsv stack_rsv cor_a numero cor_c p_coma  { Nodo* n = new Nodo("IGNORAR"); $$ = n;};
 
-DECHEAP:        long_rsv heap_rsv cor_a numero cor_c p_coma ;
+DECHEAP:        long_rsv heap_rsv cor_a numero cor_c p_coma { Nodo* n = new Nodo("IGNORAR"); $$ = n;} ;
 
-INCLUDES:       numeral include_rsv iostream_rsv
-              | using_rsv namespace_rsv std_rsv p_coma;
+INCLUDES:       numeral include_rsv iostream_rsv { Nodo* n = new Nodo("IGNORAR"); $$ = n;}
+              | using_rsv namespace_rsv std_rsv p_coma { Nodo* n = new Nodo("IGNORAR"); $$ = n;};
 
-CUERPOMETODO:     CUERPOMETODO INSTRUCCIONESMETODO
-                | INSTRUCCIONESMETODO;
-
-
-INSTRUCCIONESMETODO:  OBTENERDESTACK
-                    | OBTENERDEHEAP
-                    | ASIGSTACK
-                    | ASIGHEAP
-                    | LABEL
-                    | SALTONOCOND
-                    | SALTOCOND
-                    | CAMBIOVIRTUAL
-                    | CAMBIODEAMBITO
-                    | REGRESODEAMBITO
-                    | TEMPASIG
-                    | TEMPOP
-                    | FUNCALL
-                    | RETURN
-                    | AUMENTARHEAP
-                    | IMPRIMIR
-                    | p_coma;
+CUERPOMETODO:     CUERPOMETODO INSTRUCCIONESMETODO {
+                                                    Nodo* nodo = new Nodo("CUERPOMETODO");
+                                                    nodo->AgregarHijo($1);
+                                                    nodo->AgregarHijo($2);
+                                                    $$ = nodo;
+                                                  }
+                | INSTRUCCIONESMETODO { $$ = $1; };
 
 
-OBTENERDESTACK:   id sig_igual stack_rsv cor_a id cor_c p_coma ;
+INSTRUCCIONESMETODO:  OBTENERDESTACK { $$ = $1; }
+                    | OBTENERDEHEAP { $$ = $1; }
+                    | ASIGSTACK { $$ = $1; }
+                    | ASIGHEAP { $$ = $1; }
+                    | LABEL { $$ = $1; }
+                    | SALTONOCOND { $$ = $1; }
+                    | SALTOCOND { $$ = $1; }
+                    | CAMBIOVIRTUAL { $$ = $1; }
+                    | CAMBIODEAMBITO { $$ = $1; }
+                    | REGRESODEAMBITO { $$ = $1; }
+                    | TEMPASIG { $$ = $1; }
+                    | TEMPOP { $$ = $1; }
+                    | FUNCALL { $$ = $1; }
+                    | RETURN { $$ = $1; }
+                    | AUMENTARHEAP { $$ = $1; }
+                    | IMPRIMIR { $$ = $1; }
+                    | p_coma { Nodo* n = new Nodo("IGNORAR"); $$ = n;} ;
 
-OBTENERDEHEAP:    id sig_igual heap_rsv cor_a id cor_c p_coma ;
 
-ASIGSTACK:        stack_rsv cor_a id cor_c sig_igual id p_coma ;
+OBTENERDESTACK:   id sig_igual stack_rsv cor_a id cor_c p_coma {
+                                                              Nodo* nodo = new Nodo("OBTENERDESTACK");
+                                                              Nodo* t1 = new Nodo($1);
+                                                              Nodo* pos = new Nodo($5);
+                                                              nodo->AgregarHijo(t1);
+                                                              nodo->AgregarHijo(pos);
+                                                              $$ = nodo;
+                                                            } ;
 
-ASIGHEAP:         heap_rsv cor_a id cor_c sig_igual id p_coma 
-                | heap_rsv cor_a id cor_c sig_igual numero p_coma ;
+OBTENERDEHEAP:    id sig_igual heap_rsv cor_a id cor_c p_coma {
+                                                              Nodo* nodo = new Nodo("OBTENERDEHEAP");
+                                                              Nodo* t1 = new Nodo($1);
+                                                              Nodo* pos = new Nodo($5);
+                                                              nodo->AgregarHijo(t1);
+                                                              nodo->AgregarHijo(pos);
+                                                              $$ = nodo;
+                                                            } ;
 
-LABEL:            id dos_p ;
+ASIGSTACK:        stack_rsv cor_a id cor_c sig_igual id p_coma {
+                                                                    Nodo* nodo = new Nodo("ASIGSTACK");
+                                                                    Nodo* pos = new Nodo($3);
+                                                                    Nodo* val = new Nodo($6);
+                                                                    nodo->AgregarHijo(pos);
+                                                                    nodo->AgregarHijo(val);
+                                                                    $$ = nodo;
+                                                                  };
 
-SALTONOCOND:      goto_rsv id p_coma ;
+ASIGHEAP:         heap_rsv cor_a id cor_c sig_igual id p_coma  {
+                                                                    Nodo* nodo = new Nodo("ASIGHEAP");
+                                                                    Nodo* pos = new Nodo($3);
+                                                                    Nodo* val = new Nodo($6);
+                                                                    nodo->AgregarHijo(pos);
+                                                                    nodo->AgregarHijo(val);
+                                                                    $$ = nodo;
+                                                                  }
+                | heap_rsv cor_a id cor_c sig_igual numero p_coma {
+                                                                    Nodo* nodo = new Nodo("ASIGHEAP");
+                                                                    Nodo* pos = new Nodo($3);
+                                                                    Nodo* val = new Nodo($6);
+                                                                    nodo->AgregarHijo(pos);
+                                                                    nodo->AgregarHijo(val);
+                                                                    $$ = nodo;
+                                                                  } ;
 
-SALTOCOND:        if_rsv par_a id OPREL id par_c goto_rsv id p_coma ;
+LABEL:            id dos_p {
+                            Nodo* nodo = new Nodo("ETIQ");
+                            Nodo* eti = new Nodo($1);
+                            nodo->AgregarHijo(eti);
+                            $$ = nodo;
+                          } ;
+  
+SALTONOCOND:      goto_rsv id p_coma {
+                                      Nodo* nodo = new Nodo("SALTONOCOND");
+                                      Nodo* l = new Nodo($2);
+                                      nodo->AgregarHijo(l);
+                                      $$ = nodo;
+                                    } ;
 
-CAMBIOVIRTUAL:    id sig_igual ptr mas numero p_coma ;
+SALTOCOND:        if_rsv par_a id OPREL id par_c goto_rsv id p_coma {
+                                                                      Nodo* nodo = new Nodo("SALTOCOND");
+                                                                      Nodo* if_n = new Nodo("if");
+                                                                      Nodo* t1 = new Nodo($3);
+                                                                      Nodo* t2 = new Nodo($5);
+                                                                      Nodo* goto_n = new Nodo("goto");
+                                                                      Nodo* l = new Nodo($8);
+                                                                      nodo->AgregarHijo(if_n);
+                                                                      nodo->AgregarHijo(t1);
+                                                                      nodo->AgregarHijo($4);
+                                                                      nodo->AgregarHijo(t2);
+                                                                      nodo->AgregarHijo(goto_n);
+                                                                      nodo->AgregarHijo(l);
+                                                                      $$ = nodo;
+                                                                    } ;
 
-CAMBIODEAMBITO:   ptr sig_igual ptr mas numero p_coma ;
+CAMBIOVIRTUAL:    id sig_igual ptr mas numero p_coma {
+                                                      Nodo* nodo = new Nodo("CAMBIOVIRTUAL");
+                                                      Nodo* id = new Nodo($1);
+                                                      Nodo* num = new Nodo($5);
+                                                      nodo->AgregarHijo(id);
+                                                      nodo->AgregarHijo(num);
+                                                      $$ = nodo;
+                                                    } ;
 
-REGRESODEAMBITO: ptr sig_igual ptr menos numero p_coma ;
+CAMBIODEAMBITO:   ptr sig_igual ptr mas numero p_coma {
+                                                        Nodo* nodo = new Nodo("CAMBIODEAMBITO");
+                                                        Nodo* val = new Nodo($5);
+                                                        nodo->AgregarHijo(val);
+                                                        $$ = nodo;
+                                                      } ;
 
-TEMPASIG:         id sig_igual ptrH p_coma 
-                | id sig_igual numero p_coma ;
+REGRESODEAMBITO: ptr sig_igual ptr menos numero p_coma {
+                                                        Nodo* nodo = new Nodo("REGRESODEAMBITO");
+                                                        Nodo* val = new Nodo($5);
+                                                        nodo->AgregarHijo(val);
+                                                        $$ = nodo;
+                                                      } ;
 
-TEMPOP:         id sig_igual id OP id p_coma 
-              | id sig_igual id OP numero p_coma ;
+TEMPASIG:         id sig_igual ptrH p_coma  {
+                                              Nodo* nodo = new Nodo("TEMPASIG");
+                                              Nodo* t1 = new Nodo($1);
+                                              Nodo* num = new Nodo($3);
+                                              nodo->AgregarHijo(t1);
+                                              nodo->AgregarHijo(num);
+                                              $$ = nodo;
+                                            } 
+                | id sig_igual numero p_coma {
+                                              Nodo* nodo = new Nodo("TEMPASIG");
+                                              Nodo* t1 = new Nodo($1);
+                                              Nodo* num = new Nodo($3);
+                                              nodo->AgregarHijo(t1);
+                                              nodo->AgregarHijo(num);
+                                              $$ = nodo;
+                                            } ;
 
-OP:         mas | menos | por | divOp  ;
+TEMPOP:         id sig_igual id OP id p_coma  {
+                                                    Nodo* nodo = new Nodo("TEMPOP");
+                                                    Nodo* t1 = new Nodo($1);
+                                                    Nodo* t2 = new Nodo($3);
+                                                    Nodo* t3 = new Nodo($5);
+                                                    nodo->AgregarHijo(t1);
+                                                    nodo->AgregarHijo(t2);
+                                                    nodo->AgregarHijo($4);
+                                                    nodo->AgregarHijo(t3);
+                                                    $$ = nodo;
+                                                  }
+              | id sig_igual id OP numero p_coma {
+                                                    Nodo* nodo = new Nodo("TEMPOP");
+                                                    Nodo* t1 = new Nodo($1);
+                                                    Nodo* t2 = new Nodo($3);
+                                                    Nodo* num = new Nodo($5);
+                                                    nodo->AgregarHijo(t1);
+                                                    nodo->AgregarHijo(t2);
+                                                    nodo->AgregarHijo($4);
+                                                    nodo->AgregarHijo(num);
+                                                    $$ = nodo;
+                                                  } ;
 
-FUNCALL:    id par_a par_c p_coma ;
+OP:         mas {
+                  Nodo* nodo = new Nodo("OP");
+                  Nodo* op = new Nodo($1);
+                  nodo->AgregarHijo(op);
+                  $$ = nodo;
+                }
+          | menos {
+                  Nodo* nodo = new Nodo("OP");
+                  Nodo* op = new Nodo($1);
+                  nodo->AgregarHijo(op);
+                  $$ = nodo;
+                }
+          | por {
+                  Nodo* nodo = new Nodo("OP");
+                  Nodo* op = new Nodo($1);
+                  nodo->AgregarHijo(op);
+                  $$ = nodo;
+                }
+          | divOp {
+                  Nodo* nodo = new Nodo("OP");
+                  Nodo* op = new Nodo($1);
+                  nodo->AgregarHijo(op);
+                  $$ = nodo;
+                } ;
 
-RETURN:     return_rsv numero p_coma;
+FUNCALL:    id par_a par_c p_coma {
+                                    Nodo* nodo = new Nodo("FUNCALL");
+                                    Nodo* val = new Nodo($1);
+                                    nodo->AgregarHijo(val);
+                                    $$ = nodo;
+                                  } ;
 
-OPREL:      menor | mayor | mayorigual | menorigual | noigual | esIgual ;
+RETURN:     return_rsv numero p_coma { Nodo* n = new Nodo("IGNORAR"); $$ = n;} ;
 
-AUMENTARHEAP: ptrH sig_igual ptrH mas numero p_coma ;
+OPREL:      menor {
+                      Nodo* nodo = new Nodo("OPREL");
+                      Nodo* val = new Nodo($1);
+                      nodo->AgregarHijo(val);
+                      $$ = nodo;
+                    }
+          | mayor {
+                      Nodo* nodo = new Nodo("OPREL");
+                      Nodo* val = new Nodo($1);
+                      nodo->AgregarHijo(val);
+                      $$ = nodo;
+                    }
+          | mayorigual {
+                      Nodo* nodo = new Nodo("OPREL");
+                      Nodo* val = new Nodo($1);
+                      nodo->AgregarHijo(val);
+                      $$ = nodo;
+                    }
+          | menorigual {
+                      Nodo* nodo = new Nodo("OPREL");
+                      Nodo* val = new Nodo($1);
+                      nodo->AgregarHijo(val);
+                      $$ = nodo;
+                    }
+          | noigual {
+                      Nodo* nodo = new Nodo("OPREL");
+                      Nodo* val = new Nodo($1);
+                      nodo->AgregarHijo(val);
+                      $$ = nodo;
+                    }
+          | esIgual {
+                      Nodo* nodo = new Nodo("OPREL");
+                      Nodo* val = new Nodo($1);
+                      nodo->AgregarHijo(val);
+                      $$ = nodo;
+                    } ;
 
-IMPRIMIR:     cout_rsv doblemenor par_a char_rsv par_c id p_coma
-            | cout_rsv doblemenor endl_rsv
-            | cout_rsv doblemenor par_a char_rsv par_c id doblemenor endl_rsv p_coma 
-            | cout_rsv doblemenor id doblemenor endl_rsv p_coma  ;
+AUMENTARHEAP: ptrH sig_igual ptrH mas numero p_coma {
+    Nodo* nodo = new Nodo("AUMENTARHEAP");
+    Nodo* val = new Nodo($5);
+    nodo->AgregarHijo(val);
+    $$ = nodo;
+} ;
+
+IMPRIMIR:     cout_rsv doblemenor par_a char_rsv par_c id p_coma { Nodo* n = new Nodo("IGNORAR"); $$ = n;}
+            | cout_rsv doblemenor endl_rsv { Nodo* n = new Nodo("IGNORAR"); $$ = n;}
+            | cout_rsv doblemenor par_a char_rsv par_c id doblemenor endl_rsv p_coma { Nodo* n = new Nodo("IGNORAR"); $$ = n;}
+            | cout_rsv doblemenor id doblemenor endl_rsv p_coma  { Nodo* n = new Nodo("IGNORAR"); $$ = n;} ;
 
 %%
 

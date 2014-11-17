@@ -76,6 +76,7 @@
   #include "InversaScanner.h"
   #include "tablasimbolos.h"
   #include "ingenieriainversa.h"
+  #include "nodo.h"
   #include <fstream>
   #include <stdio.h>
   #include <stdlib.h>
@@ -104,7 +105,7 @@ void setTabla(TablaSimbolos *t){
 
 
 
-#line 108 "InversaParser.cpp" /* yacc.c:339  */
+#line 109 "InversaParser.cpp" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -134,11 +135,11 @@ void setTabla(TablaSimbolos *t){
 extern int inversaparserdebug;
 #endif
 /* "%code requires" blocks.  */
-#line 35 "InversaParser.y" /* yacc.c:355  */
+#line 36 "InversaParser.y" /* yacc.c:355  */
 
    #include "nodo.h"
 
-#line 142 "InversaParser.cpp" /* yacc.c:355  */
+#line 143 "InversaParser.cpp" /* yacc.c:355  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -198,12 +199,12 @@ extern int inversaparserdebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 39 "InversaParser.y" /* yacc.c:355  */
+#line 40 "InversaParser.y" /* yacc.c:355  */
 
 char *st;
 Nodo *nodo;
 
-#line 207 "InversaParser.cpp" /* yacc.c:355  */
+#line 208 "InversaParser.cpp" /* yacc.c:355  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -218,7 +219,7 @@ int inversaparserparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 222 "InversaParser.cpp" /* yacc.c:358  */
+#line 223 "InversaParser.cpp" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -518,16 +519,16 @@ static const yytype_uint8 yytranslate[] =
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_uint8 yyrline[] =
+static const yytype_uint16 yyrline[] =
 {
-       0,   142,   142,   144,   145,   147,   148,   149,   150,   151,
-     152,   154,   156,   157,   159,   160,   162,   163,   167,   171,
-     172,   174,   176,   178,   179,   181,   182,   185,   186,   187,
-     188,   189,   190,   191,   192,   193,   194,   195,   196,   197,
-     198,   199,   200,   201,   204,   206,   208,   210,   211,   213,
-     215,   217,   219,   221,   223,   225,   226,   228,   229,   231,
-     231,   231,   231,   233,   235,   237,   237,   237,   237,   237,
-     237,   239,   241,   242,   243,   244
+       0,   143,   143,   145,   151,   157,   158,   159,   160,   161,
+     162,   164,   166,   167,   169,   175,   181,   185,   195,   203,
+     204,   206,   208,   210,   211,   213,   219,   222,   223,   224,
+     225,   226,   227,   228,   229,   230,   231,   232,   233,   234,
+     235,   236,   237,   238,   241,   250,   259,   268,   276,   285,
+     292,   299,   315,   324,   331,   338,   346,   355,   366,   378,
+     384,   390,   396,   403,   410,   412,   418,   424,   430,   436,
+     442,   449,   456,   457,   458,   459
 };
 #endif
 
@@ -1418,30 +1419,662 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 142 "InversaParser.y" /* yacc.c:1646  */
-    { cout << "Final de ingenieria inversa" << endl; ii->generarSalida(); }
-#line 1424 "InversaParser.cpp" /* yacc.c:1646  */
+#line 143 "InversaParser.y" /* yacc.c:1646  */
+    { cout << "Final de ingenieria inversa" << endl; ii->iniciar((yyvsp[0].nodo));}
+#line 1425 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 3:
+#line 145 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                                    Nodo* nodo = new Nodo("INSTRUCCIONES");
+                                                    nodo->AgregarHijo((yyvsp[-1].nodo));
+                                                    nodo->AgregarHijo((yyvsp[0].nodo));
+                                                    (yyval.nodo) = nodo;
+                                                  }
+#line 1436 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 4:
+#line 151 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                    Nodo* nodo = new Nodo("INSTRUCCIONES");
+                                    nodo->AgregarHijo((yyvsp[0].nodo));
+                                    (yyval.nodo) = nodo;
+                                  }
+#line 1446 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 5:
+#line 157 "InversaParser.y" /* yacc.c:1646  */
+    {(yyval.nodo) = (yyvsp[0].nodo);}
+#line 1452 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 6:
+#line 158 "InversaParser.y" /* yacc.c:1646  */
+    {(yyval.nodo) = (yyvsp[0].nodo);}
+#line 1458 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 7:
+#line 159 "InversaParser.y" /* yacc.c:1646  */
+    {(yyval.nodo) = (yyvsp[0].nodo);}
+#line 1464 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 8:
+#line 160 "InversaParser.y" /* yacc.c:1646  */
+    {(yyval.nodo) = (yyvsp[0].nodo);}
+#line 1470 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 9:
+#line 161 "InversaParser.y" /* yacc.c:1646  */
+    {(yyval.nodo) = (yyvsp[0].nodo);}
+#line 1476 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 10:
+#line 162 "InversaParser.y" /* yacc.c:1646  */
+    {(yyval.nodo) = (yyvsp[0].nodo);}
+#line 1482 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 11:
+#line 164 "InversaParser.y" /* yacc.c:1646  */
+    { Nodo* n = new Nodo("IGNORAR"); (yyval.nodo) = n;}
+#line 1488 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 12:
+#line 166 "InversaParser.y" /* yacc.c:1646  */
+    { Nodo* n = new Nodo("IGNORAR"); (yyval.nodo) = n;}
+#line 1494 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 13:
+#line 167 "InversaParser.y" /* yacc.c:1646  */
+    { Nodo* n = new Nodo("IGNORAR"); (yyval.nodo) = n;}
+#line 1500 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 14:
+#line 169 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                          Nodo* nodo = new Nodo("DECMETODOS");
+                                          nodo->AgregarHijo((yyvsp[-1].nodo));
+                                          nodo->AgregarHijo((yyvsp[0].nodo));
+                                          (yyval.nodo) = nodo;
+                                        }
+#line 1511 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 15:
+#line 175 "InversaParser.y" /* yacc.c:1646  */
+    {
+                              Nodo* nodo = new Nodo("DECMETODOS");
+                              nodo->AgregarHijo((yyvsp[0].nodo));
+                              (yyval.nodo) = (yyvsp[0].nodo);
+                            }
+#line 1521 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 16:
+#line 181 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                                Nodo* nodo = new Nodo("IGNORAR");
+                                                (yyval.nodo) = nodo;
+                                              }
+#line 1530 "InversaParser.cpp" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 163 "InversaParser.y" /* yacc.c:1646  */
+#line 185 "InversaParser.y" /* yacc.c:1646  */
     {
                                                                       QString nombre = (yyvsp[-5].st);
                                                                       ii->inversaMetodos(nombre);
+
+                                                                      Nodo* nodo = new Nodo("DECMETODO");
+                                                                      Nodo* id = new Nodo((yyvsp[-5].st));
+                                                                      nodo->AgregarHijo(id);
+                                                                      nodo->AgregarHijo((yyvsp[-1].nodo));
+                                                                      (yyval.nodo) = nodo;
                                                                     }
-#line 1433 "InversaParser.cpp" /* yacc.c:1646  */
+#line 1545 "InversaParser.cpp" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 167 "InversaParser.y" /* yacc.c:1646  */
+#line 195 "InversaParser.y" /* yacc.c:1646  */
     {
                                                                             ii->buscarPrincipal();
+
+                                                                            Nodo* nodo = new Nodo("DECMAIN");
+                                                                            nodo->AgregarHijo((yyvsp[-1].nodo));
+                                                                            (yyval.nodo) = nodo;
                                                                           }
-#line 1441 "InversaParser.cpp" /* yacc.c:1646  */
+#line 1557 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 19:
+#line 203 "InversaParser.y" /* yacc.c:1646  */
+    { Nodo* n = new Nodo("IGNORAR"); (yyval.nodo) = n;}
+#line 1563 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 20:
+#line 204 "InversaParser.y" /* yacc.c:1646  */
+    { Nodo* n = new Nodo("IGNORAR"); (yyval.nodo) = n;}
+#line 1569 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 21:
+#line 206 "InversaParser.y" /* yacc.c:1646  */
+    { Nodo* n = new Nodo("IGNORAR"); (yyval.nodo) = n;}
+#line 1575 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 22:
+#line 208 "InversaParser.y" /* yacc.c:1646  */
+    { Nodo* n = new Nodo("IGNORAR"); (yyval.nodo) = n;}
+#line 1581 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 23:
+#line 210 "InversaParser.y" /* yacc.c:1646  */
+    { Nodo* n = new Nodo("IGNORAR"); (yyval.nodo) = n;}
+#line 1587 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 24:
+#line 211 "InversaParser.y" /* yacc.c:1646  */
+    { Nodo* n = new Nodo("IGNORAR"); (yyval.nodo) = n;}
+#line 1593 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 25:
+#line 213 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                                    Nodo* nodo = new Nodo("CUERPOMETODO");
+                                                    nodo->AgregarHijo((yyvsp[-1].nodo));
+                                                    nodo->AgregarHijo((yyvsp[0].nodo));
+                                                    (yyval.nodo) = nodo;
+                                                  }
+#line 1604 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 26:
+#line 219 "InversaParser.y" /* yacc.c:1646  */
+    { (yyval.nodo) = (yyvsp[0].nodo); }
+#line 1610 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 27:
+#line 222 "InversaParser.y" /* yacc.c:1646  */
+    { (yyval.nodo) = (yyvsp[0].nodo); }
+#line 1616 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 28:
+#line 223 "InversaParser.y" /* yacc.c:1646  */
+    { (yyval.nodo) = (yyvsp[0].nodo); }
+#line 1622 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 29:
+#line 224 "InversaParser.y" /* yacc.c:1646  */
+    { (yyval.nodo) = (yyvsp[0].nodo); }
+#line 1628 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 30:
+#line 225 "InversaParser.y" /* yacc.c:1646  */
+    { (yyval.nodo) = (yyvsp[0].nodo); }
+#line 1634 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 31:
+#line 226 "InversaParser.y" /* yacc.c:1646  */
+    { (yyval.nodo) = (yyvsp[0].nodo); }
+#line 1640 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 32:
+#line 227 "InversaParser.y" /* yacc.c:1646  */
+    { (yyval.nodo) = (yyvsp[0].nodo); }
+#line 1646 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 33:
+#line 228 "InversaParser.y" /* yacc.c:1646  */
+    { (yyval.nodo) = (yyvsp[0].nodo); }
+#line 1652 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 34:
+#line 229 "InversaParser.y" /* yacc.c:1646  */
+    { (yyval.nodo) = (yyvsp[0].nodo); }
+#line 1658 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 35:
+#line 230 "InversaParser.y" /* yacc.c:1646  */
+    { (yyval.nodo) = (yyvsp[0].nodo); }
+#line 1664 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 36:
+#line 231 "InversaParser.y" /* yacc.c:1646  */
+    { (yyval.nodo) = (yyvsp[0].nodo); }
+#line 1670 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 37:
+#line 232 "InversaParser.y" /* yacc.c:1646  */
+    { (yyval.nodo) = (yyvsp[0].nodo); }
+#line 1676 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 38:
+#line 233 "InversaParser.y" /* yacc.c:1646  */
+    { (yyval.nodo) = (yyvsp[0].nodo); }
+#line 1682 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 39:
+#line 234 "InversaParser.y" /* yacc.c:1646  */
+    { (yyval.nodo) = (yyvsp[0].nodo); }
+#line 1688 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 40:
+#line 235 "InversaParser.y" /* yacc.c:1646  */
+    { (yyval.nodo) = (yyvsp[0].nodo); }
+#line 1694 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 41:
+#line 236 "InversaParser.y" /* yacc.c:1646  */
+    { (yyval.nodo) = (yyvsp[0].nodo); }
+#line 1700 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 42:
+#line 237 "InversaParser.y" /* yacc.c:1646  */
+    { (yyval.nodo) = (yyvsp[0].nodo); }
+#line 1706 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 43:
+#line 238 "InversaParser.y" /* yacc.c:1646  */
+    { Nodo* n = new Nodo("IGNORAR"); (yyval.nodo) = n;}
+#line 1712 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 44:
+#line 241 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                                              Nodo* nodo = new Nodo("OBTENERDESTACK");
+                                                              Nodo* t1 = new Nodo((yyvsp[-6].st));
+                                                              Nodo* pos = new Nodo((yyvsp[-2].st));
+                                                              nodo->AgregarHijo(t1);
+                                                              nodo->AgregarHijo(pos);
+                                                              (yyval.nodo) = nodo;
+                                                            }
+#line 1725 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 45:
+#line 250 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                                              Nodo* nodo = new Nodo("OBTENERDEHEAP");
+                                                              Nodo* t1 = new Nodo((yyvsp[-6].st));
+                                                              Nodo* pos = new Nodo((yyvsp[-2].st));
+                                                              nodo->AgregarHijo(t1);
+                                                              nodo->AgregarHijo(pos);
+                                                              (yyval.nodo) = nodo;
+                                                            }
+#line 1738 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 46:
+#line 259 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                                                    Nodo* nodo = new Nodo("ASIGSTACK");
+                                                                    Nodo* pos = new Nodo((yyvsp[-4].st));
+                                                                    Nodo* val = new Nodo((yyvsp[-1].st));
+                                                                    nodo->AgregarHijo(pos);
+                                                                    nodo->AgregarHijo(val);
+                                                                    (yyval.nodo) = nodo;
+                                                                  }
+#line 1751 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 47:
+#line 268 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                                                    Nodo* nodo = new Nodo("ASIGHEAP");
+                                                                    Nodo* pos = new Nodo((yyvsp[-4].st));
+                                                                    Nodo* val = new Nodo((yyvsp[-1].st));
+                                                                    nodo->AgregarHijo(pos);
+                                                                    nodo->AgregarHijo(val);
+                                                                    (yyval.nodo) = nodo;
+                                                                  }
+#line 1764 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 48:
+#line 276 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                                                    Nodo* nodo = new Nodo("ASIGHEAP");
+                                                                    Nodo* pos = new Nodo((yyvsp[-4].st));
+                                                                    Nodo* val = new Nodo((yyvsp[-1].st));
+                                                                    nodo->AgregarHijo(pos);
+                                                                    nodo->AgregarHijo(val);
+                                                                    (yyval.nodo) = nodo;
+                                                                  }
+#line 1777 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 49:
+#line 285 "InversaParser.y" /* yacc.c:1646  */
+    {
+                            Nodo* nodo = new Nodo("ETIQ");
+                            Nodo* eti = new Nodo((yyvsp[-1].st));
+                            nodo->AgregarHijo(eti);
+                            (yyval.nodo) = nodo;
+                          }
+#line 1788 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 50:
+#line 292 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                      Nodo* nodo = new Nodo("SALTONOCOND");
+                                      Nodo* l = new Nodo((yyvsp[-1].st));
+                                      nodo->AgregarHijo(l);
+                                      (yyval.nodo) = nodo;
+                                    }
+#line 1799 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 51:
+#line 299 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                                                      Nodo* nodo = new Nodo("SALTOCOND");
+                                                                      Nodo* if_n = new Nodo("if");
+                                                                      Nodo* t1 = new Nodo((yyvsp[-6].st));
+                                                                      Nodo* t2 = new Nodo((yyvsp[-4].st));
+                                                                      Nodo* goto_n = new Nodo("goto");
+                                                                      Nodo* l = new Nodo((yyvsp[-1].st));
+                                                                      nodo->AgregarHijo(if_n);
+                                                                      nodo->AgregarHijo(t1);
+                                                                      nodo->AgregarHijo((yyvsp[-5].nodo));
+                                                                      nodo->AgregarHijo(t2);
+                                                                      nodo->AgregarHijo(goto_n);
+                                                                      nodo->AgregarHijo(l);
+                                                                      (yyval.nodo) = nodo;
+                                                                    }
+#line 1819 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 52:
+#line 315 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                                      Nodo* nodo = new Nodo("CAMBIOVIRTUAL");
+                                                      Nodo* id = new Nodo((yyvsp[-5].st));
+                                                      Nodo* num = new Nodo((yyvsp[-1].st));
+                                                      nodo->AgregarHijo(id);
+                                                      nodo->AgregarHijo(num);
+                                                      (yyval.nodo) = nodo;
+                                                    }
+#line 1832 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 53:
+#line 324 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                                        Nodo* nodo = new Nodo("CAMBIODEAMBITO");
+                                                        Nodo* val = new Nodo((yyvsp[-1].st));
+                                                        nodo->AgregarHijo(val);
+                                                        (yyval.nodo) = nodo;
+                                                      }
+#line 1843 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 54:
+#line 331 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                                        Nodo* nodo = new Nodo("REGRESODEAMBITO");
+                                                        Nodo* val = new Nodo((yyvsp[-1].st));
+                                                        nodo->AgregarHijo(val);
+                                                        (yyval.nodo) = nodo;
+                                                      }
+#line 1854 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 55:
+#line 338 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                              Nodo* nodo = new Nodo("TEMPASIG");
+                                              Nodo* t1 = new Nodo((yyvsp[-3].st));
+                                              Nodo* num = new Nodo((yyvsp[-1].st));
+                                              nodo->AgregarHijo(t1);
+                                              nodo->AgregarHijo(num);
+                                              (yyval.nodo) = nodo;
+                                            }
+#line 1867 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 56:
+#line 346 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                              Nodo* nodo = new Nodo("TEMPASIG");
+                                              Nodo* t1 = new Nodo((yyvsp[-3].st));
+                                              Nodo* num = new Nodo((yyvsp[-1].st));
+                                              nodo->AgregarHijo(t1);
+                                              nodo->AgregarHijo(num);
+                                              (yyval.nodo) = nodo;
+                                            }
+#line 1880 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 57:
+#line 355 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                                    Nodo* nodo = new Nodo("TEMPOP");
+                                                    Nodo* t1 = new Nodo((yyvsp[-5].st));
+                                                    Nodo* t2 = new Nodo((yyvsp[-3].st));
+                                                    Nodo* t3 = new Nodo((yyvsp[-1].st));
+                                                    nodo->AgregarHijo(t1);
+                                                    nodo->AgregarHijo(t2);
+                                                    nodo->AgregarHijo((yyvsp[-2].nodo));
+                                                    nodo->AgregarHijo(t3);
+                                                    (yyval.nodo) = nodo;
+                                                  }
+#line 1896 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 58:
+#line 366 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                                    Nodo* nodo = new Nodo("TEMPOP");
+                                                    Nodo* t1 = new Nodo((yyvsp[-5].st));
+                                                    Nodo* t2 = new Nodo((yyvsp[-3].st));
+                                                    Nodo* num = new Nodo((yyvsp[-1].st));
+                                                    nodo->AgregarHijo(t1);
+                                                    nodo->AgregarHijo(t2);
+                                                    nodo->AgregarHijo((yyvsp[-2].nodo));
+                                                    nodo->AgregarHijo(num);
+                                                    (yyval.nodo) = nodo;
+                                                  }
+#line 1912 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 59:
+#line 378 "InversaParser.y" /* yacc.c:1646  */
+    {
+                  Nodo* nodo = new Nodo("OP");
+                  Nodo* op = new Nodo((yyvsp[0].st));
+                  nodo->AgregarHijo(op);
+                  (yyval.nodo) = nodo;
+                }
+#line 1923 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 60:
+#line 384 "InversaParser.y" /* yacc.c:1646  */
+    {
+                  Nodo* nodo = new Nodo("OP");
+                  Nodo* op = new Nodo((yyvsp[0].st));
+                  nodo->AgregarHijo(op);
+                  (yyval.nodo) = nodo;
+                }
+#line 1934 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 61:
+#line 390 "InversaParser.y" /* yacc.c:1646  */
+    {
+                  Nodo* nodo = new Nodo("OP");
+                  Nodo* op = new Nodo((yyvsp[0].st));
+                  nodo->AgregarHijo(op);
+                  (yyval.nodo) = nodo;
+                }
+#line 1945 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 62:
+#line 396 "InversaParser.y" /* yacc.c:1646  */
+    {
+                  Nodo* nodo = new Nodo("OP");
+                  Nodo* op = new Nodo((yyvsp[0].st));
+                  nodo->AgregarHijo(op);
+                  (yyval.nodo) = nodo;
+                }
+#line 1956 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 63:
+#line 403 "InversaParser.y" /* yacc.c:1646  */
+    {
+                                    Nodo* nodo = new Nodo("FUNCALL");
+                                    Nodo* val = new Nodo((yyvsp[-3].st));
+                                    nodo->AgregarHijo(val);
+                                    (yyval.nodo) = nodo;
+                                  }
+#line 1967 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 64:
+#line 410 "InversaParser.y" /* yacc.c:1646  */
+    { Nodo* n = new Nodo("IGNORAR"); (yyval.nodo) = n;}
+#line 1973 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 65:
+#line 412 "InversaParser.y" /* yacc.c:1646  */
+    {
+                      Nodo* nodo = new Nodo("OPREL");
+                      Nodo* val = new Nodo((yyvsp[0].st));
+                      nodo->AgregarHijo(val);
+                      (yyval.nodo) = nodo;
+                    }
+#line 1984 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 66:
+#line 418 "InversaParser.y" /* yacc.c:1646  */
+    {
+                      Nodo* nodo = new Nodo("OPREL");
+                      Nodo* val = new Nodo((yyvsp[0].st));
+                      nodo->AgregarHijo(val);
+                      (yyval.nodo) = nodo;
+                    }
+#line 1995 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 67:
+#line 424 "InversaParser.y" /* yacc.c:1646  */
+    {
+                      Nodo* nodo = new Nodo("OPREL");
+                      Nodo* val = new Nodo((yyvsp[0].st));
+                      nodo->AgregarHijo(val);
+                      (yyval.nodo) = nodo;
+                    }
+#line 2006 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 68:
+#line 430 "InversaParser.y" /* yacc.c:1646  */
+    {
+                      Nodo* nodo = new Nodo("OPREL");
+                      Nodo* val = new Nodo((yyvsp[0].st));
+                      nodo->AgregarHijo(val);
+                      (yyval.nodo) = nodo;
+                    }
+#line 2017 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 69:
+#line 436 "InversaParser.y" /* yacc.c:1646  */
+    {
+                      Nodo* nodo = new Nodo("OPREL");
+                      Nodo* val = new Nodo((yyvsp[0].st));
+                      nodo->AgregarHijo(val);
+                      (yyval.nodo) = nodo;
+                    }
+#line 2028 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 70:
+#line 442 "InversaParser.y" /* yacc.c:1646  */
+    {
+                      Nodo* nodo = new Nodo("OPREL");
+                      Nodo* val = new Nodo((yyvsp[0].st));
+                      nodo->AgregarHijo(val);
+                      (yyval.nodo) = nodo;
+                    }
+#line 2039 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 71:
+#line 449 "InversaParser.y" /* yacc.c:1646  */
+    {
+    Nodo* nodo = new Nodo("AUMENTARHEAP");
+    Nodo* val = new Nodo((yyvsp[-1].st));
+    nodo->AgregarHijo(val);
+    (yyval.nodo) = nodo;
+}
+#line 2050 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 72:
+#line 456 "InversaParser.y" /* yacc.c:1646  */
+    { Nodo* n = new Nodo("IGNORAR"); (yyval.nodo) = n;}
+#line 2056 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 73:
+#line 457 "InversaParser.y" /* yacc.c:1646  */
+    { Nodo* n = new Nodo("IGNORAR"); (yyval.nodo) = n;}
+#line 2062 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 74:
+#line 458 "InversaParser.y" /* yacc.c:1646  */
+    { Nodo* n = new Nodo("IGNORAR"); (yyval.nodo) = n;}
+#line 2068 "InversaParser.cpp" /* yacc.c:1646  */
+    break;
+
+  case 75:
+#line 459 "InversaParser.y" /* yacc.c:1646  */
+    { Nodo* n = new Nodo("IGNORAR"); (yyval.nodo) = n;}
+#line 2074 "InversaParser.cpp" /* yacc.c:1646  */
     break;
 
 
-#line 1445 "InversaParser.cpp" /* yacc.c:1646  */
+#line 2078 "InversaParser.cpp" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1669,6 +2302,6 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 246 "InversaParser.y" /* yacc.c:1906  */
+#line 461 "InversaParser.y" /* yacc.c:1906  */
 
 

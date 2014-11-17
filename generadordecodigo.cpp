@@ -235,6 +235,10 @@ void GeneradorDeCodigo::llenarTabla(Nodo *arbol){
             QString tipo = arbol->hijos[1]->hijos[0]->Etiqueta();
             QString nombre = ambito+"_"+id;
             Simbolo* s = new Simbolo(nombre,id,ambito,nivel,posicion*4,tipo,"variable",TAMANO,"N/A");
+            if(tipo == "cadena" && arbol->hijos[2]!=NULL){
+                QString valor = arbol->hijos[2]->hijos[0]->hijos[0]->hijos[0]->Etiqueta();
+                s->valor = valor;
+            }
             if(!tabla.existeSimbolo(nombre)){
                 tabla.agregarSimbolo(nombre,s);
                 posicion++;
